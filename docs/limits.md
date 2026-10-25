@@ -53,4 +53,4 @@ description: What nite deliberately does not do, and what it does not do yet.
 
 ## Status
 
-nite is at version 0.5. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues).
+nite is at version 0.6. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues).

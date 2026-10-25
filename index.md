@@ -131,5 +131,5 @@ export function App() {
 
 <div class="nite-callout">
   <h3>Status</h3>
-  <p>nite is young (version 0.5), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
+  <p>nite is young (version 0.6), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
 </div>
