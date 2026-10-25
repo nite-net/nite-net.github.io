@@ -48,11 +48,11 @@ Integration tests run a real esbuild process and install real packages (PostCSS,
 
 ## This documentation
 
-The site is built with [DocFX](https://dotnet.github.io/docfx/) from [nite-net/nite.github.io](https://github.com/nite-net/nite.github.io). Every page has an "Edit this page" link. To preview locally:
+The site is built with [DocFX](https://dotnet.github.io/docfx/) from [nite-net/nite-net.github.io](https://github.com/nite-net/nite-net.github.io). Every page has an "Edit this page" link. To preview locally:
 
 ```bash
-git clone https://github.com/nite-net/nite.github.io
-cd nite.github.io
+git clone https://github.com/nite-net/nite-net.github.io
+cd nite-net.github.io
 ./build.sh serve           # builds the API reference from a nite checkout, then serves the site
 ```
 

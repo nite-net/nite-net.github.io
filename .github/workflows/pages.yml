@@ -9,7 +9,7 @@ on:
   schedule:
     - cron: "17 5 * * *"
   # Lets the nite repository trigger a rebuild after a push:
-  # gh api repos/nite-net/nite.github.io/dispatches -f event_type=nite-updated
+  # gh api repos/nite-net/nite-net.github.io/dispatches -f event_type=nite-updated
   repository_dispatch:
     types: [nite-updated]
 

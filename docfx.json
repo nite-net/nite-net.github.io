@@ -45,7 +45,7 @@
       "_enableSearch": true,
       "_disableContribution": false,
       "_gitContribute": {
-        "repo": "https://github.com/nite-net/nite.github.io",
+        "repo": "https://github.com/nite-net/nite-net.github.io",
         "branch": "main"
       },
       "_lang": "en",
@@ -53,7 +53,7 @@
       "og:image": "images/social-card.png"
     },
     "sitemap": {
-      "baseUrl": "https://nite-net.github.io/nite.github.io/",
+      "baseUrl": "https://nite-net.github.io/",
       "changefreq": "weekly",
       "priority": 0.5
     }
