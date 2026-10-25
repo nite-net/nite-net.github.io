@@ -68,7 +68,7 @@ nite is deliberately smaller than Vite. If your project depends on Vite plugins 
 
 ## Status
 
-nite is at version **0.2**. The core loop (compilation, Fast Refresh, islands, packages, stylesheets, production builds) is complete and tested against real applications, including a [Mantine](guides/mantine.md) app and a [Tailwind CSS 4](guides/tailwind.md) app. The packages are not on NuGet yet, so [installation](getting-started.md#install-nite) currently means building from source, which takes about a minute.
+nite is at version **0.5**. The core loop (compilation, Fast Refresh, islands, packages, stylesheets, production builds) is complete and tested against real applications, including a [Mantine](guides/mantine.md) app and a [Tailwind CSS 4](guides/tailwind.md) app. The packages are not on NuGet yet, so [installation](getting-started.md#install-nite) currently means building from source, which takes about a minute.
 
 ## Next steps
 
