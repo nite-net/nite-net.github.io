@@ -32,3 +32,5 @@
       href: importing.md
     - name: Production builds and deployment
       href: deployment.md
+    - name: Telemetry, health checks and Aspire
+      href: observability.md

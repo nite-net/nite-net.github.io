@@ -7,6 +7,18 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased (main)
+
+### Added
+
+- **Telemetry.** OpenTelemetry traces and metrics through an `ActivitySource` and a `Meter` named `Nite` (`NiteTelemetry.SourceName`, `NiteTelemetry.MeterName`): dev server startup, per-request compiles, each stylesheet tool, hot updates, pre-bundling, package installs and production builds. No OpenTelemetry dependency. ([Telemetry, health checks and Aspire](guides/observability.md))
+- **Health check.** `AddHealthChecks().AddNite()` reports a dev server that is still starting or failed to, and a production app missing its build output.
+- **Aspire guide.** Running a Nite app under Aspire: ServiceDefaults wiring, hot reload, passing service URLs to client code, and deploying.
+
+### Changed
+
+- The dev server starts its work once the host has started, so OpenTelemetry sees the startup trace.
+
 ## 0.6.0
 
 ### Added
