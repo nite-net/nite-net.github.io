@@ -1,0 +1,12 @@
+- name: Docs
+  href: docs/
+  topicHref: docs/introduction.md
+- name: Guides
+  href: docs/guides/
+  topicHref: docs/guides/single-page-apps.md
+- name: Reference
+  href: docs/reference/
+  topicHref: docs/reference/cli.md
+- name: API
+  href: api/
+  topicHref: api/index.md

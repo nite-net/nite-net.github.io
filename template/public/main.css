@@ -1,0 +1,356 @@
+/* nite documentation theme, layered on DocFX's modern template (Bootstrap 5).
+   Colors come from the logo: navy #171f2a, cyan #6cdfed, deep blue #2f81ad. */
+
+:root {
+  --nite-navy: #171f2a;
+  --nite-navy-2: #1e2836;
+  --nite-cyan: #6cdfed;
+  --nite-teal: #3fb8cc;
+  --nite-blue: #2f81ad;
+  --nite-gradient: linear-gradient(180deg, #8af4f2 0%, #5cc9d8 45%, #2f81ad 100%);
+  --nite-radius: 10px;
+}
+
+[data-bs-theme="light"] {
+  --bs-link-color: #1f74a0;
+  --bs-link-color-rgb: 31, 116, 160;
+  --bs-link-hover-color: #155a7d;
+  --bs-link-hover-color-rgb: 21, 90, 125;
+  --bs-primary: #1f74a0;
+  --bs-primary-rgb: 31, 116, 160;
+  --nite-code-bg: #f3f6f9;
+  --nite-border: #dfe5ec;
+  --nite-muted: #5b6878;
+  --nite-card-bg: #ffffff;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #12181f;
+  --bs-body-bg-rgb: 18, 24, 31;
+  --bs-tertiary-bg: #18202b;
+  --bs-secondary-bg: #1b2430;
+  --bs-link-color: #6cdfed;
+  --bs-link-color-rgb: 108, 223, 237;
+  --bs-link-hover-color: #a5eef6;
+  --bs-link-hover-color-rgb: 165, 238, 246;
+  --bs-primary: #6cdfed;
+  --bs-primary-rgb: 108, 223, 237;
+  --bs-border-color: #2a3544;
+  --nite-code-bg: #18202b;
+  --nite-border: #2a3544;
+  --nite-muted: #9aa8b8;
+  --nite-card-bg: #171f2a;
+}
+
+body {
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+header .navbar {
+  border-bottom: 1px solid var(--nite-border);
+  backdrop-filter: saturate(160%) blur(8px);
+}
+
+#logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+}
+
+.navbar-brand {
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+/* Reading width and rhythm */
+article h1 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+article h2 {
+  margin-top: 2.4rem;
+  padding-top: 0.4rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  border-top: 1px solid var(--nite-border);
+}
+
+article h1 + h2,
+article .lead + h2 {
+  border-top: none;
+}
+
+article h3 {
+  margin-top: 1.8rem;
+  font-weight: 620;
+}
+
+article p.lead {
+  font-size: 1.15rem;
+  color: var(--nite-muted);
+}
+
+/* Code */
+article :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  background: var(--nite-code-bg);
+  border: 1px solid var(--nite-border);
+  color: inherit;
+  font-size: 0.875em;
+}
+
+article pre {
+  border-radius: var(--nite-radius);
+  border: 1px solid var(--nite-border);
+}
+
+/* Tables */
+article table {
+  font-size: 0.95rem;
+}
+
+article table th {
+  white-space: nowrap;
+}
+
+article table td:first-child code {
+  white-space: nowrap;
+}
+
+/* Alerts ([!NOTE], [!TIP], ...) */
+.alert {
+  border-radius: var(--nite-radius);
+}
+
+/* Landing page */
+.nite-hero {
+  margin: -1rem calc(50% - 50vw) 0;
+  padding: 4.5rem 1.5rem 4rem;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(108, 223, 237, 0.16), transparent 60%),
+    radial-gradient(40rem 25rem at 0% 110%, rgba(47, 129, 173, 0.22), transparent 60%),
+    var(--nite-navy);
+  color: #e8eef5;
+  text-align: center;
+}
+
+.nite-hero img.nite-logo {
+  width: min(360px, 70vw);
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.nite-hero h1 {
+  max-width: 46rem;
+  margin: 0 auto 1rem;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.nite-hero p {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  font-size: 1.15rem;
+  color: #b9c6d4;
+}
+
+.nite-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nite-button {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.nite-button:hover {
+  transform: translateY(-1px);
+}
+
+.nite-button.primary {
+  background: var(--nite-gradient);
+  color: var(--nite-navy) !important;
+  box-shadow: 0 6px 24px rgba(108, 223, 237, 0.25);
+}
+
+.nite-button.secondary {
+  border: 1px solid rgba(232, 238, 245, 0.35);
+  color: #e8eef5 !important;
+}
+
+.nite-button.secondary:hover {
+  background: rgba(232, 238, 245, 0.08);
+}
+
+.nite-terminal {
+  max-width: 34rem;
+  margin: 2.5rem auto 0;
+  padding: 1rem 1.25rem;
+  border-radius: var(--nite-radius);
+  background: #0f151d;
+  border: 1px solid #263243;
+  text-align: left;
+  font-family: var(--bs-font-monospace);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #cfe0ee;
+}
+
+.nite-terminal .prompt {
+  color: var(--nite-cyan);
+  user-select: none;
+}
+
+.nite-terminal .comment {
+  color: #6f8195;
+}
+
+.nite-section {
+  max-width: 68rem;
+  margin: 3.5rem auto 0;
+}
+
+.nite-section > h2 {
+  border-top: none;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.nite-section > p.nite-sub {
+  text-align: center;
+  color: var(--nite-muted);
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+}
+
+.nite-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.nite-card {
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--nite-border);
+  border-radius: var(--nite-radius);
+  background: var(--nite-card-bg);
+}
+
+.nite-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.nite-card p {
+  margin: 0;
+  color: var(--nite-muted);
+  font-size: 0.95rem;
+}
+
+.nite-card a.nite-more {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.nite-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.nite-split h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-bottom: 0.6rem;
+}
+
+.nite-callout {
+  max-width: 68rem;
+  margin: 3.5rem auto 1rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--nite-radius);
+  border: 1px solid var(--nite-border);
+  background: var(--nite-code-bg);
+}
+
+.nite-callout h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+/* The landing page has no sidebar or "edit" link chrome. */
+body[data-layout="landing"] .contribution,
+body[data-layout="landing"] .next-article {
+  display: none;
+}
+
+/* API pages: quieter headings */
+body[data-yaml-mime="ManagedReference"] article h2 {
+  border-top: none;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--nite-border);
+  color: var(--nite-muted);
+  font-size: 0.9rem;
+}
+
+/* Landing page layout: full width, no outline or article chrome. */
+body[data-layout="landing"] .affix,
+body[data-layout="landing"] .actionbar {
+  display: none !important;
+}
+
+body[data-layout="landing"] main > .content,
+body[data-layout="landing"] article {
+  max-width: none;
+}
+
+body[data-layout="landing"] main.container-xxl {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body[data-layout="landing"] .nite-hero {
+  margin: 0;
+}
+
+body[data-layout="landing"] .nite-section,
+body[data-layout="landing"] .nite-callout {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.nite-hero code {
+  padding: 0.05em 0.35em;
+  border-radius: 5px;
+  background: rgba(108, 223, 237, 0.12);
+  border: 1px solid rgba(108, 223, 237, 0.25);
+  color: #d9f7fb;
+  font-size: 0.9em;
+}
+
+.nite-split pre {
+  font-size: 0.85rem;
+}

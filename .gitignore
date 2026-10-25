@@ -1,0 +1,10 @@
+# DocFX output and intermediate files
+_site/
+obj/
+
+# Generated from the nite source by `docfx metadata` (scripts/build.sh, CI)
+api/*.yml
+api/.manifest
+
+# The nite checkout the API reference is generated from
+nite-src

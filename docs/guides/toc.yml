@@ -1,0 +1,34 @@
+- name: Building apps
+  items:
+    - name: Single-page apps
+      href: single-page-apps.md
+    - name: Islands in Razor Pages
+      href: islands.md
+    - name: Hot reload and nite watch
+      href: hot-reload.md
+    - name: TypeScript and JSX
+      href: typescript.md
+    - name: Environment variables and path aliases
+      href: environment.md
+    - name: Custom renderers (Preact and others)
+      href: renderers.md
+- name: Packages
+  items:
+    - name: Packages and the lockfile
+      href: packages.md
+    - name: Private registries
+      href: private-registries.md
+- name: Styling
+  items:
+    - name: Stylesheets
+      href: stylesheets.md
+    - name: Tailwind CSS
+      href: tailwind.md
+    - name: Mantine
+      href: mantine.md
+- name: Migrating and shipping
+  items:
+    - name: Importing a Vite or CRA project
+      href: importing.md
+    - name: Production builds and deployment
+      href: deployment.md
