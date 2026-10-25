@@ -91,9 +91,32 @@ Do not edit the lockfile by hand. If it gets into a bad state (a merge conflict,
 | Hoisting | Top level unless it would conflict, otherwise nested under the dependent |
 | `git:`, `file:`, `link:`, `workspace:`, URL and `npm:` alias dependencies | No |
 | Optional dependencies | Skipped |
-| Install scripts (`preinstall`, `postinstall`) | **Never run** |
+| Install scripts (`preinstall`, `postinstall`) | **Never run**, with a warning ([below](#install-scripts)) |
 
 Not running install scripts is deliberate: it removes a common supply-chain attack path and the need for a JavaScript runtime. The cost is that packages that build native addons or download binaries in `postinstall` do not work. Packages that ship platform binaries as optional dependencies (esbuild, Sass, lightningcss) are not installed either; nite fetches the esbuild and Sass binaries it needs itself.
+
+### Install scripts
+
+The registry marks every version that has a `preinstall`, `install` or `postinstall` script (or a `binding.gyp`, which implies one) with `hasInstallScript`. When nite resolves such a package, it tells you, once per package and after resolution has finished, so the messages are not buried:
+
+```text
+› Resolving 4 package(s) from https://registry.npmjs.org
+warn  bcrypt@5.1.1 has an install script, which Nite does not run; it is a native Node.js addon, which cannot run in a browser. Server-side work like this belongs in your ASP.NET Core code.
+› core-js@3.51.0 has an install script, which Nite does not run; it only prints a message, so nothing is missing.
+› esbuild@0.25.12 has an install script, which Nite does not run; it fetches the esbuild binary, which Nite downloads and runs itself.
+```
+
+A short list of well-known packages gets a specific message; scripts known to be harmless to skip are reported as information rather than warnings:
+
+| Package | Level | Why |
+|---|---|---|
+| `core-js`, `core-js-pure`, `es5-ext` | info | The script only prints a message. Nothing is missing. |
+| `esbuild` | info | The script fetches the esbuild binary. nite downloads and runs its own. |
+| `node-sass` | warning | The script builds LibSass, a native addon. nite compiles Sass with Dart Sass's native binary; replace `node-sass` with `sass`. |
+| `bcrypt`, `better-sqlite3`, `sqlite3`, `argon2`, `canvas` | warning | Native Node.js addons, which cannot run in a browser. That work belongs in your ASP.NET Core code. |
+| Anything else | warning | If the package needs its script to download or build something, it may not work. |
+
+The messages appear whenever the lockfile is resolved: `nite add`, `nite update`, or a changed `nite.json`. An install from a current `nite.lock.json` does not resolve anything, so it does not repeat them.
 
 ## Integrity and caching
 
