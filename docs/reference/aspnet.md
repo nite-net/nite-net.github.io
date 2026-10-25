@@ -59,7 +59,7 @@ Call it early: before `UseRouting`, `MapStaticAssets` and anything else that cou
 ## MapNiteSpa
 
 ```csharp
-IEndpointConventionBuilder MapNiteSpa(this IEndpointRouteBuilder endpoints, string page = "index.html", string? apiPrefix = "/api")
+IEndpointConventionBuilder MapNiteSpa(this IEndpointRouteBuilder endpoints, string page = "index.html", string? apiPrefix = "/api", string? path = null)
 ```
 
 Serves an HTML entry from the client root for `/` and, as a fallback, for any other `GET` or `HEAD` request to a path without a file extension that no other endpoint handled. Client-side routes survive a refresh, and real endpoints always win.
@@ -68,6 +68,7 @@ Serves an HTML entry from the client root for `/` and, as a fallback, for any ot
 |---|---|
 | `page` | The HTML entry, relative to the client root. |
 | `apiPrefix` | Requests under this path never fall back: a mistyped API call gets a 404 instead of a page of HTML. `null` disables the check. |
+| `path` | Serve the page only under this path: `"/login"` answers `/login` and `/login/…`. Map several apps this way, plus one without a path for everything else; the more specific path wins. See [More than one page](../guides/single-page-apps.md#more-than-one-page). |
 
 In development the page is read from source on every request, with nite's head (import map, dev client, Fast Refresh runtime) injected. In production it is the built copy from `wwwroot/_nite`, with the request's path base added to its URLs. When `NiteOptions.ClientConfig` is set, its values are added at the top of `<head>`. Pages are sent with `Cache-Control: no-cache`, or `private, no-cache` when they carry client config, which may differ per user.
 

@@ -7,6 +7,13 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased (main)
+
+### Added
+
+- **Several single-page apps in one app.** `MapNiteSpa(page, path: "/login")` serves a page under its own path (and its client-side routes), next to a catch-all app; each is an endpoint with its own authorization. ([More than one page](guides/single-page-apps.md#more-than-one-page))
+- **Identity sample.** `samples/Nite.Identity`: ASP.NET Core Identity with EF Core and SQLite, two seeded users, a public login app and a protected main app that receives the user's claims and an API bearer token through client config.
+
 ## 0.7.0
 
 ### Added
