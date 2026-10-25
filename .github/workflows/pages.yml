@@ -26,11 +26,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The API reference is generated from nite's source. If that repository is private, the
+      # workflow's own token cannot read it: add a NITE_SOURCE_TOKEN secret (a fine-grained token
+      # with read access to its contents). Without access, the site builds without the API pages.
       - name: Check out the nite source (for the API reference)
+        id: source
+        continue-on-error: true
         uses: actions/checkout@v4
         with:
           repository: nite-net/nite
           path: nite-src
+          token: ${{ secrets.NITE_SOURCE_TOKEN || github.token }}
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -40,9 +46,19 @@ jobs:
         run: dotnet tool install --global docfx --version 2.81.0
 
       - name: Build
+        if: steps.source.outcome == 'success'
         run: |
           docfx metadata docfx.json
           docfx build docfx.json --warningsAsErrors
+
+      - name: Build without the API reference
+        if: steps.source.outcome != 'success'
+        run: |
+          echo "::warning title=API reference skipped::Could not check out nite-net/nite, so the site was built without its API pages. If the repository is private, add a NITE_SOURCE_TOKEN secret with read access to it."
+          rm -rf nite-src api/index.md
+          sed -i '/^- name: API$/,/^  topicHref: api\/index.md$/d' toc.yml
+          # Links into the API reference cannot resolve now, so warnings are not errors here.
+          docfx build docfx.json
 
       - uses: actions/upload-pages-artifact@v3
         with:
