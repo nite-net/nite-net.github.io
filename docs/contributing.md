@@ -39,6 +39,17 @@ dotnet test --filter "Category!=Integration"         # offline
 
 Integration tests run a real esbuild process and install real packages (PostCSS, Less, Sass, Tailwind) from npm into temporary folders. They download once per machine and use the cache afterwards.
 
+## Continuous integration and releases
+
+[`.github/workflows/ci.yml`](https://github.com/nite-net/nite/blob/main/.github/workflows/ci.yml) builds and tests every push and pull request, including the integration tests, and packs `Nite` and `Nite.Cli`. CI packages are versioned `<Version>-ci.<run number>` and kept as the run's `packages` artifact, so you can try a pull request's build without packing it yourself.
+
+To release:
+
+1. Bump `Version` in `Directory.Build.props` and add the version's section to the changelog.
+2. Push a matching tag: `git tag v0.3.0 && git push origin v0.3.0`.
+
+The tag's build checks that the tag and `Version` agree, then pushes both packages to nuget.org with the repository's `NUGET_API_KEY` secret (in the `nuget` environment, where you can require an approval before publishing). Re-running a release that half-failed is safe: packages already on nuget.org are skipped.
+
 ## Pull requests
 
 - Keep changes focused, and include tests for behavior changes.

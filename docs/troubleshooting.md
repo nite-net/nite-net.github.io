@@ -34,7 +34,7 @@ A dependency uses `git:`, `file:`, `workspace:`, a URL or an `npm:` alias. Publi
 
 ### A package fails at runtime with errors about a missing binary or `.node` file
 
-It needs an install script or a native addon, which nite does not run. Look for a pure-JavaScript alternative, or a browser build of the package.
+It needs an install script or a native addon, which nite does not run. nite warns about packages with install scripts when it resolves them ([Install scripts](guides/packages.md#install-scripts)); run `nite update <package>` to see the message again. Look for a pure-JavaScript alternative, or a browser build of the package.
 
 ### "This nite is not running as a dotnet tool"
 

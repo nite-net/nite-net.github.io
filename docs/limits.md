@@ -20,7 +20,7 @@ description: What nite deliberately does not do, and what it does not do yet.
 ## Packages
 
 - **Registry packages only.** `git:`, `file:`, `link:`, `workspace:`, tarball URLs and `npm:` aliases are not supported.
-- **Install scripts never run.** Packages that compile native addons or download binaries in `postinstall` do not work.
+- **Install scripts never run.** Packages that compile native addons or download binaries in `postinstall` do not work. nite warns about them when it resolves them ([Install scripts](guides/packages.md#install-scripts)).
 - **Optional dependencies are skipped.**
 - **No `overrides` or `resolutions`.** Versions come from the ranges, the lockfile and `nite update`.
 - **No workspaces.** One `nite.json` per project.

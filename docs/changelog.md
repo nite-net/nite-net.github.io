@@ -16,6 +16,8 @@ description: Notable changes in each version of nite.
 - **Importing projects.** `nite init --from` imports Vite and Create React App projects managed by npm, Yarn (classic and Berry), pnpm or Bun, keeping the versions their lockfiles pin, and reports what it could not bring along. Stylesheet tooling and `additionalData` are carried over. ([Importing](guides/importing.md))
 - **Per-user directories and settings.** Configuration and caches follow the XDG Base Directory spec (`~/.config/nite`, `~/.cache/nite`). Layered settings from `NITE_REGISTRY`, `nite.json`, project and user `.npmrc`, and a user config edited with `nite config`. ([Settings](reference/settings.md))
 - **Private registries.** Per-scope registries and `.npmrc` credentials (`_authToken`, `_auth`, `username`/`_password`, with `${VAR}` expansion), sent only to their own host. Registry metadata is cached and revalidated with ETags.
+- **Install script warnings.** Packages the registry marks with `hasInstallScript` are reported when they are resolved, with specific messages for well-known ones (`core-js`, `esbuild`, `node-sass`, native addons such as `bcrypt`). ([Install scripts](guides/packages.md#install-scripts))
+- **Continuous integration and NuGet releases.** A GitHub Actions workflow builds, tests and packs `Nite` and `Nite.Cli` on every push, and publishes them to nuget.org when a `v*` tag matching `Version` in `Directory.Build.props` is pushed. ([Contributing](contributing.md#continuous-integration-and-releases))
 - `nite cache dir|clean|verify` and `nite config list|get|set|unset|path`.
 - `nite watch --no-auto-restart`.
 

@@ -29,7 +29,7 @@ A small npm client written in C# reads `dependencies` and `devDependencies` from
 
 - Resolution is recorded in **`nite.lock.json`**. With a current lockfile, an install never asks the registry for metadata.
 - Tarballs are verified against their integrity hash and cached per user.
-- **Install scripts never run.** Packages that need a `postinstall` step (native addons, mostly) do not work.
+- **Install scripts never run.** Packages that need a `postinstall` step (native addons, mostly) do not work; nite warns when it resolves one.
 - Optional dependencies are skipped.
 
 See [Packages and the lockfile](../guides/packages.md).
