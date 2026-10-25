@@ -13,7 +13,8 @@ description: Notable changes in each version of nite.
 
 - **Telemetry.** OpenTelemetry traces and metrics through an `ActivitySource` and a `Meter` named `Nite` (`NiteTelemetry.SourceName`, `NiteTelemetry.MeterName`): dev server startup, per-request compiles, each stylesheet tool, hot updates, pre-bundling, package installs and production builds. No OpenTelemetry dependency. ([Telemetry, health checks and Aspire](guides/observability.md))
 - **Health check.** `AddHealthChecks().AddNite()` reports a dev server that is still starting or failed to, and a production app missing its build output.
-- **Aspire guide.** Running a Nite app under Aspire: ServiceDefaults wiring, hot reload, passing service URLs to client code, and deploying.
+- **Aspire guide and sample.** Running a Nite app under Aspire: wiring, hot reload, passing service URLs to client code, and deploying. `samples/Nite.Aspire` has a Nite React app and an API service under one AppHost.
+- Requests under `/_nite` are named after their route in traces (`GET /_nite/src/{**path}`) instead of a bare `GET`.
 
 ### Changed
 

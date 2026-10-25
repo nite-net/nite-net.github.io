@@ -9,15 +9,20 @@ description: Nite's OpenTelemetry traces and metrics, its health check, and runn
 
 ## Traces and metrics
 
-Nite uses .NET's own `ActivitySource` and `Meter`, both named `Nite`, so the library takes no OpenTelemetry dependency, and nothing is recorded (or costs anything) until a listener subscribes. Add the names to your OpenTelemetry setup:
+Nite uses .NET's own `ActivitySource` and `Meter`, both named `Nite`, so the library takes no OpenTelemetry dependency, and nothing is recorded (or costs anything) until a listener subscribes. Add the names to your OpenTelemetry setup, in the project that uses Nite:
 
 ```csharp
 using Nite.Observability;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 
-builder.Services.AddOpenTelemetry()
-    .WithTracing(tracing => tracing.AddSource(NiteTelemetry.SourceName))
-    .WithMetrics(metrics => metrics.AddMeter(NiteTelemetry.MeterName));
+builder.Services.ConfigureOpenTelemetryTracerProvider(tracing => tracing.AddSource(NiteTelemetry.SourceName));
+builder.Services.ConfigureOpenTelemetryMeterProvider(metrics => metrics.AddMeter(NiteTelemetry.MeterName));
 ```
+
+`ConfigureOpenTelemetry…Provider` adds to whatever `AddOpenTelemetry()` set up elsewhere (such as Aspire's ServiceDefaults), so it works from any project. If you configure OpenTelemetry in one place yourself, `.AddSource(...)` and `.AddMeter(...)` on its builders do the same.
+
+Requests the dev server answers under `/_nite` never reach routing, so Nite names their spans after its own routes, as routing does for endpoints: `GET /_nite/src/{**path}`, `GET /_nite/deps/{file}`, `GET /_nite/npm/{**specifier}` and the fixed paths such as `GET /_nite/client.js`. They also get the `http.route` tag.
 
 ### Spans
 
@@ -69,7 +74,7 @@ It is a readiness check: restarting the app does not fix a broken `nite.json`, s
 
 ## Aspire
 
-A Nite app needs nothing special to run under Aspire: Nite is middleware in your ASP.NET Core project, so `AddProject` runs the dev server along with your API.
+A Nite app needs nothing special to run under Aspire: Nite is middleware in your ASP.NET Core project, so `AddProject` runs the dev server along with your API. [`samples/Nite.Aspire`](https://github.com/nite-net/nite/tree/main/samples/Nite.Aspire) is a complete example: a Nite React app that calls a separate API service through service discovery.
 
 ```csharp
 // AppHost.cs
@@ -85,21 +90,26 @@ builder.AddProject<Projects.Web>("web")
 builder.Build().Run();
 ```
 
-In the ServiceDefaults project, add Nite's names to `ConfigureOpenTelemetry` and its health check to `AddDefaultHealthChecks`:
+Leave ServiceDefaults as the template made it: other services share it, and they do not use Nite (the health check needs `AddNite()`). Add Nite's part in the web project instead, after `AddServiceDefaults()`:
 
 ```csharp
-.WithMetrics(metrics => metrics.AddMeter(NiteTelemetry.MeterName) /* ... */)
-.WithTracing(tracing => tracing.AddSource(NiteTelemetry.SourceName) /* ... */)
+builder.AddServiceDefaults();
 
-builder.Services.AddHealthChecks()
-    .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"])
-    .AddNite();
+builder.Services.AddNite();
+builder.Services.ConfigureOpenTelemetryTracerProvider(tracing => tracing.AddSource(NiteTelemetry.SourceName));
+builder.Services.ConfigureOpenTelemetryMeterProvider(metrics => metrics.AddMeter(NiteTelemetry.MeterName));
+builder.Services.AddHealthChecks().AddNite();
+
+var app = builder.Build();
+app.UseNite();
+app.MapDefaultEndpoints();   // /health and /alive, from ServiceDefaults
 ```
 
-ServiceDefaults references `Nite` for this (a package reference, or a project reference to a Nite checkout). The dashboard then shows Nite's logs and its startup and compile spans inside your request traces, and the web resource turns unhealthy if the dev server fails to start, with the reason in the health check's description. (`MapHealthChecks` answers 200 for Degraded as well as Healthy, so a dev server that is still starting does not count against the resource.)
+The dashboard then shows Nite's logs and its startup and compile spans inside your request traces, and the web resource turns unhealthy if the dev server fails to start, with the reason in the health check's description. (`MapHealthChecks` answers 200 for Degraded as well as Healthy, so a dev server that is still starting does not count against the resource.)
 
 What to know:
 
+- **Plain HTTP.** Without a development certificate, run the AppHost's `http` launch profile and add `"ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true"` to that profile's environment variables, or the AppHost refuses to start.
 - **Hot reload.** Saved TypeScript, JSX and CSS update in the browser as usual: the dev server watches files itself. Aspire runs projects with `dotnet run`, not `dotnet watch`, so C# changes need a restart, and the browser's `nite:server-update` event does not fire.
 - **Other services' URLs in client code.** Variables with your `envPrefix` (`NITE_PUBLIC_` by default) reach client code, including ones the AppHost sets: `.WithEnvironment("NITE_PUBLIC_API_URL", api.GetEndpoint("http"))`. They are inlined when code is compiled, so this works in development; production builds bake in whatever was set when `nite build` ran. For production, call your API on the same origin (proxy it, or serve the frontend from the API project) or fetch the URL at runtime from a small config endpoint.
 - **Deploying.** `aspire deploy` builds container images with `dotnet publish`, which runs `nite build`, which needs the `nite` tool on the machine that builds the image. Install it there (`dotnet tool install --global Nite.Cli`), as in [CI](deployment.md).
