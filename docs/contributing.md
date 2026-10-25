@@ -54,19 +54,21 @@ dotnet new nite-spa -o /tmp/try-it
 
 ## Continuous integration and releases
 
-[`.github/workflows/ci.yml`](https://github.com/nite-net/nite/blob/main/.github/workflows/ci.yml) builds and tests every push and pull request, including the integration tests, and packs `Nite`, `Nite.Cli` and `Nite.Templates`. CI packages are versioned `<Version>-ci.<run number>` and kept as the run's `packages` artifact, so you can try a pull request's build without packing it yourself.
+[`.github/workflows/ci.yml`](https://github.com/nite-net/nite/blob/main/.github/workflows/ci.yml) builds and tests every push and pull request, including the integration tests, and packs `Nite`, `Nite.Cli` and `Nite.Templates`. CI packages are prereleases of the next patch after the newest release tag (`0.6.1-ci.<run number>` after `v0.6.0`) and are kept as the run's `packages` artifact, so you can try a pull request's build without packing it yourself.
 
-To release:
+The release tag is the version; nothing in the repository holds it. (`Directory.Build.props` says `0.0.0-dev`, which only local builds use. `nite init` from a local build needs `--nite-source`, since no package of that version exists.) To release:
 
-1. Bump `Version` in `Directory.Build.props` and add the version's section to the changelog.
-2. Push a matching tag: `git tag v0.3.0 && git push origin v0.3.0`.
+1. Move the changelog's "Unreleased" section under the new version's heading.
+2. Push the tag: `git tag v0.6.0 && git push origin v0.6.0`. Prereleases work too: `v0.6.0-beta.1`.
 
-The tag's build checks that the tag and `Version` agree, then pushes both packages to nuget.org with [trusted publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing): the job trades a GitHub OIDC token for an API key that lasts an hour, so no long-lived key is stored anywhere. It runs in the `nuget` environment, where you can require an approval before publishing.
+The tag's build packs that version and pushes the three packages to nuget.org with [trusted publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing): the job trades a GitHub OIDC token for an API key that lasts an hour, so no long-lived key is stored anywhere. It runs in the `nuget` environment, where you can require an approval before publishing.
 
 Publishing needs two things set up once:
 
 - A trusted publishing policy on nuget.org (**Account settings > Trusted Publishing**), created by the account that owns the `Nite`, `Nite.Cli` and `Nite.Templates` packages: repository owner `nite-net`, repository `nite`, workflow file `ci.yml`, environment `nuget`.
-- A `NUGET_USER` secret in the nite repository holding that account's nuget.org profile name (not its email address). Re-running a release that half-failed is safe: packages already on nuget.org are skipped.
+- A `NUGET_USER` secret in the nite repository holding that account's nuget.org profile name (not its email address).
+
+Re-running a release that half-failed is safe: packages already on nuget.org are skipped. A tag that is not a version (`v1`, `vnext`) fails the build before anything is packed.
 
 ## Pull requests
 

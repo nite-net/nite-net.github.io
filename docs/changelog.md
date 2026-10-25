@@ -9,6 +9,10 @@ description: Notable changes in each version of nite.
 
 ## Unreleased (main)
 
+### Changed
+
+- **Releases take their version from the tag.** Pushing `v0.6.0` publishes 0.6.0; there is no version to bump in `Directory.Build.props` first. CI builds are prereleases of the next patch after the newest tag. ([Contributing](contributing.md#continuous-integration-and-releases))
+
 ### Added
 
 - **`dotnet new` templates.** The `Nite.Templates` package adds `nite-spa` and `nite-islands` to `dotnet new` and to the new-project dialogs of Visual Studio and Rider. They are the same files `nite init` writes. ([Getting started](getting-started.md#with-dotnet-new))
