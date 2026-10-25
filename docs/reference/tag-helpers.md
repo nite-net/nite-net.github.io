@@ -26,6 +26,7 @@ Writes what a page needs in `<head>` for islands and modules. Put it in your lay
 |---|---|
 | Development | The import map for dependencies, the Fast Refresh runtime (when enabled), the dev client and the island loader |
 | Production | The island loader with `modulepreload` hints for its chunks (only if the project has islands) |
+| Both | The values of `NiteOptions.ClientConfig`, when it is set, for `nite:config` ([details](../guides/environment.md#values-from-the-running-server)) |
 
 It takes no attributes. Without it, islands do not mount.
 

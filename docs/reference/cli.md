@@ -198,7 +198,7 @@ Print the nite version, with the esbuild version it drives and the .NET runtime.
 
 ```text
 $ nite version
-nite 0.6.0 (6d2ecb867741)
+nite 0.7.0 (1696a82fcaf5)
 esbuild 0.28.2, .NET 10.0.13
 ```
 

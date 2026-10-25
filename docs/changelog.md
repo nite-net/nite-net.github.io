@@ -7,6 +7,21 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## 0.7.0
+
+### Added
+
+- **Client config.** `NiteOptions.ClientConfig` (or `ClientConfigAsync`) hands values from the running server to client code as each page is served: `import { config } from "nite:config"`. Unlike `NITE_PUBLIC_` variables, which are inlined at compile time, they can differ per environment and per request, so one build runs everywhere. `nite init` and the templates add `Client/nite-env.d.ts` to type them. ([Values from the running server](guides/environment.md#values-from-the-running-server))
+- **Application Insights guide.** Browser telemetry with the Application Insights SDK: per-environment connection strings through client config, loading the SDK lazily, and one transaction from page load through API calls. The Aspire sample does all of it. ([Application Insights in the browser](guides/application-insights.md))
+- **Telemetry.** OpenTelemetry traces and metrics through an `ActivitySource` and a `Meter` named `Nite` (`NiteTelemetry.SourceName`, `NiteTelemetry.MeterName`): dev server startup, per-request compiles, each stylesheet tool, hot updates, pre-bundling, package installs and production builds. No OpenTelemetry dependency. ([Telemetry, health checks and Aspire](guides/observability.md))
+- **Health check.** `AddHealthChecks().AddNite()` reports a dev server that is still starting or failed to, and a production app missing its build output.
+- **Aspire guide and sample.** Running a Nite app under Aspire: wiring, hot reload, passing service URLs to client code, and deploying. `samples/Nite.Aspire` has a Nite React app and an API service under one AppHost.
+- Requests under `/_nite` are named after their route in traces (`GET /_nite/src/{**path}`) instead of a bare `GET`.
+
+### Changed
+
+- The dev server starts its work once the host has started, so OpenTelemetry sees the startup trace.
+
 ## 0.6.0
 
 ### Added

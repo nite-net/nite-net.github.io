@@ -35,6 +35,8 @@ Registers the dev server, the production asset reader and <xref:Nite.Assets.INit
 |---|---|---|---|
 | `Mode` | <xref:Nite.NiteMode> | `Auto` | `Auto`: the dev server in the Development environment, the build output everywhere else. `Development` or `Production` force one. |
 | `ProjectDirectory` | `string?` | the content root | The folder holding `nite.json`, when it is not the content root. |
+| `ClientConfig` | `Func<HttpContext, object?>?` | none | Values for client code, worked out per request and read with `import { config } from "nite:config"`. See [Values from the running server](../guides/environment.md#values-from-the-running-server). |
+| `ClientConfigAsync` | `Func<HttpContext, Task<object?>>?` | none | The same, for an async callback. Set one or the other. |
 
 ```csharp
 builder.Services.AddNite(options =>
@@ -67,7 +69,7 @@ Serves an HTML entry from the client root for `/` and, as a fallback, for any ot
 | `page` | The HTML entry, relative to the client root. |
 | `apiPrefix` | Requests under this path never fall back: a mistyped API call gets a 404 instead of a page of HTML. `null` disables the check. |
 
-In development the page is read from source on every request, with nite's head (import map, dev client, Fast Refresh runtime) injected. In production it is the built copy from `wwwroot/_nite`, with the request's path base added to its URLs. Both are sent with `Cache-Control: no-cache`.
+In development the page is read from source on every request, with nite's head (import map, dev client, Fast Refresh runtime) injected. In production it is the built copy from `wwwroot/_nite`, with the request's path base added to its URLs. When `NiteOptions.ClientConfig` is set, its values are added at the top of `<head>`. Pages are sent with `Cache-Control: no-cache`, or `private, no-cache` when they carry client config, which may differ per user.
 
 It returns the fallback endpoint's convention builder, so endpoint conventions apply:
 
