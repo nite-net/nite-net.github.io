@@ -34,3 +34,5 @@
       href: deployment.md
     - name: Telemetry, health checks and Aspire
       href: observability.md
+    - name: Application Insights in the browser
+      href: application-insights.md

@@ -28,6 +28,63 @@ if (import.meta.env.DEV) console.debug("debug build");
 
 **Only names that start with an `envPrefix`** are exposed. The default prefix is `NITE_PUBLIC_`; everything else in `.env` (database passwords, API keys for the server) stays on the server. Values are inlined into the compiled code as string literals, so they are public in the bundle: never give a secret a public prefix.
 
+## Values from the running server
+
+Public variables are inlined when code is compiled, so a production build carries whatever was set when `nite build` ran. That is wrong for values that differ between environments when the same build is deployed to each (an Application Insights connection string, another service's URL), and impossible for values that differ per request (the signed-in user, a feature flag, a tenant). For those, the server hands values to the page as it serves it:
+
+```csharp
+// Program.cs
+builder.Services.AddNite(options => options.ClientConfig = context => new
+{
+    AppInsights = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"],
+    User = context.User.Identity?.Name,
+    Features = new { NewCheckout = context.User.IsInRole("beta") },
+});
+```
+
+```ts
+import { config } from "nite:config";
+
+if (config.features.newCheckout) { /* ... */ }
+```
+
+How it works:
+
+- The callback runs for each page `MapNiteSpa` serves and each page with `<nite-head />`. The result is serialized as camelCase JSON into a `<script type="application/json" id="nite-config">` element at the top of `<head>`; `nite:config` parses it once and exports it frozen. There is no extra request.
+- It works the same in development and production, and the same build runs in every environment.
+- For values that take awaiting (a database, `IFeatureManager`), set `ClientConfigAsync = async context => new { ... }` instead.
+- Pages that carry client config are sent with `Cache-Control: private, no-cache`, so a shared cache or CDN never hands one user's page to another.
+
+Everything in it is readable by anyone who can load the page, like the rest of the HTML: send what the page needs, never secrets. (An Application Insights connection string is fine: the browser SDK needs it anyway.) The JSON is escaped so values cannot break out of the script element.
+
+### Typing it
+
+`nite init` and the `dotnet new` templates create `Client/nite-env.d.ts`. Describe what your callback returns there:
+
+```ts
+declare module "nite:config" {
+  export interface NiteClientConfig {
+    appInsights?: string;
+    user?: string;
+    features: { newCheckout: boolean };
+  }
+
+  export const config: Readonly<NiteClientConfig>;
+  export default config;
+}
+```
+
+### Client config, cookies or an API call?
+
+| | Client config | A cookie | An API call |
+|---|---|---|---|
+| Arrives | With the page | With the page, and on every later request | After the page has loaded |
+| Size | As big as the page can bear | About 4 KB | Any |
+| Readable by scripts | Yes | Only if not `HttpOnly` | Yes |
+| Changes during the visit | No | Yes | Yes |
+
+Use client config for what the page needs to start: settings, who the user is, flags. Keep authentication in an `HttpOnly` cookie, which scripts cannot read and the browser sends for you. Fetch anything that changes while the page is open.
+
 ## Built-in values
 
 | Expression | Development | Production |
