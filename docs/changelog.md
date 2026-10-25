@@ -7,7 +7,7 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
-## Unreleased (main)
+## 0.7.0
 
 ### Added
 
