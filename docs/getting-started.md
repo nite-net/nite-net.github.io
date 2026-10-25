@@ -17,32 +17,16 @@ You do **not** need Node.js, npm, or any global JavaScript tooling.
 
 ## Install nite
 
-nite is two packages: **`Nite`**, the library your web project references, and **`Nite.Cli`**, the `nite` command-line tool. They are not published to NuGet yet. Until they are, build them from source into a local package feed. This takes about a minute and behaves exactly like the published packages will.
+nite is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
 
-# [Local package feed (recommended)](#tab/feed)
-
-```bash
-git clone https://github.com/nite-net/nite
-cd nite
-
-# Build both packages into a folder that acts as a NuGet feed.
-dotnet pack src/Nite -c Release -o ~/.nite-packages
-dotnet pack src/Nite.Cli -c Release -o ~/.nite-packages
-
-# Install the `nite` tool from it.
-dotnet tool install --global Nite.Cli --add-source ~/.nite-packages
-
-# Let every project restore the Nite package from it.
-dotnet nuget add source ~/.nite-packages --name nite-local
-```
-
-Check the installation:
+# [NuGet (recommended)](#tab/nuget)
 
 ```bash
+dotnet tool install --global Nite.Cli
 nite version
 ```
 
-To update later, pull the repository, pack again (bump `Version` in `Directory.Build.props` if you want NuGet to see a new version) and run `dotnet tool update --global Nite.Cli --add-source ~/.nite-packages`. (`nite update-self` does the same against your configured NuGet sources, which is the simpler option once the packages are on NuGet.)
+New projects reference the `Nite` package from nuget.org with no further setup. To update later, run `nite update-self`.
 
 # [Reference a source checkout](#tab/source)
 
@@ -56,15 +40,7 @@ cd nite && dotnet build
 dotnet run --project src/Nite.Cli -- init ../my-app --nite-source .
 ```
 
-Inside such a project, run the CLI the same way (`dotnet run --project <nite>/src/Nite.Cli -- watch`), or install the tool as in the other tab.
-
-# [NuGet (once published)](#tab/nuget)
-
-```bash
-dotnet tool install --global Nite.Cli
-```
-
-New projects reference the `Nite` package from nuget.org with no further setup.
+Inside such a project, run the CLI the same way (`dotnet run --project <nite>/src/Nite.Cli -- watch`), or install the tool from NuGet as in the other tab.
 
 ---
 
@@ -119,6 +95,18 @@ my-site/
 
 > [!TIP]
 > Set your preferred template once with `nite config set init.template islands`.
+
+### With dotnet new
+
+The same templates come as a `dotnet new` template pack, which also lists them in Visual Studio's and Rider's new-project dialogs:
+
+```bash
+dotnet new install Nite.Templates
+dotnet new nite-spa -o my-app          # Single-page app
+dotnet new nite-islands -o my-site     # Razor Pages with islands
+```
+
+`nite init` and `dotnet new` write the same files. The difference: `nite init` installs the packages in `nite.json` straight away, while with `dotnet new` the first `nite watch` (or `nite install`) does. You still need the `nite` tool to run and publish the app. Update the templates with `dotnet new update`.
 
 ## Run it
 

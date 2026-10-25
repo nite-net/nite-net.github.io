@@ -80,8 +80,6 @@ jobs:
           path: publish
 ```
 
-Until the packages are on NuGet, replace the install step with packing them from source (see [Getting started](../getting-started.md#install-nite)).
-
 ## Docker
 
 Build in the SDK image, run in the smaller ASP.NET image:
