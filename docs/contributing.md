@@ -48,7 +48,12 @@ To release:
 1. Bump `Version` in `Directory.Build.props` and add the version's section to the changelog.
 2. Push a matching tag: `git tag v0.3.0 && git push origin v0.3.0`.
 
-The tag's build checks that the tag and `Version` agree, then pushes both packages to nuget.org with the repository's `NUGET_API_KEY` secret (in the `nuget` environment, where you can require an approval before publishing). Re-running a release that half-failed is safe: packages already on nuget.org are skipped.
+The tag's build checks that the tag and `Version` agree, then pushes both packages to nuget.org with [trusted publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing): the job trades a GitHub OIDC token for an API key that lasts an hour, so no long-lived key is stored anywhere. It runs in the `nuget` environment, where you can require an approval before publishing.
+
+Publishing needs two things set up once:
+
+- A trusted publishing policy on nuget.org (**Account settings > Trusted Publishing**), created by the account that owns the `Nite` and `Nite.Cli` packages: repository owner `nite-net`, repository `nite`, workflow file `ci.yml`, environment `nuget`.
+- A `NUGET_USER` secret in the nite repository holding that account's nuget.org profile name (not its email address). Re-running a release that half-failed is safe: packages already on nuget.org are skipped.
 
 ## Pull requests
 
