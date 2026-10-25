@@ -22,6 +22,7 @@ The repository:
 ```text
 src/Nite/            the library: dev server, esbuild client, npm client, CSS pipeline, build, tag helpers
 src/Nite.Cli/        the `nite` command-line tool
+src/Nite.Templates/  the dotnet new templates, which `nite init` also writes
 build/Nite.targets   MSBuild integration, packed into the Nite package
 samples/Nite.Spa     a React SPA with a minimal API
 samples/Nite.Sample  Razor Pages with React islands
@@ -39,9 +40,21 @@ dotnet test --filter "Category!=Integration"         # offline
 
 Integration tests run a real esbuild process and install real packages (PostCSS, Less, Sass, Tailwind) from npm into temporary folders. They download once per machine and use the cache afterwards.
 
+## Templates
+
+The project templates are ordinary files in `src/Nite.Templates/content/spa` and `content/islands`. `dotnet new` reads them through each folder's `.template.config/template.json`; the CLI embeds the same files and fills the placeholders itself for `nite init`. The placeholders are `NiteApp` (the project file name), `NITE_TITLE`, `NITE_NAMESPACE`, `NITE_PORT` and `NITE_VERSION`. `TemplateTests` fails if a file uses a placeholder that template.json has no symbol for, if the CLI is missing one of the folder's files, or if `nite init` would leave a placeholder unfilled.
+
+To try the template pack locally:
+
+```bash
+dotnet pack src/Nite.Templates -o /tmp/nite-templates
+dotnet new install /tmp/nite-templates/Nite.Templates.<version>.nupkg
+dotnet new nite-spa -o /tmp/try-it
+```
+
 ## Continuous integration and releases
 
-[`.github/workflows/ci.yml`](https://github.com/nite-net/nite/blob/main/.github/workflows/ci.yml) builds and tests every push and pull request, including the integration tests, and packs `Nite` and `Nite.Cli`. CI packages are versioned `<Version>-ci.<run number>` and kept as the run's `packages` artifact, so you can try a pull request's build without packing it yourself.
+[`.github/workflows/ci.yml`](https://github.com/nite-net/nite/blob/main/.github/workflows/ci.yml) builds and tests every push and pull request, including the integration tests, and packs `Nite`, `Nite.Cli` and `Nite.Templates`. CI packages are versioned `<Version>-ci.<run number>` and kept as the run's `packages` artifact, so you can try a pull request's build without packing it yourself.
 
 To release:
 
@@ -52,7 +65,7 @@ The tag's build checks that the tag and `Version` agree, then pushes both packag
 
 Publishing needs two things set up once:
 
-- A trusted publishing policy on nuget.org (**Account settings > Trusted Publishing**), created by the account that owns the `Nite` and `Nite.Cli` packages: repository owner `nite-net`, repository `nite`, workflow file `ci.yml`, environment `nuget`.
+- A trusted publishing policy on nuget.org (**Account settings > Trusted Publishing**), created by the account that owns the `Nite`, `Nite.Cli` and `Nite.Templates` packages: repository owner `nite-net`, repository `nite`, workflow file `ci.yml`, environment `nuget`.
 - A `NUGET_USER` secret in the nite repository holding that account's nuget.org profile name (not its email address). Re-running a release that half-failed is safe: packages already on nuget.org are skipped.
 
 ## Pull requests

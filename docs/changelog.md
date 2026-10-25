@@ -7,6 +7,12 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased (main)
+
+### Added
+
+- **`dotnet new` templates.** The `Nite.Templates` package adds `nite-spa` and `nite-islands` to `dotnet new` and to the new-project dialogs of Visual Studio and Rider. They are the same files `nite init` writes. ([Getting started](getting-started.md#with-dotnet-new))
+
 ## 0.5.0
 
 ### Added
