@@ -24,6 +24,7 @@ fi
 
 docfx metadata docfx.json
 docfx build docfx.json --warningsAsErrors
+python3 tools/llms.py _site   # llms.txt, llms-full.txt and a Markdown copy of each page
 
 if [[ "${1:-}" == "serve" ]]; then
   docfx serve _site --port 8080

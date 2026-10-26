@@ -12,6 +12,7 @@ description: The files and folders in a Nite project, what each one is for, and 
 ```text
 MyApp/
   MyApp.csproj
+  AGENTS.md                  instructions for AI coding agents
   Program.cs                 AddNite, UseNite, your API, MapNiteSpa
   nite.json                  client packages and settings
   nite.lock.json             resolved package versions
@@ -32,6 +33,7 @@ MyApp/
 ```text
 MySite/
   MySite.csproj
+  AGENTS.md
   Program.cs                 AddRazorPages, AddNite, UseNite
   nite.json
   nite.lock.json

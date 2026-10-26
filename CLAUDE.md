@@ -14,6 +14,10 @@ NITE_SRC=/path/to/nite ./build.sh serve  # build, then serve on http://localhost
 Build with no warnings before committing. A new page needs an entry in the `toc.yml` of its folder.
 Released changes go in `docs/changelog.md`, plans in `docs/roadmap.md`.
 
+`tools/llms.py` runs after DocFX (in `build.sh` and the Pages workflow) and writes `llms.txt`,
+`llms-full.txt` and a Markdown copy of each page into `_site`, in `toc.yml` order. Its notes for
+agents repeat facts from the docs; keep them in step when commands or defaults change.
+
 ## Writing
 
 - **Nite** is a proper noun: capitalize it in prose, including titles and descriptions. Lowercase

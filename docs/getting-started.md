@@ -151,6 +151,13 @@ nite init my-app --from ../my-vite-app             # do it; the source is not ch
 
 See [Importing a project](guides/importing.md).
 
+## Working with an AI coding agent
+
+Nite is newer than the training data of most AI models, and it looks enough like Vite that an agent working from memory will reach for `npm install` and `vite.config.ts`. Two things help:
+
+- New projects include an `AGENTS.md`, which most coding agents (Codex, Cursor, GitHub Copilot, Claude Code and others) read on their own. It lists the commands, the project layout and the Vite habits that do not apply. Edit it as the project grows; it is yours. If you also keep a `CLAUDE.md`, Claude Code reads that instead, so put `@AGENTS.md` at its top to include both.
+- The docs are published for agents to read: [`/llms.txt`](https://nite-net.github.io/llms.txt) is an index, [`/llms-full.txt`](https://nite-net.github.io/llms-full.txt) is every page in one file, and every page is also available as Markdown at its URL with `.md` instead of `.html`. Point an agent at them before asking it to work on a Nite project.
+
 ## Next steps
 
 - [Tutorial: a full-stack app](tutorial.md) builds on the SPA template step by step.
