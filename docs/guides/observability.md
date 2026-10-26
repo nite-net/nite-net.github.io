@@ -1,15 +1,15 @@
 ---
 title: Telemetry, health checks and Aspire
-description: Nite's OpenTelemetry traces and metrics, its health check, and running a Nite app under Aspire.
+description: NiteFx's OpenTelemetry traces and metrics, its health check, and running a NiteFx app under Aspire.
 ---
 
 # Telemetry, health checks and Aspire
 
-<p class="lead">Nite reports what it does as OpenTelemetry traces and metrics and offers a health check, so a slow first page load or a broken <code>nite.json</code> shows up in your dashboard instead of in a guess. Under <a href="https://aspire.dev">Aspire</a>, a Nite app is an ordinary project resource.</p>
+<p class="lead">NiteFx reports what it does as OpenTelemetry traces and metrics and offers a health check, so a slow first page load or a broken <code>nite.json</code> shows up in your dashboard instead of in a guess. Under <a href="https://aspire.dev">Aspire</a>, a NiteFx app is an ordinary project resource.</p>
 
 ## Traces and metrics
 
-Nite uses .NET's own `ActivitySource` and `Meter`, both named `Nite`, so the library takes no OpenTelemetry dependency, and nothing is recorded (or costs anything) until a listener subscribes. Add the names to your OpenTelemetry setup, in the project that uses Nite:
+NiteFx uses .NET's own `ActivitySource` and `Meter`, both named `Nite`, so the library takes no OpenTelemetry dependency, and nothing is recorded (or costs anything) until a listener subscribes. Add the names to your OpenTelemetry setup, in the project that uses NiteFx:
 
 ```csharp
 using Nite.Observability;
@@ -22,7 +22,7 @@ builder.Services.ConfigureOpenTelemetryMeterProvider(metrics => metrics.AddMeter
 
 `ConfigureOpenTelemetry…Provider` adds to whatever `AddOpenTelemetry()` set up elsewhere (such as Aspire's ServiceDefaults), so it works from any project. If you configure OpenTelemetry in one place yourself, `.AddSource(...)` and `.AddMeter(...)` on its builders do the same.
 
-Requests the dev server answers under `/_nite` never reach routing, so Nite names their spans after its own routes, as routing does for endpoints: `GET /_nite/src/{**path}`, `GET /_nite/deps/{file}`, `GET /_nite/npm/{**specifier}` and the fixed paths such as `GET /_nite/client.js`. They also get the `http.route` tag.
+Requests the dev server answers under `/_nite` never reach routing, so NiteFx names their spans after its own routes, as routing does for endpoints: `GET /_nite/src/{**path}`, `GET /_nite/deps/{file}`, `GET /_nite/npm/{**specifier}` and the fixed paths such as `GET /_nite/client.js`. They also get the `http.route` tag.
 
 ### Spans
 
@@ -74,7 +74,7 @@ It is a readiness check: restarting the app does not fix a broken `nite.json`, s
 
 ## Aspire
 
-A Nite app needs nothing special to run under Aspire: Nite is middleware in your ASP.NET Core project, so `AddProject` runs the dev server along with your API. [`samples/Nite.Aspire`](https://github.com/nite-net/nite/tree/main/samples/Nite.Aspire) is a complete example: a Nite React app that calls a separate API service through service discovery.
+A NiteFx app needs nothing special to run under Aspire: NiteFx is middleware in your ASP.NET Core project, so `AddProject` runs the dev server along with your API. [`samples/Nite.Aspire`](https://github.com/nite-net/nite/tree/main/samples/Nite.Aspire) is a complete example: a NiteFx React app that calls a separate API service through service discovery.
 
 ```csharp
 // AppHost.cs
@@ -90,7 +90,7 @@ builder.AddProject<Projects.Web>("web")
 builder.Build().Run();
 ```
 
-Leave ServiceDefaults as the template made it: other services share it, and they do not use Nite (the health check needs `AddNite()`). Add Nite's part in the web project instead, after `AddServiceDefaults()`:
+Leave ServiceDefaults as the template made it: other services share it, and they do not use NiteFx (the health check needs `AddNite()`). Add NiteFx's part in the web project instead, after `AddServiceDefaults()`:
 
 ```csharp
 builder.AddServiceDefaults();
@@ -105,7 +105,7 @@ app.UseNite();
 app.MapDefaultEndpoints();   // /health and /alive, from ServiceDefaults
 ```
 
-The dashboard then shows Nite's logs and its startup and compile spans inside your request traces, and the web resource turns unhealthy if the dev server fails to start, with the reason in the health check's description. (`MapHealthChecks` answers 200 for Degraded as well as Healthy, so a dev server that is still starting does not count against the resource.)
+The dashboard then shows NiteFx's logs and its startup and compile spans inside your request traces, and the web resource turns unhealthy if the dev server fails to start, with the reason in the health check's description. (`MapHealthChecks` answers 200 for Degraded as well as Healthy, so a dev server that is still starting does not count against the resource.)
 
 What to know:
 

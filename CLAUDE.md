@@ -1,6 +1,6 @@
-# nite documentation site
+# NiteFx documentation site
 
-DocFX site for [nite](https://github.com/nite-net/nite). Pages are Markdown under `docs/`; the
+DocFX site for [NiteFx](https://github.com/nite-net/nite), published at <https://nitefx.dev>. Pages are Markdown under `docs/`; the
 API reference is generated from the nite source.
 
 ## Building
@@ -20,9 +20,12 @@ agents repeat facts from the docs; keep them in step when commands or defaults c
 
 ## Writing
 
-- **Nite** is a proper noun: capitalize it in prose, including titles and descriptions. Lowercase
-  is for code, commands and quoted output only (`nite watch`, `nite.json`, `/_nite`,
-  `nite:config`, "nite: command not found").
+- The project is **NiteFx** (short for Nite Framework); use that name in prose, titles and
+  descriptions. The NuGet packages (`Nite`, `Nite.Cli`, `Nite.Templates`), the C# namespace
+  (`Nite`), the `nite` command and its files keep the short name: write those as code. Quoted
+  output stays exactly as the program prints it ("nite: command not found", "is not in the Nite
+  build").
+- The site is <https://nitefx.dev>; the repositories are still under `nite-net` on GitHub.
 - The `(n)ite` in the logo is a visual joke; do not write the name that way.
 
 ## Stopping processes you started

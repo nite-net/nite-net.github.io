@@ -1,6 +1,6 @@
 ---
 title: Production builds and deployment
-description: How Nite builds the client for production, how dotnet publish includes it, and how to deploy with CI, Docker and a CDN.
+description: How NiteFx builds the client for production, how dotnet publish includes it, and how to deploy with CI, Docker and a CDN.
 ---
 
 # Production builds and deployment

@@ -1,13 +1,13 @@
 ---
 title: "Tutorial: a full-stack app"
-description: Build a small todo app with an ASP.NET Core API and a React frontend, and use every part of Nite's dev loop along the way.
+description: Build a small todo app with an ASP.NET Core API and a React frontend, and use every part of NiteFx's dev loop along the way.
 ---
 
 # Tutorial: a full-stack app
 
 <p class="lead">Build a todo app with a minimal API and a React frontend in one project. Along the way you will use Fast Refresh, C# hot reload that reaches the page, client-side routing, CSS modules, environment variables and a production publish.</p>
 
-You need Nite installed ([Getting started](getting-started.md#install-nite)). The whole tutorial takes about half an hour.
+You need NiteFx installed ([Getting started](getting-started.md#install-nitefx)). The whole tutorial takes about half an hour.
 
 ## 1. Create the project
 
@@ -186,7 +186,7 @@ The page updates without a reload.
 
 Type something into the "What needs doing?" box, but do not submit it. Now edit `TodoList.tsx`: change `<h1>Todos</h1>` to `<h1>Things to do</h1>` and save.
 
-The heading changes in about 150 ms, and your half-typed text is still there. Nite found that `TodoList.tsx` exports only components, re-imported just that module, and let React swap the new function in while keeping its state. Edits to `api.ts` work too: Nite walks up from the changed module to the components that import it and refreshes those.
+The heading changes in about 150 ms, and your half-typed text is still there. NiteFx found that `TodoList.tsx` exports only components, re-imported just that module, and let React swap the new function in while keeping its state. Edits to `api.ts` work too: NiteFx walks up from the changed module to the components that import it and refreshes those.
 
 What resets state, and why:
 
@@ -195,7 +195,7 @@ What resets state, and why:
 
 ## 6. C# changes reach the page
 
-Change the seed data in `TodoStore`'s constructor, or the validation message, and save `Program.cs`. Hot reload applies the change in the running app and Nite sends the page a `nite:server-update` event; `TodoList` re-fetches through `onServerUpdate`, and the list updates with nothing reloaded.
+Change the seed data in `TodoStore`'s constructor, or the validation message, and save `Program.cs`. Hot reload applies the change in the running app and NiteFx sends the page a `nite:server-update` event; `TodoList` re-fetches through `onServerUpdate`, and the list updates with nothing reloaded.
 
 > [!TIP]
 > The event never fires in production, so `onServerUpdate` costs nothing there. Use it in any component that shows server data.
@@ -317,7 +317,7 @@ The Release build ran `nite build`: `publish/wwwroot/_nite` holds the minified, 
 | Step | Feature | Read more |
 |---|---|---|
 | 2 | A restart for a structural C# change, handled by `nite watch` | [Hot reload](guides/hot-reload.md) |
-| 4, 5 | Fast Refresh and the module graph | [How Nite works](concepts/architecture.md) |
+| 4, 5 | Fast Refresh and the module graph | [How NiteFx works](concepts/architecture.md) |
 | 6 | `nite:server-update` | [Browser runtime](reference/browser-runtime.md) |
 | 7 | `nite add`, `MapNiteSpa` fallback routing | [Packages](guides/packages.md), [Single-page apps](guides/single-page-apps.md) |
 | 8 | CSS modules | [Stylesheets](guides/stylesheets.md) |

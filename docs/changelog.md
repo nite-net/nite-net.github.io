@@ -1,25 +1,35 @@
 ---
 title: Changelog
-description: Notable changes in each version of Nite.
+description: Notable changes in each version of NiteFx.
 ---
 
 # Changelog
 
-<p class="lead">Notable changes, newest first. Nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
+<p class="lead">Notable changes, newest first. NiteFx follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
+
+## Unreleased (main)
+
+### Changed
+
+- **Nite is now NiteFx**, short for Nite Framework, and the docs moved to [nitefx.dev](https://nitefx.dev). Old links to `nite-net.github.io` redirect. Nothing in your project changes: the packages, the `Nite` namespace and the `nite` command keep their names.
+
+### Added
+
+- **Code signing policy and privacy policy.** Release binaries will be signed through [SignPath Foundation](https://signpath.org); see the [Code signing policy](code-signing.md). The [Privacy policy](privacy.md) lists the only network connections NiteFx makes. It collects no information.
 
 ## 0.8.1
 
 ### Added
 
 - **`AGENTS.md` in new projects.** `nite init` and the `dotnet new` templates write an `AGENTS.md` for AI coding agents: the commands, the project layout, and the Vite and npm habits that do not apply. ([Working with an AI coding agent](getting-started.md#working-with-an-ai-coding-agent))
-- **Docs for agents.** The site publishes [`llms.txt`](https://nite-net.github.io/llms.txt), [`llms-full.txt`](https://nite-net.github.io/llms-full.txt) and a Markdown copy of every page.
+- **Docs for agents.** The site publishes [`llms.txt`](https://nitefx.dev/llms.txt), [`llms-full.txt`](https://nitefx.dev/llms-full.txt) and a Markdown copy of every page.
 
 ## 0.8.0
 
 ### Added
 
 - **Several single-page apps in one app.** `MapNiteSpa(page, path: "/login")` serves a page under its own path (and its client-side routes), next to a catch-all app; each is an endpoint with its own authorization. ([More than one page](guides/single-page-apps.md#more-than-one-page))
-- **Content Security Policy nonces.** `NiteOptions.CspNonce` gives Nite the request's nonce, which it puts on the import map, client config and module scripts it writes, and in development on the dev client, CSS imported from modules and the error overlay. A strict policy without `'unsafe-inline'` then works in both. `NiteHead.ToHtml(nonce)` does the same for hand-written layouts. ([Content Security Policy](reference/aspnet.md#content-security-policy))
+- **Content Security Policy nonces.** `NiteOptions.CspNonce` gives NiteFx the request's nonce, which it puts on the import map, client config and module scripts it writes, and in development on the dev client, CSS imported from modules and the error overlay. A strict policy without `'unsafe-inline'` then works in both. `NiteHead.ToHtml(nonce)` does the same for hand-written layouts. ([Content Security Policy](reference/aspnet.md#content-security-policy))
 - **Identity sample.** `samples/Nite.Identity`: ASP.NET Core Identity with EF Core and SQLite, two seeded users, a public login app and a protected main app that receives the user's claims through client config. It follows the backend-for-frontend pattern: server-side sessions behind an HttpOnly `__Host-` cookie, antiforgery tokens, a strict nonce-based CSP, rate-limited sign-in with lockout, and a refusal to run outside Development with the published demo passwords.
 
 ### Changed
@@ -34,7 +44,7 @@ description: Notable changes in each version of Nite.
 - **Application Insights guide.** Browser telemetry with the Application Insights SDK: per-environment connection strings through client config, loading the SDK lazily, and one transaction from page load through API calls. The Aspire sample does all of it. ([Application Insights in the browser](guides/application-insights.md))
 - **Telemetry.** OpenTelemetry traces and metrics through an `ActivitySource` and a `Meter` named `Nite` (`NiteTelemetry.SourceName`, `NiteTelemetry.MeterName`): dev server startup, per-request compiles, each stylesheet tool, hot updates, pre-bundling, package installs and production builds. No OpenTelemetry dependency. ([Telemetry, health checks and Aspire](guides/observability.md))
 - **Health check.** `AddHealthChecks().AddNite()` reports a dev server that is still starting or failed to, and a production app missing its build output.
-- **Aspire guide and sample.** Running a Nite app under Aspire: wiring, hot reload, passing service URLs to client code, and deploying. `samples/Nite.Aspire` has a Nite React app and an API service under one AppHost.
+- **Aspire guide and sample.** Running a NiteFx app under Aspire: wiring, hot reload, passing service URLs to client code, and deploying. `samples/Nite.Aspire` has a NiteFx React app and an API service under one AppHost.
 - Requests under `/_nite` are named after their route in traces (`GET /_nite/src/{**path}`) instead of a bare `GET`.
 
 ### Changed

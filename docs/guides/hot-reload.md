@@ -5,7 +5,7 @@ description: How client and server changes reach the browser during development,
 
 # Hot reload and nite watch
 
-<p class="lead"><code>nite watch</code> runs <code>dotnet watch</code> for the C# side while Nite handles the client side. Most edits land in the page in a fraction of a second without losing state.</p>
+<p class="lead"><code>nite watch</code> runs <code>dotnet watch</code> for the C# side while NiteFx handles the client side. Most edits land in the page in a fraction of a second without losing state.</p>
 
 ## Start it
 
@@ -47,7 +47,7 @@ Errors are only shown in development. A production build with an error fails wit
 
 ## How Fast Refresh decides
 
-Nite keeps a graph of which modules import which, limited to modules the browser has actually loaded. On a change, it walks up from the changed file:
+NiteFx keeps a graph of which modules import which, limited to modules the browser has actually loaded. On a change, it walks up from the changed file:
 
 - a module whose exports are **all React components** is a *boundary*: it is re-imported, and React swaps the new components in, keeping state;
 - any other module passes the update to the modules that import it;
@@ -65,7 +65,7 @@ Keep components in their own modules and Fast Refresh does the right thing.
 
 ## C# changes
 
-Nite registers a hot reload handler in your app. When `dotnet watch` applies a C# change, Nite sends the page a `server-update` message, and the dev client dispatches a `nite:server-update` event on `window`. Re-fetch on it:
+NiteFx registers a hot reload handler in your app. When `dotnet watch` applies a C# change, NiteFx sends the page a `server-update` message, and the dev client dispatches a `nite:server-update` event on `window`. Re-fetch on it:
 
 ```ts
 export function onServerUpdate(callback: () => void) {
@@ -92,7 +92,7 @@ To keep `dotnet watch`'s prompt instead, run `nite watch --no-auto-restart`. A v
 
 ## Why nite watch turns off dotnet watch's browser refresh
 
-Plain `dotnet watch` injects a script into HTML responses that reloads the page after **every** C# change, even one hot reload applied. In a single-page app that throws away client state for an API-only change. `nite watch` sets `DOTNET_WATCH_SUPPRESS_BROWSER_REFRESH=1` (which only works from the environment, not from `launchSettings.json`), and Nite's own client takes over: it reloads after restarts by itself and leaves the page alone otherwise.
+Plain `dotnet watch` injects a script into HTML responses that reloads the page after **every** C# change, even one hot reload applied. In a single-page app that throws away client state for an API-only change. `nite watch` sets `DOTNET_WATCH_SUPPRESS_BROWSER_REFRESH=1` (which only works from the environment, not from `launchSettings.json`), and NiteFx's own client takes over: it reloads after restarts by itself and leaves the page alone otherwise.
 
 ## Razor Pages
 

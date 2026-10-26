@@ -1,6 +1,6 @@
 ---
 title: Command-line interface
-description: Every Nite command, its arguments, options and aliases.
+description: Every NiteFx command, its arguments, options and aliases.
 ---
 
 # Command-line interface
@@ -15,7 +15,7 @@ description: Every Nite command, its arguments, options and aliases.
 | [`nite list`](#nite-list) | `ls` | Show installed packages |
 | [`nite update`](#nite-update) | `up` | Check for and apply package updates |
 | [`nite build`](#nite-build) | | Production build into `wwwroot/_nite` |
-| [`nite watch`](#nite-watch) | | `dotnet watch` with Nite handling the browser |
+| [`nite watch`](#nite-watch) | | `dotnet watch` with NiteFx handling the browser |
 | [`nite config`](#nite-config) | | Show or change settings |
 | [`nite cache`](#nite-cache) | | Manage the download cache |
 | [`nite version`](#nite-version) | `--version` | Show versions |
@@ -52,7 +52,7 @@ nite init [DIRECTORY] [OPTIONS]
 | `--dry-run` | With `--from`: show what would be imported and write nothing. |
 | `--force` | Create the project in a folder that already has files. Existing files are never overwritten. |
 | `--no-install` | Skip installing packages. |
-| `--nite-source <PATH>` | Reference a Nite source checkout instead of the `Nite` NuGet package. |
+| `--nite-source <PATH>` | Reference a NiteFx source checkout instead of the `Nite` NuGet package. |
 | `--verbose` | Show debug output. |
 
 ```bash
@@ -143,7 +143,7 @@ See [Production builds and deployment](../guides/deployment.md).
 
 ## nite watch
 
-Run `dotnet watch` with Nite handling the browser.
+Run `dotnet watch` with NiteFx handling the browser.
 
 ```text
 nite watch [OPTIONS] [-- DOTNET_WATCH_ARGUMENTS]
@@ -189,7 +189,7 @@ Manage the per-user download cache: package tarballs, registry metadata, and the
 | Command | Meaning |
 |---|---|
 | `nite cache dir` | Print the cache folder. |
-| `nite cache clean` (`clear`) | Delete the cache, including folders older Nite versions left behind. Everything downloads again on next use. |
+| `nite cache clean` (`clear`) | Delete the cache, including folders older NiteFx versions left behind. Everything downloads again on next use. |
 | `nite cache verify` | Re-check cached tarballs against their integrity hashes and remove corrupt ones. |
 
 ## nite version

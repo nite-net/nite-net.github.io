@@ -1,11 +1,11 @@
 ---
 title: Tailwind CSS
-description: Use Tailwind CSS 4 in a Nite project, with class names found in React components and Razor views alike.
+description: Use Tailwind CSS 4 in a NiteFx project, with class names found in React components and Razor views alike.
 ---
 
 # Tailwind CSS
 
-<p class="lead">Nite runs Tailwind CSS 4 itself: Tailwind's own compiler from your <code>node_modules</code>, fed by a class scanner that covers the whole project, Razor views included. No <code>@tailwindcss/vite</code>, no <code>@tailwindcss/postcss</code>, no CLI process.</p>
+<p class="lead">NiteFx runs Tailwind CSS 4 itself: Tailwind's own compiler from your <code>node_modules</code>, fed by a class scanner that covers the whole project, Razor views included. No <code>@tailwindcss/vite</code>, no <code>@tailwindcss/postcss</code>, no CLI process.</p>
 
 ## Set up
 
@@ -57,7 +57,7 @@ export function Card({ title }: { title: string }) {
 
 ## Where classes are found
 
-Tailwind generates CSS only for the classes your project uses. Its own scanner is native code, so Nite has one written in C# that follows the same rules:
+Tailwind generates CSS only for the classes your project uses. Its own scanner is native code, so NiteFx has one written in C# that follows the same rules:
 
 - **Automatic detection** scans the **whole project folder**, not just the client root. Classes used only in `.cshtml` and `.razor` files count.
 - Skipped: `node_modules`, `bin`, `obj`, `.git`, `.nite`, `wwwroot/_nite`, folders listed in your `.gitignore` (plain folder names such as `dist/`), lockfiles, stylesheets, and binary files (images, fonts, archives).
@@ -71,7 +71,7 @@ Tailwind generates CSS only for the classes your project uses. Its own scanner i
 @source inline("underline line-through");    /* always generate these */
 ```
 
-Like Tailwind's own scanner, Nite over-collects on purpose: anything that might be a class goes to the compiler, which ignores what is not one. Build class names from complete strings, not concatenation, so they can be found:
+Like Tailwind's own scanner, NiteFx over-collects on purpose: anything that might be a class goes to the compiler, which ignores what is not one. Build class names from complete strings, not concatenation, so they can be found:
 
 ```tsx
 // Found: both full class names appear in the source.
@@ -134,7 +134,7 @@ To use `@apply` in another stylesheet, reference the main one so Tailwind knows 
 - Saving `app.css` (say, a `@theme` change) updates it, and every stylesheet that `@reference`s it.
 - Classes are never forgotten during a session, as with Tailwind's own dev servers, so removing a class does not reorder CSS while you work. The production build only contains classes in use.
 
-The first Tailwind compile in a dev session takes a second or two (Tailwind's compiler runs in a JavaScript interpreter). Nite starts it while the app starts, so pages are usually ready by the time you open them.
+The first Tailwind compile in a dev session takes a second or two (Tailwind's compiler runs in a JavaScript interpreter). NiteFx starts it while the app starts, so pages are usually ready by the time you open them.
 
 ## Production
 
@@ -149,4 +149,4 @@ The first Tailwind compile in a dev session takes a second or two (Tailwind's co
 
 ## Tailwind 3
 
-Tailwind 3 is not supported: its JavaScript configuration and content globs were replaced by CSS-first configuration in version 4, which is what Nite runs. Upgrade with Tailwind's tool (`npx @tailwindcss/upgrade`, run once with Node) and the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
+Tailwind 3 is not supported: its JavaScript configuration and content globs were replaced by CSS-first configuration in version 4, which is what NiteFx runs. Upgrade with Tailwind's tool (`npx @tailwindcss/upgrade`, run once with Node) and the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).

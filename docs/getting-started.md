@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Install the Nite CLI, create a React single-page app or a Razor site with islands, and run it with hot reload.
+description: Install the NiteFx CLI, create a React single-page app or a Razor site with islands, and run it with hot reload.
 ---
 
 # Getting started
@@ -10,14 +10,14 @@ description: Install the Nite CLI, create a React single-page app or a Razor sit
 ## Requirements
 
 - **The .NET 10 SDK.** Check with `dotnet --version`.
-- **Linux, macOS or Windows** on x64 or Arm64. Nite downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
-- **Network access to the npm registry** the first time: Nite downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
+- **Linux, macOS or Windows** on x64 or Arm64. NiteFx downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
+- **Network access to the npm registry** the first time: NiteFx downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
 
 You do **not** need Node.js, npm, or any global JavaScript tooling.
 
-## Install Nite
+## Install NiteFx
 
-Nite is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
+NiteFx is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
 
 How release binaries are signed, and who approves it, is in the [Code signing policy](code-signing.md).
 
@@ -32,7 +32,7 @@ New projects reference the `Nite` package from nuget.org with no further setup. 
 
 # [Reference a source checkout](#tab/source)
 
-If you are working on Nite itself, point new projects at your checkout instead. The project then references `src/Nite` and `src/Nite.Cli` directly, so changes to Nite take effect on the next build.
+If you are working on NiteFx itself, point new projects at your checkout instead. The project then references `src/Nite` and `src/Nite.Cli` directly, so changes to NiteFx take effect on the next build.
 
 ```bash
 git clone https://github.com/nite-net/nite
@@ -116,7 +116,7 @@ dotnet new nite-islands -o my-site     # Razor Pages with islands
 nite watch
 ```
 
-`nite watch` runs `dotnet watch` with Nite handling the browser. The first start downloads esbuild and pre-bundles React (a few seconds); after that it starts in about as long as the app takes to build. `dotnet watch` opens your browser at the URL in `Properties/launchSettings.json`.
+`nite watch` runs `dotnet watch` with NiteFx handling the browser. The first start downloads esbuild and pre-bundles React (a few seconds); after that it starts in about as long as the app takes to build. `dotnet watch` opens your browser at the URL in `Properties/launchSettings.json`.
 
 Now try the loop:
 
@@ -155,10 +155,10 @@ See [Importing a project](guides/importing.md).
 
 ## Working with an AI coding agent
 
-Nite is newer than the training data of most AI models, and it looks enough like Vite that an agent working from memory will reach for `npm install` and `vite.config.ts`. Two things help:
+NiteFx is newer than the training data of most AI models, and it looks enough like Vite that an agent working from memory will reach for `npm install` and `vite.config.ts`. Two things help:
 
 - New projects include an `AGENTS.md`, which most coding agents (Codex, Cursor, GitHub Copilot, Claude Code and others) read on their own. It lists the commands, the project layout and the Vite habits that do not apply. Edit it as the project grows; it is yours. If you also keep a `CLAUDE.md`, Claude Code reads that instead, so put `@AGENTS.md` at its top to include both.
-- The docs are published for agents to read: [`/llms.txt`](https://nite-net.github.io/llms.txt) is an index, [`/llms-full.txt`](https://nite-net.github.io/llms-full.txt) is every page in one file, and every page is also available as Markdown at its URL with `.md` instead of `.html`. Point an agent at them before asking it to work on a Nite project.
+- The docs are published for agents to read: [`/llms.txt`](https://nitefx.dev/llms.txt) is an index, [`/llms-full.txt`](https://nitefx.dev/llms-full.txt) is every page in one file, and every page is also available as Markdown at its URL with `.md` instead of `.html`. Point an agent at them before asking it to work on a NiteFx project.
 
 ## Next steps
 

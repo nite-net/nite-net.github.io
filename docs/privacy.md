@@ -1,21 +1,21 @@
 ---
 title: Privacy policy
-description: Nite collects no personal information and has no telemetry. These are the only network connections it makes, and why.
+description: NiteFx collects no personal information and has no telemetry. These are the only network connections it makes, and why.
 ---
 
 # Privacy policy
 
-<p class="lead">Nite does not collect, store or share any information about you, your projects or how you use it. It has no analytics or usage telemetry, and it never contacts the Nite project.</p>
+<p class="lead">NiteFx does not collect, store or share any information about you, your projects or how you use it. It has no analytics or usage telemetry, and it never contacts the NiteFx project.</p>
 
-This policy covers the Nite library, the `nite` command-line tool, the project templates and this documentation site.
+This policy covers the NiteFx library, the `nite` command-line tool, the project templates and this documentation site.
 
 ## Network connections
 
-Nite transfers data to other networked systems only when you ask it to, and only to do what you asked:
+NiteFx transfers data to other networked systems only when you ask it to, and only to do what you asked:
 
 | When | Where | What is sent |
 |---|---|---|
-| Installing, adding or updating packages (`nite add`, `nite install`, `nite update`, and the dev server or `nite build` installing what `nite.json` lists) | The npm registry, `https://registry.npmjs.org/` unless you configure another registry or mirror | Requests for the packages you listed and their dependencies, with a `User-Agent` naming Nite and its version. Credentials from your `.npmrc` go only to the registry they are configured for. See [Private registries](guides/private-registries.md). |
+| Installing, adding or updating packages (`nite add`, `nite install`, `nite update`, and the dev server or `nite build` installing what `nite.json` lists) | The npm registry, `https://registry.npmjs.org/` unless you configure another registry or mirror | Requests for the packages you listed and their dependencies, with a `User-Agent` of `nite/<version>`. Credentials from your `.npmrc` go only to the registry they are configured for. See [Private registries](guides/private-registries.md). |
 | The first compile or stylesheet build on a machine | The same registry | Requests for the esbuild (and, when you use Sass, Dart Sass) binaries for your platform. They are cached afterwards. |
 | `nite update-self` | NuGet, through `dotnet tool update` | What the .NET SDK sends when updating a tool. |
 
@@ -23,7 +23,7 @@ Nothing else is sent anywhere. The registries you use have their own privacy pol
 
 ## Telemetry in your app
 
-Nite reports traces and metrics through .NET's standard `ActivitySource` and `Meter` ([Telemetry](guides/observability.md)). They stay inside your app: they are recorded only if you configure OpenTelemetry, and they go only where you send them.
+NiteFx reports traces and metrics through .NET's standard `ActivitySource` and `Meter` ([Telemetry](guides/observability.md)). They stay inside your app: they are recorded only if you configure OpenTelemetry, and they go only where you send them.
 
 ## This website
 
@@ -31,4 +31,4 @@ This site is static HTML hosted on GitHub Pages. It uses no cookies, analytics o
 
 ## Questions
 
-Email tim.mcqueen@nicefx.dev or open an [issue](https://github.com/nite-net/nite/issues).
+Email tim.mcqueen@nitefx.dev or open an [issue](https://github.com/nite-net/nite/issues).

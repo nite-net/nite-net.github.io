@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="images/logo.png" alt="Nite" width="320">
+  <img src="images/logo.png" alt="NiteFx" width="320">
 </p>
 
-# Nite documentation
+# NiteFx documentation
 
-The source of the [Nite](https://github.com/nite-net/nite) documentation site, built with
+The source of the [NiteFx](https://github.com/nite-net/nite) documentation site, built with
 [DocFX](https://dotnet.github.io/docfx/) and published to GitHub Pages.
 
 ## Layout
@@ -31,7 +31,7 @@ You need the .NET 10 SDK.
 ./build.sh serve     # build, then serve on http://localhost:8080
 ```
 
-The API reference is generated from the Nite source: `build.sh` clones
+The API reference is generated from the NiteFx source: `build.sh` clones
 [nite-net/nite](https://github.com/nite-net/nite) into `nite-src/` the first time. To build
 against a local checkout instead:
 
@@ -55,11 +55,11 @@ Builds treat warnings as errors, so a broken link or a missing page fails the bu
 ## Publishing
 
 The workflow in `.github/workflows/pages.yml` builds on every push and pull request, and deploys
-`main` to GitHub Pages. It also rebuilds daily (so the API reference follows Nite's `main`), on
-manual dispatch, and when the Nite repository sends a `nite-updated` repository dispatch.
+`main` to GitHub Pages. It also rebuilds daily (so the API reference follows NiteFx's `main`), on
+manual dispatch, and when the NiteFx repository sends a `nite-updated` repository dispatch.
 
 One-time setup in the repository settings: **Pages → Build and deployment → Source: GitHub Actions**.
 
 ## License
 
-[Apache License 2.0](LICENSE), like Nite itself.
+[Apache License 2.0](LICENSE), like NiteFx itself.

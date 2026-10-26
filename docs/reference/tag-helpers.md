@@ -5,7 +5,7 @@ description: Reference for the nite-head, island and nite-module tag helpers use
 
 # Tag helpers
 
-<p class="lead">Three tag helpers put Nite into Razor views. Import them once in <code>_ViewImports.cshtml</code>:</p>
+<p class="lead">Three tag helpers put NiteFx into Razor views. Import them once in <code>_ViewImports.cshtml</code>:</p>
 
 ```cshtml
 @addTagHelper *, Nite

@@ -4,7 +4,7 @@ export default {
     {
       icon: "github",
       href: "https://github.com/nite-net/nite",
-      title: "Nite on GitHub",
+      title: "NiteFx on GitHub",
     },
   ],
 };

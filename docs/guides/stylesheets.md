@@ -1,11 +1,11 @@
 ---
 title: Stylesheets
-description: CSS, CSS modules, Sass, Less, Tailwind CSS and PostCSS in Nite, how the pipeline runs in development and production, and how hot updates follow your dependencies.
+description: CSS, CSS modules, Sass, Less, Tailwind CSS and PostCSS in NiteFx, how the pipeline runs in development and production, and how hot updates follow your dependencies.
 ---
 
 # Stylesheets
 
-<p class="lead">Nite processes stylesheets the way Vite does: Sass or Less by extension, then Tailwind, then your PostCSS config, then esbuild for imports, CSS modules and assets. The same pipeline runs in development and in production builds, so the two agree.</p>
+<p class="lead">NiteFx processes stylesheets the way Vite does: Sass or Less by extension, then Tailwind, then your PostCSS config, then esbuild for imports, CSS modules and assets. The same pipeline runs in development and in production builds, so the two agree.</p>
 
 ## Ways to load CSS
 
@@ -17,7 +17,7 @@ description: CSS, CSS modules, Sass, Less, Tailwind CSS and PostCSS in Nite, how
 | Link from `index.html` | `<link rel="stylesheet" href="./styles.css">` | Served as CSS | Replaced by the hashed file |
 | `@import` in CSS | `@import "./theme.css";` | Inlined | Inlined |
 
-Static stylesheets in `wwwroot` (`<link href="~/site.css">` in a Razor layout) are ordinary static files: Nite does not touch them.
+Static stylesheets in `wwwroot` (`<link href="~/site.css">` in a Razor layout) are ordinary static files: NiteFx does not touch them.
 
 ## The pipeline
 
@@ -32,7 +32,7 @@ Each step is optional and only runs when you use it. Plain CSS without a PostCSS
 
 ## Installing the tools
 
-Install the tools you use as dev dependencies, exactly as you would for Vite. Nite runs them; you never need Node:
+Install the tools you use as dev dependencies, exactly as you would for Vite. NiteFx runs them; you never need Node:
 
 ```bash
 nite add -D sass-embedded                  # or: sass
@@ -46,7 +46,7 @@ How each one runs:
 | Tool | Runs as |
 |---|---|
 | **Sass** | The native Dart Sass compiler, from the `sass-embedded-<platform>` npm package matching your `sass` or `sass-embedded` version. Downloaded once into the user cache, like esbuild, and driven over Sass's embedded protocol: one compiler process serves every compile, in tens of milliseconds. |
-| **Less**, **PostCSS** (and plugins), **Tailwind** | These are plain JavaScript. Nite bundles them from your `node_modules` with esbuild and runs them in [Jint](https://github.com/sebastienros/jint), a JavaScript interpreter written in C#, with a small stand-in for the Node built-ins they use (`fs`, `path`, `url`…). |
+| **Less**, **PostCSS** (and plugins), **Tailwind** | These are plain JavaScript. NiteFx bundles them from your `node_modules` with esbuild and runs them in [Jint](https://github.com/sebastienros/jint), a JavaScript interpreter written in C#, with a small stand-in for the Node built-ins they use (`fs`, `path`, `url`…). |
 
 The interpreter is slower than Node. The first compile of a Tailwind stylesheet takes a second or two, which the dev server does at startup alongside dependency pre-bundling; after that, updates take tens of milliseconds. A production build pays it once.
 
@@ -147,7 +147,7 @@ The importing file's folder, the client root and `node_modules` are search paths
 
 ## PostCSS
 
-Nite finds your PostCSS config the way `postcss-load-config` does, in the client root first and then the project folder:
+NiteFx finds your PostCSS config the way `postcss-load-config` does, in the client root first and then the project folder:
 
 - `postcss.config.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`
 - `.postcssrc`, `.postcssrc.json`, `.postcssrc.js`, `.postcssrc.cjs`, `.postcssrc.mjs`
@@ -165,7 +165,7 @@ module.exports = {
 };
 ```
 
-Plugins load from your `node_modules`. `@tailwindcss/postcss` is skipped if listed, because Nite runs Tailwind itself, before PostCSS, the same order the plugin would have.
+Plugins load from your `node_modules`. `@tailwindcss/postcss` is skipped if listed, because NiteFx runs Tailwind itself, before PostCSS, the same order the plugin would have.
 
 PostCSS runs on your stylesheets only, not on CSS shipped inside packages (that CSS is already built, and re-processing a large framework stylesheet in the interpreter is slow). Turn PostCSS off entirely with:
 

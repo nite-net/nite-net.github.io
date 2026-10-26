@@ -1,11 +1,11 @@
 ---
 title: Custom renderers
-description: Render islands with Preact, Solid, Lit or plain DOM code by replacing Nite's React renderer with a module of your own.
+description: Render islands with Preact, Solid, Lit or plain DOM code by replacing NiteFx's React renderer with a module of your own.
 ---
 
 # Custom renderers
 
-<p class="lead">Islands are mounted by a renderer: a module with one function. Nite ships one for React; point <code>"renderer"</code> at your own to use something else.</p>
+<p class="lead">Islands are mounted by a renderer: a module with one function. NiteFx ships one for React; point <code>"renderer"</code> at your own to use something else.</p>
 
 ## The contract
 
