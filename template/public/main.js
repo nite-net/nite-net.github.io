@@ -7,7 +7,7 @@ export default {
       title: "NiteFx on GitHub",
     },
     {
-      icon: "box-seam",
+      icon: "nuget",
       href: "https://www.nuget.org/packages/Nite",
       title: "NiteFx on NuGet",
     },

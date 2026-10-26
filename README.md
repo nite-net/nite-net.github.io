@@ -63,3 +63,7 @@ One-time setup in the repository settings: **Pages → Build and deployment → 
 ## License
 
 [Apache License 2.0](LICENSE), like NiteFx itself.
+
+The NuGet logo in the site header (`template/public/nuget.svg`) is from
+[NuGet/Media](https://github.com/NuGet/Media) by the NuGet project, licensed under
+[CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
