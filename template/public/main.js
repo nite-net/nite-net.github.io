@@ -6,5 +6,10 @@ export default {
       href: "https://github.com/nite-net/nite",
       title: "NiteFx on GitHub",
     },
+    {
+      icon: "box-seam",
+      href: "https://www.nuget.org/packages/Nite",
+      title: "NiteFx on NuGet",
+    },
   ],
 };
