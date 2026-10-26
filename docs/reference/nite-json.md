@@ -41,7 +41,7 @@ While the app runs in development, saving `nite.json` installs packages, re-bund
 
 `string`, default `"Client"`
 
-The folder, relative to the project, that holds client source. Everything nite compiles lives under it, and in development its files are served under `/_nite/src/`.
+The folder, relative to the project, that holds client source. Everything Nite compiles lives under it, and in development its files are served under `/_nite/src/`.
 
 ### islands
 
@@ -58,7 +58,7 @@ Extra entry points, relative to `clientRoot`, for the production build:
 - HTML pages other than `index.html` (which is an entry automatically when it exists), for example `"admin.html"`;
 - modules loaded with `<nite-module src="...">`, for example `"pages/checkout.ts"`.
 
-Islands are entries automatically. In development nothing needs to be listed, but nite warns when a `<nite-module>` points at a module that is missing here, since the production build would not include it.
+Islands are entries automatically. In development nothing needs to be listed, but Nite warns when a `<nite-module>` points at a module that is missing here, since the production build would not include it.
 
 ## Compilation
 
@@ -72,7 +72,7 @@ The package that provides the automatic JSX runtime (`<source>/jsx-runtime`, and
 
 `boolean`, default `true`
 
-React Fast Refresh in development. It applies when `jsxImportSource` is `"react"` and `react` is in `dependencies`; nite then installs `react-refresh` as an implicit dev dependency. Set to `false` to reload the page on component edits instead.
+React Fast Refresh in development. It applies when `jsxImportSource` is `"react"` and `react` is in `dependencies`; Nite then installs `react-refresh` as an implicit dev dependency. Set to `false` to reload the page on component edits instead.
 
 ### jsxInJs
 
@@ -84,7 +84,7 @@ Allow JSX in `.js` files, as Create React App does. Off by default, as in Vite. 
 
 `string`, default `"es2022"`
 
-The esbuild target for production output, a comma-separated list of language versions and browsers (`"es2020"`, `"es2022,safari15"`, `"chrome110,firefox110,safari16"`). When it names only language versions, nite adds Vite's default browser list (`chrome107, edge107, firefox104, safari16`), so CSS gets lowered for those browsers too. Development always compiles for modern browsers.
+The esbuild target for production output, a comma-separated list of language versions and browsers (`"es2020"`, `"es2022,safari15"`, `"chrome110,firefox110,safari16"`). When it names only language versions, Nite adds Vite's default browser list (`chrome107, edge107, firefox104, safari16`), so CSS gets lowered for those browsers too. Development always compiles for modern browsers.
 
 ### renderer
 

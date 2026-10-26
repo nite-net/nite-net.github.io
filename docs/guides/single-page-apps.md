@@ -48,7 +48,7 @@ As in Vite, the HTML page is a real entry point, not a template that a bundler i
 </html>
 ```
 
-nite looks at two kinds of tags and leaves everything else alone:
+Nite looks at two kinds of tags and leaves everything else alone:
 
 | Tag | Development | Production |
 |---|---|---|
@@ -57,7 +57,7 @@ nite looks at two kinds of tags and leaves everything else alone:
 
 URLs can be relative to the page (`./main.tsx`) or root-relative (`/src/main.tsx`, resolved against the client root, as Vite does). External URLs (`https://...`, `//cdn...`, `data:`), and local URLs that do not point to a file in the client root, are left exactly as written. That is how you reference static files in `wwwroot`: `<link rel="icon" href="/favicon.ico" />` keeps pointing at `wwwroot/favicon.ico`.
 
-In development the page gets nite's head injected first: the import map for dependencies, the dev client, and the Fast Refresh runtime. In production it gets nothing extra.
+In development the page gets Nite's head injected first: the import map for dependencies, the dev client, and the Fast Refresh runtime. In production it gets nothing extra.
 
 > [!NOTE]
 > `index.html` is read from source on every request in development, so edits show up on the next load. Saving it reloads open pages.

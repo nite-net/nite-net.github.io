@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Install the nite CLI, create a React single-page app or a Razor site with islands, and run it with hot reload.
+description: Install the Nite CLI, create a React single-page app or a Razor site with islands, and run it with hot reload.
 ---
 
 # Getting started
@@ -10,14 +10,14 @@ description: Install the nite CLI, create a React single-page app or a Razor sit
 ## Requirements
 
 - **The .NET 10 SDK.** Check with `dotnet --version`.
-- **Linux, macOS or Windows** on x64 or Arm64. nite downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
-- **Network access to the npm registry** the first time: nite downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
+- **Linux, macOS or Windows** on x64 or Arm64. Nite downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
+- **Network access to the npm registry** the first time: Nite downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
 
 You do **not** need Node.js, npm, or any global JavaScript tooling.
 
-## Install nite
+## Install Nite
 
-nite is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
+Nite is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
 
 # [NuGet (recommended)](#tab/nuget)
 
@@ -30,7 +30,7 @@ New projects reference the `Nite` package from nuget.org with no further setup. 
 
 # [Reference a source checkout](#tab/source)
 
-If you are working on nite itself, point new projects at your checkout instead. The project then references `src/Nite` and `src/Nite.Cli` directly, so changes to nite take effect on the next build.
+If you are working on Nite itself, point new projects at your checkout instead. The project then references `src/Nite` and `src/Nite.Cli` directly, so changes to Nite take effect on the next build.
 
 ```bash
 git clone https://github.com/nite-net/nite
@@ -114,7 +114,7 @@ dotnet new nite-islands -o my-site     # Razor Pages with islands
 nite watch
 ```
 
-`nite watch` runs `dotnet watch` with nite handling the browser. The first start downloads esbuild and pre-bundles React (a few seconds); after that it starts in about as long as the app takes to build. `dotnet watch` opens your browser at the URL in `Properties/launchSettings.json`.
+`nite watch` runs `dotnet watch` with Nite handling the browser. The first start downloads esbuild and pre-bundles React (a few seconds); after that it starts in about as long as the app takes to build. `dotnet watch` opens your browser at the URL in `Properties/launchSettings.json`.
 
 Now try the loop:
 

@@ -1,13 +1,13 @@
 ---
 title: Roadmap
-description: Where nite is going next, in the order we plan to ship it.
+description: Where Nite is going next, in the order we plan to ship it.
 ---
 
 # Roadmap
 
 <p class="lead">What we plan to build next, in order. These are plans, not promises: priorities change when you tell us what hurts. Open or vote on an <a href="https://github.com/nite-net/nite/issues">issue</a> to move something up.</p>
 
-Released work is in the [changelog](changelog.md); what nite deliberately does not do is in [Limits and non-goals](limits.md).
+Released work is in the [changelog](changelog.md); what Nite deliberately does not do is in [Limits and non-goals](limits.md).
 
 ## 0.9: safer and faster production builds
 
@@ -26,14 +26,14 @@ Small changes that close gaps in [Limits](limits.md) and continue the security w
 
 ## 1.0: one set of types from C# to TypeScript
 
-- **Generated API types.** ASP.NET Core already describes your endpoints as an OpenAPI document. In development, nite will turn it into TypeScript types and a typed `fetch` wrapper, and refresh them on every C# hot reload, so renaming a property on a C# record shows up as a type error in the TypeScript that uses it. The same will cover [client config](guides/environment.md#values-from-the-running-server) when it returns a named type.
-- **A stable API.** From 1.0, nite follows semantic versioning for its whole public surface, not only `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json`.
+- **Generated API types.** ASP.NET Core already describes your endpoints as an OpenAPI document. In development, Nite will turn it into TypeScript types and a typed `fetch` wrapper, and refresh them on every C# hot reload, so renaming a property on a C# record shows up as a type error in the TypeScript that uses it. The same will cover [client config](guides/environment.md#values-from-the-running-server) when it returns a named type.
+- **A stable API.** From 1.0, Nite follows semantic versioning for its whole public surface, not only `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json`.
 
 ## Not planned
 
 These come up, and the answer is no for now, for these reasons:
 
-- **Platform-specific optional dependencies.** nite already fetches the right esbuild and Dart Sass binaries for each platform. Most other packages that need this are native Node addons, which cannot run in a browser. If a browser package you need depends on it, open an issue with its name.
-- **Built-in type checking.** It needs Node, or a JavaScript interpreter that would make every save slow. Run `tsc --noEmit` in your editor and CI; the generated API types in 1.0 add the checking nite can do best.
+- **Platform-specific optional dependencies.** Nite already fetches the right esbuild and Dart Sass binaries for each platform. Most other packages that need this are native Node addons, which cannot run in a browser. If a browser package you need depends on it, open an issue with its name.
+- **Built-in type checking.** It needs Node, or a JavaScript interpreter that would make every save slow. Run `tsc --noEmit` in your editor and CI; the generated API types in 1.0 add the checking Nite can do best.
 - **Server-side rendering, and Vue, Svelte or other Vite plugins.** See [Limits and non-goals](limits.md#non-goals).
-- **A security-headers package.** Headers like a Content Security Policy are your application's policy, and a library default is one nobody revisits. nite gives you the hooks (`NiteOptions.CspNonce`), and [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) shows a complete, strict setup to copy.
+- **A security-headers package.** Headers like a Content Security Policy are your application's policy, and a library default is one nobody revisits. Nite gives you the hooks (`NiteOptions.CspNonce`), and [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) shows a complete, strict setup to copy.

@@ -23,7 +23,7 @@ description: The MSBuild targets the Nite package adds to a project, and the pro
 |---|---|---|
 | `NiteBuildEnabled` | `true` when `Configuration` is `Release`, otherwise empty | Whether builds run `nite build`. Set `false` to skip it (a separate CI step builds the client, say), or `true` to build the client in Debug too. |
 | `NiteCommand` | `nite`, or `"dotnet" "$(NiteCliPath)"` when `NiteCliPath` is set | The command that runs the CLI. Use `dotnet tool run nite` for a [local tool](https://learn.microsoft.com/dotnet/core/tools/local-tools-how-to-use). |
-| `NiteCliPath` | empty | Path to `Nite.Cli.dll`, for projects that build against a nite source checkout (`nite init --nite-source` sets it). |
+| `NiteCliPath` | empty | Path to `Nite.Cli.dll`, for projects that build against a Nite source checkout (`nite init --nite-source` sets it). |
 | `NiteClientRoot` | `Client` | The client folder kept out of the build output. Set it when `clientRoot` in `nite.json` is something else. |
 | `NiteDotnet` | `$(DOTNET_HOST_PATH)`, or `dotnet` | The `dotnet` executable used with `NiteCliPath`. |
 

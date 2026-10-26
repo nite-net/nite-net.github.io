@@ -173,9 +173,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@ui";
 ```
 
-nite follows `extends` (relative files) and Vite's `references` layout, where paths usually live in `tsconfig.app.json`. Aliases can point at code, stylesheets and assets alike. A `baseUrl` also makes a non-relative import resolve against it when a matching file exists there (`import "lib/utils"` finds `Client/lib/utils.ts` with `"baseUrl": "."`), as in TypeScript.
+Nite follows `extends` (relative files) and Vite's `references` layout, where paths usually live in `tsconfig.app.json`. Aliases can point at code, stylesheets and assets alike. A `baseUrl` also makes a non-relative import resolve against it when a matching file exists there (`import "lib/utils"` finds `Client/lib/utils.ts` with `"baseUrl": "."`), as in TypeScript.
 
 Editing a tsconfig while the app runs recompiles everything and reloads the page, since any import could now resolve differently.
 
 > [!TIP]
-> Vite projects sometimes define aliases in `vite.config` (`resolve.alias`) instead. nite reads only tsconfig, which your editor needs anyway; move them there. The importer warns when it sees this.
+> Vite projects sometimes define aliases in `vite.config` (`resolve.alias`) instead. Nite reads only tsconfig, which your editor needs anyway; move them there. The importer warns when it sees this.

@@ -37,11 +37,11 @@
     "keepFileLink": false,
     "disableGitFeatures": false,
     "globalMetadata": {
-      "_appName": "nite",
-      "_appTitle": "nite",
+      "_appName": "Nite",
+      "_appTitle": "Nite",
       "_appLogoPath": "images/icon-64.png",
       "_appFaviconPath": "images/favicon-32.png",
-      "_appFooter": "nite is licensed under the <a href=\"https://github.com/nite-net/nite/blob/main/LICENSE\">Apache License 2.0</a>. Built with <a href=\"https://dotnet.github.io/docfx/\">DocFX</a>.",
+      "_appFooter": "Nite is licensed under the <a href=\"https://github.com/nite-net/nite/blob/main/LICENSE\">Apache License 2.0</a>. Built with <a href=\"https://dotnet.github.io/docfx/\">DocFX</a>.",
       "_enableSearch": true,
       "_disableContribution": false,
       "_gitContribute": {

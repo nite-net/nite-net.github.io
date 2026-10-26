@@ -1,11 +1,11 @@
 ---
 title: TypeScript and JSX
-description: How nite compiles TypeScript and JSX, how to set up tsconfig and type declarations, and how to type-check in CI.
+description: How Nite compiles TypeScript and JSX, how to set up tsconfig and type declarations, and how to type-check in CI.
 ---
 
 # TypeScript and JSX
 
-<p class="lead">nite compiles <code>.ts</code>, <code>.tsx</code>, <code>.jsx</code> and <code>.js</code> with esbuild. Types are stripped, not checked: your editor checks as you type, and <code>tsc --noEmit</code> checks in CI. This is the same model as Vite.</p>
+<p class="lead">Nite compiles <code>.ts</code>, <code>.tsx</code>, <code>.jsx</code> and <code>.js</code> with esbuild. Types are stripped, not checked: your editor checks as you type, and <code>tsc --noEmit</code> checks in CI. This is the same model as Vite.</p>
 
 ## What gets compiled
 
@@ -29,11 +29,11 @@ JSX uses the **automatic runtime** (`react/jsx-runtime`), so components do not n
 { "jsxImportSource": "preact" }
 ```
 
-In development nite uses the dev runtime (`react/jsx-dev-runtime`), which adds component stacks and source locations to React's warnings.
+In development Nite uses the dev runtime (`react/jsx-dev-runtime`), which adds component stacks and source locations to React's warnings.
 
 ## tsconfig.json
 
-The tsconfig in the client root is for your editor and for `tsc`. nite uses `compilerOptions.paths` and `baseUrl` from it (see [path aliases](environment.md#path-aliases)); how code is compiled (JSX runtime, target) is set in `nite.json`, not here. The template's config is a good starting point:
+The tsconfig in the client root is for your editor and for `tsc`. Nite uses `compilerOptions.paths` and `baseUrl` from it (see [path aliases](environment.md#path-aliases)); how code is compiled (JSX runtime, target) is set in `nite.json`, not here. The template's config is a good starting point:
 
 ```json
 {
@@ -58,11 +58,11 @@ The tsconfig in the client root is for your editor and for `tsc`. nite uses `com
 Two settings matter more than they look:
 
 - **`isolatedModules: true`** makes the editor flag code that a per-file compiler like esbuild cannot handle, such as re-exporting a type without `export type`.
-- **`moduleResolution: "Bundler"`** matches how nite resolves imports: package `exports`, extensionless relative imports and `index` files.
+- **`moduleResolution: "Bundler"`** matches how Nite resolves imports: package `exports`, extensionless relative imports and `index` files.
 
-nite follows `extends` and Vite's `references` layout, so a `tsconfig.json` that references `tsconfig.app.json` works.
+Nite follows `extends` and Vite's `references` layout, so a `tsconfig.json` that references `tsconfig.app.json` works.
 
-## Declarations for what nite provides
+## Declarations for what Nite provides
 
 TypeScript does not know about `import.meta.env`, stylesheet imports or asset URLs until you declare them. Add `Client/nite-env.d.ts` (imported projects get one automatically):
 
@@ -107,13 +107,13 @@ interface ImportMetaEnv {
 
 ## Type checking
 
-Install TypeScript as a dev dependency and run its compiler from `node_modules`. nite does not run it for you, the same as Vite.
+Install TypeScript as a dev dependency and run its compiler from `node_modules`. Nite does not run it for you, the same as Vite.
 
 ```bash
 nite add -D typescript
 ```
 
-`tsc` itself is JavaScript, so it needs a JavaScript runtime to run. On a developer machine your editor already runs it. In CI, GitHub's hosted runners (and most others) have Node preinstalled; run the compiler nite installed:
+`tsc` itself is JavaScript, so it needs a JavaScript runtime to run. On a developer machine your editor already runs it. In CI, GitHub's hosted runners (and most others) have Node preinstalled; run the compiler Nite installed:
 
 ```yaml
 # .github/workflows/ci.yml (excerpt)
@@ -121,7 +121,7 @@ nite add -D typescript
 - run: node node_modules/typescript/bin/tsc --noEmit -p Client
 ```
 
-nite does not create `node_modules/.bin` links, so call the package's script directly rather than through `npx` (which would download TypeScript again).
+Nite does not create `node_modules/.bin` links, so call the package's script directly rather than through `npx` (which would download TypeScript again).
 
 ## Targets
 

@@ -15,7 +15,7 @@ description: Put interactive React components into server-rendered Razor Pages a
 
 Starting fresh, `nite init my-site --template islands` creates all of this. To add islands to an existing Razor Pages or MVC app:
 
-**1. Register nite** in `Program.cs`:
+**1. Register Nite** in `Program.cs`:
 
 ```csharp
 builder.Services.AddRazorPages();
@@ -132,7 +132,7 @@ Content inside the tag is rendered by the server and shown until the island moun
 </island>
 ```
 
-Use it as a loading state, or as real content for crawlers and users without JavaScript. Islands render on the client only; nite does not server-render React.
+Use it as a loading state, or as real content for crawlers and users without JavaScript. Islands render on the client only; Nite does not server-render React.
 
 ## Other options
 
@@ -184,7 +184,7 @@ For a script that should run on a page without being a component (analytics, a p
 <nite-module src="pages/checkout.ts" />
 ```
 
-`src` is relative to the client root. List the module in `entries` in `nite.json` so the production build includes it; in development nite logs a warning when you forget.
+`src` is relative to the client root. List the module in `entries` in `nite.json` so the production build includes it; in development Nite logs a warning when you forget.
 
 ```json
 { "entries": ["pages/checkout.ts"] }

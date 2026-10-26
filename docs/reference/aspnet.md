@@ -1,11 +1,11 @@
 ---
 title: ASP.NET Core integration
-description: AddNite, NiteOptions, UseNite, MapNiteSpa and INiteAssets, the parts of nite your Program.cs uses.
+description: AddNite, NiteOptions, UseNite, MapNiteSpa and INiteAssets, the parts of Nite your Program.cs uses.
 ---
 
 # ASP.NET Core integration
 
-<p class="lead">Three extension methods connect nite to an app: <code>AddNite</code> registers services, <code>UseNite</code> mounts the dev server, and <code>MapNiteSpa</code> serves an HTML entry. All are in the <code>Nite</code> namespace.</p>
+<p class="lead">Three extension methods connect Nite to an app: <code>AddNite</code> registers services, <code>UseNite</code> mounts the dev server, and <code>MapNiteSpa</code> serves an HTML entry. All are in the <code>Nite</code> namespace.</p>
 
 ```csharp
 using Nite;
@@ -37,7 +37,7 @@ Registers the dev server, the production asset reader and <xref:Nite.Assets.INit
 | `ProjectDirectory` | `string?` | the content root | The folder holding `nite.json`, when it is not the content root. |
 | `ClientConfig` | `Func<HttpContext, object?>?` | none | Values for client code, worked out per request and read with `import { config } from "nite:config"`. See [Values from the running server](../guides/environment.md#values-from-the-running-server). |
 | `ClientConfigAsync` | `Func<HttpContext, Task<object?>>?` | none | The same, for an async callback. Set one or the other. |
-| `CspNonce` | `Func<HttpContext, string?>?` | none | The request's Content Security Policy nonce, which nite puts on every script and style it writes into a page. See [Content Security Policy](#content-security-policy). |
+| `CspNonce` | `Func<HttpContext, string?>?` | none | The request's Content Security Policy nonce, which Nite puts on every script and style it writes into a page. See [Content Security Policy](#content-security-policy). |
 
 ```csharp
 builder.Services.AddNite(options =>
@@ -71,7 +71,7 @@ Serves an HTML entry from the client root for `/` and, as a fallback, for any ot
 | `apiPrefix` | Requests under this path never fall back: a mistyped API call gets a 404 instead of a page of HTML. `null` disables the check. |
 | `path` | Serve the page only under this path: `"/login"` answers `/login` and `/login/…`. Map several apps this way, plus one without a path for everything else; the more specific path wins. See [More than one page](../guides/single-page-apps.md#more-than-one-page). |
 
-In development the page is read from source on every request, with nite's head (import map, dev client, Fast Refresh runtime) injected. In production it is the built copy from `wwwroot/_nite`, with the request's path base added to its URLs. When `NiteOptions.ClientConfig` is set, its values are added at the top of `<head>`. Pages are sent with `Cache-Control: no-cache`, or `private, no-store` when they carry client config, which may differ per user and should not outlive the visit in the browser's cache either.
+In development the page is read from source on every request, with Nite's head (import map, dev client, Fast Refresh runtime) injected. In production it is the built copy from `wwwroot/_nite`, with the request's path base added to its URLs. When `NiteOptions.ClientConfig` is set, its values are added at the top of `<head>`. Pages are sent with `Cache-Control: no-cache`, or `private, no-store` when they carry client config, which may differ per user and should not outlive the visit in the browser's cache either.
 
 It returns the fallback endpoint's convention builder, so endpoint conventions apply:
 
@@ -98,7 +98,7 @@ app.MapGet("/admin/{**path}", async (HttpContext context, INiteAssets assets) =>
     Results.Content(await assets.GetHtmlAsync("admin.html", context), "text/html"));
 ```
 
-Render nite's head in a layout that is not a Razor view:
+Render Nite's head in a layout that is not a Razor view:
 
 ```csharp
 var head = await assets.GetHeadAsync(context);
@@ -109,7 +109,7 @@ html.Append(head.ToHtml());
 
 ## Content Security Policy
 
-A strict policy allows only scripts that carry a nonce, a random value that changes on every request, so a script injected into the page does not run. nite writes inline scripts and styles of its own (the import map, client config, and in development the dev client, CSS imported from modules and the error overlay), so tell it the request's nonce:
+A strict policy allows only scripts that carry a nonce, a random value that changes on every request, so a script injected into the page does not run. Nite writes inline scripts and styles of its own (the import map, client config, and in development the dev client, CSS imported from modules and the error overlay), so tell it the request's nonce:
 
 ```csharp
 builder.Services.AddNite(options => options.CspNonce = context => context.Items["csp-nonce"] as string);
@@ -126,11 +126,11 @@ app.Use(async (context, next) =>
 app.UseNite();
 ```
 
-Pages from `MapNiteSpa` and `<nite-head />` then get the nonce on every `<script>`, and the styles the dev server injects copy it from the page, so the same policy works in development and production with no `'unsafe-inline'`. Register the middleware before `UseNite()` and your endpoints, so the nonce exists when nite writes a page. [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) does this along with the other usual security headers.
+Pages from `MapNiteSpa` and `<nite-head />` then get the nonce on every `<script>`, and the styles the dev server injects copy it from the page, so the same policy works in development and production with no `'unsafe-inline'`. Register the middleware before `UseNite()` and your endpoints, so the nonce exists when Nite writes a page. [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) does this along with the other usual security headers.
 
 ## The C# hot reload event
 
-nite registers a `MetadataUpdateHandler` in its assembly. When `dotnet watch` (or an IDE) applies a hot reload to the running app in development, connected pages receive a `nite:server-update` event. There is nothing to configure. See [Hot reload](../guides/hot-reload.md#c-changes).
+Nite registers a `MetadataUpdateHandler` in its assembly. When `dotnet watch` (or an IDE) applies a hot reload to the running app in development, connected pages receive a `nite:server-update` event. There is nothing to configure. See [Hot reload](../guides/hot-reload.md#c-changes).
 
 ## Middleware order
 

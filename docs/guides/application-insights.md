@@ -1,11 +1,11 @@
 ---
 title: Application Insights in the browser
-description: Send page views, errors, events and fetch calls from a nite app to Application Insights, configured per environment and correlated with the server.
+description: Send page views, errors, events and fetch calls from a Nite app to Application Insights, configured per environment and correlated with the server.
 ---
 
 # Application Insights in the browser
 
-<p class="lead">The Application Insights JavaScript SDK works in a nite app like any other package. Nite adds three things: the connection string comes from the running server, so one build serves every environment; the SDK loads as its own chunk, after the page; and the browser's telemetry joins the trace of the request that served the page.</p>
+<p class="lead">The Application Insights JavaScript SDK works in a Nite app like any other package. Nite adds three things: the connection string comes from the running server, so one build serves every environment; the SDK loads as its own chunk, after the page; and the browser's telemetry joins the trace of the request that served the page.</p>
 
 [`samples/Nite.Aspire`](https://github.com/nite-net/nite/tree/main/samples/Nite.Aspire) does everything on this page, for both its services and the browser.
 
@@ -97,4 +97,4 @@ Production builds write source maps next to the bundles (`wwwroot/_nite/*.js.map
 
 ## In development
 
-Nite's own [telemetry](observability.md) also reaches Application Insights while you develop, if a connection string is set: dev server startup, compiles and `/_nite` requests. That is useful when debugging nite itself and noise otherwise; set the connection string only in deployed environments (the Aspire sample only adds it when one is configured), or use the Aspire dashboard locally.
+Nite's own [telemetry](observability.md) also reaches Application Insights while you develop, if a connection string is set: dev server startup, compiles and `/_nite` requests. That is useful when debugging Nite itself and noise otherwise; set the connection string only in deployed environments (the Aspire sample only adds it when one is configured), or use the Aspire dashboard locally.
