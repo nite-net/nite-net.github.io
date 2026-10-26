@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "_site"
 
 # Read on their own when needed, not part of llms-full.txt.
-OPTIONAL = {"docs/contributing.md"}
+OPTIONAL = {"docs/contributing.md", "docs/code-signing.md", "docs/privacy.md"}
 
 SUMMARY = (
     "Nite is TypeScript and React for ASP.NET Core with a Vite-style dev loop and no Node.js "

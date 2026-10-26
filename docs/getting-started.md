@@ -19,6 +19,8 @@ You do **not** need Node.js, npm, or any global JavaScript tooling.
 
 Nite is three packages on nuget.org: **`Nite`**, the library your web project references; **`Nite.Cli`**, the `nite` command-line tool; and **`Nite.Templates`**, optional `dotnet new` templates.
 
+How release binaries are signed, and who approves it, is in the [Code signing policy](code-signing.md).
+
 # [NuGet (recommended)](#tab/nuget)
 
 ```bash
