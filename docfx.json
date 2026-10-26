@@ -23,7 +23,7 @@
     "content": [
       {
         "files": ["**/*.{md,yml}"],
-        "exclude": ["_site/**", "obj/**", "nite-src/**", "README.md", ".github/**"]
+        "exclude": ["_site/**", "obj/**", "nite-src/**", "README.md", "CLAUDE.md", ".github/**"]
       }
     ],
     "resource": [
