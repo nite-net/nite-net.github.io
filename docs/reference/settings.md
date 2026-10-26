@@ -1,6 +1,6 @@
 ---
 title: Settings and directories
-description: Where Nite keeps per-user configuration and cache files, the settings it reads, and the order they apply in.
+description: Where NiteFx keeps per-user configuration and cache files, the settings it reads, and the order they apply in.
 ---
 
 # Settings and directories
@@ -27,7 +27,7 @@ The cache holds:
 | `esbuild/` | The esbuild binary, per version and platform |
 | `sass/` | The Dart Sass binary, per version and platform |
 
-Everything in it can be deleted at any time (`nite cache clean`); it is downloaded again on demand. `nite cache clean` also removes the download folders earlier Nite builds used (`~/.local/share/nite/tarballs` and `esbuild` on Linux and macOS, the same under `%LOCALAPPDATA%\nite` on Windows).
+Everything in it can be deleted at any time (`nite cache clean`); it is downloaded again on demand. `nite cache clean` also removes the download folders earlier NiteFx builds used (`~/.local/share/nite/tarballs` and `esbuild` on Linux and macOS, the same under `%LOCALAPPDATA%\nite` on Windows).
 
 ## The user config
 
@@ -72,7 +72,7 @@ Highest first:
 | `//host/path/:_auth=` | Yes |
 | `//host/path/:username=` and `:_password=` | Yes |
 | `${VAR}` expansion in values | Yes |
-| `always-auth`, proxies, certificates, `strict-ssl` | No; Nite uses the system's proxy and certificate settings through .NET |
+| `always-auth`, proxies, certificates, `strict-ssl` | No; NiteFx uses the system's proxy and certificate settings through .NET |
 
 ## Project-level files
 

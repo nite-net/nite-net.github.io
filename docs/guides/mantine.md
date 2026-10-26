@@ -1,11 +1,11 @@
 ---
 title: Mantine
-description: Use the Mantine React component library in a Nite project, with postcss-preset-mantine, CSS modules and optional Sass, following Mantine's Vite guide.
+description: Use the Mantine React component library in a NiteFx project, with postcss-preset-mantine, CSS modules and optional Sass, following Mantine's Vite guide.
 ---
 
 # Mantine
 
-<p class="lead"><a href="https://mantine.dev">Mantine</a> works in Nite the way its Vite guide sets it up: its stylesheet imported from code, <code>postcss-preset-mantine</code> for your own CSS modules, and optionally Sass with Mantine's helpers.</p>
+<p class="lead"><a href="https://mantine.dev">Mantine</a> works in NiteFx the way its Vite guide sets it up: its stylesheet imported from code, <code>postcss-preset-mantine</code> for your own CSS modules, and optionally Sass with Mantine's helpers.</p>
 
 ## Install
 
@@ -124,7 +124,7 @@ $mantine-breakpoint-md: "62em";
 }
 ```
 
-Then share it with every Sass file. Where Vite's config builds an absolute path, Nite only needs the name, because the client root is a Sass load path:
+Then share it with every Sass file. Where Vite's config builds an absolute path, NiteFx only needs the name, because the client root is a Sass load path:
 
 ```json
 {
@@ -159,6 +159,6 @@ PostCSS still runs after Sass, so `light-dark()` and the other preset functions 
 
 ## Notes
 
-- Mantine's own stylesheets (`@mantine/core/styles.css`) are already built, so Nite does not run PostCSS over them. That keeps startup fast; the result is identical.
+- Mantine's own stylesheets (`@mantine/core/styles.css`) are already built, so NiteFx does not run PostCSS over them. That keeps startup fast; the result is identical.
 - `@mantine/core/styles.layer.css` (the cascade-layer variant) works the same way.
 - Hot updates work for all of it: CSS modules refresh their components with state kept, and editing `_mantine.scss` or `postcss.config.cjs` updates every stylesheet that used it.

@@ -1,11 +1,11 @@
 ---
 title: Contributing
-description: Build Nite from source, run its tests, and contribute to Nite or to this documentation.
+description: Build NiteFx from source, run its tests, and contribute to NiteFx or to this documentation.
 ---
 
 # Contributing
 
-<p class="lead">Nite is developed on GitHub at <a href="https://github.com/nite-net/nite">nite-net/nite</a>. Bug reports, documentation fixes and pull requests are welcome.</p>
+<p class="lead">NiteFx is developed on GitHub at <a href="https://github.com/nite-net/nite">nite-net/nite</a>. Bug reports, documentation fixes and pull requests are welcome.</p>
 
 ## Building from source
 
@@ -29,7 +29,7 @@ samples/Nite.Sample  Razor Pages with React islands
 tests/Nite.Tests     unit and integration tests
 ```
 
-Run the CLI from source with `dotnet run --project src/Nite.Cli -- <command>`, and point a test project at your checkout with `nite init my-app --nite-source <path-to-nite>` (see [Getting started](getting-started.md#install-nite)).
+Run the CLI from source with `dotnet run --project src/Nite.Cli -- <command>`, and point a test project at your checkout with `nite init my-app --nite-source <path-to-nite>` (see [Getting started](getting-started.md#install-nitefx)).
 
 ## Tests
 
@@ -66,7 +66,7 @@ The tag's build packs that version and pushes the three packages to nuget.org wi
 Publishing needs two things set up once:
 
 - A trusted publishing policy on nuget.org (**Account settings > Trusted Publishing**), created by the account that owns the `Nite`, `Nite.Cli` and `Nite.Templates` packages: repository owner `nite-net`, repository `nite`, workflow file `ci.yml`, environment `nuget`.
-- A `NUGET_USER` secret in the Nite repository holding that account's nuget.org profile name (not its email address).
+- A `NUGET_USER` secret in the NiteFx repository holding that account's nuget.org profile name (not its email address).
 
 Re-running a release that half-failed is safe: packages already on nuget.org are skipped. A tag that is not a version (`v1`, `vnext`) fails the build before anything is packed.
 
@@ -87,8 +87,8 @@ cd nite-net.github.io
 ./build.sh serve           # builds the API reference from a nite checkout, then serves the site
 ```
 
-Pages are Markdown with [DocFX extensions](https://dotnet.github.io/docfx/docs/markdown.html) (alerts such as `> [!NOTE]`, tabs, cross-references to API types with `<xref:Nite.NiteOptions>`). The API reference is generated from the XML documentation comments in the Nite source, so improving a `/// <summary>` improves the docs too.
+Pages are Markdown with [DocFX extensions](https://dotnet.github.io/docfx/docs/markdown.html) (alerts such as `> [!NOTE]`, tabs, cross-references to API types with `<xref:Nite.NiteOptions>`). The API reference is generated from the XML documentation comments in the NiteFx source, so improving a `/// <summary>` improves the docs too.
 
 ## License
 
-Nite is licensed under the [Apache License 2.0](https://github.com/nite-net/nite/blob/main/LICENSE). By contributing, you agree that your contributions are licensed under it too.
+NiteFx is licensed under the [Apache License 2.0](https://github.com/nite-net/nite/blob/main/LICENSE). By contributing, you agree that your contributions are licensed under it too.

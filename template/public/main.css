@@ -1,4 +1,4 @@
-/* Nite documentation theme, layered on DocFX's modern template (Bootstrap 5).
+/* NiteFx documentation theme, layered on DocFX's modern template (Bootstrap 5).
    Colors come from the logo: navy #171f2a, cyan #6cdfed, deep blue #2f81ad. */
 
 :root {
@@ -353,4 +353,17 @@ body[data-layout="landing"] .nite-callout {
 
 .nite-split pre {
   font-size: 0.85rem;
+}
+
+/* The NuGet logo for the header link (main.js), in the text color like the other header icons:
+   Bootstrap Icons has no NuGet glyph. nuget.svg is from NuGet/Media, CC BY 2.0. */
+.bi-nuget::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: url("nuget.svg") center / contain no-repeat;
+  mask: url("nuget.svg") center / contain no-repeat;
 }

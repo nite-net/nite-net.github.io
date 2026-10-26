@@ -1,15 +1,15 @@
 ---
 layout: landing
-title: "Nite: TypeScript and React for ASP.NET Core, no Node.js"
+title: "NiteFx: TypeScript and React for ASP.NET Core, no Node.js"
 ---
 
 <div class="nite-hero">
-  <img class="nite-logo" src="images/logo-transparent.png" alt="Nite">
+  <img class="nite-logo" src="images/logo-transparent.png" alt="NiteFx">
   <h1>TypeScript and React for ASP.NET Core, with a Vite-style dev loop and no Node.js toolchain</h1>
   <p>Build the frontend and the backend in one project, one process, one <code>dotnet watch</code>. Components update in place with their state intact; C# changes re-fetch without a reload; <code>dotnet publish</code> ships hashed, code-split bundles.</p>
   <div class="nite-actions">
     <a class="nite-button primary" href="docs/getting-started.md">Get started</a>
-    <a class="nite-button secondary" href="docs/introduction.md">Why Nite?</a>
+    <a class="nite-button secondary" href="docs/introduction.md">Why NiteFx?</a>
     <a class="nite-button secondary" href="https://github.com/nite-net/nite">GitHub</a>
   </div>
   <div class="nite-terminal">
@@ -23,7 +23,7 @@ title: "Nite: TypeScript and React for ASP.NET Core, no Node.js"
 
 <div class="nite-section">
   <h2>One project. One process. No <code>node_modules</code> rituals.</h2>
-  <p class="nite-sub">Nite does in .NET what Vite does in Node: it compiles your client code on request, serves dependencies through an import map, and pushes hot updates over a WebSocket. esbuild does the compiling; Nite does everything around it.</p>
+  <p class="nite-sub">NiteFx does in .NET what Vite does in Node: it compiles your client code on request, serves dependencies through an import map, and pushes hot updates over a WebSocket. esbuild does the compiling; NiteFx does everything around it.</p>
   <div class="nite-grid">
     <div class="nite-card">
       <h3>React Fast Refresh</h3>
@@ -109,7 +109,7 @@ export function App() {
 
 <div class="nite-section">
   <h2>Already have a Vite app?</h2>
-  <p class="nite-sub">Bring it across in one command. Nite reads your lockfile (npm, Yarn, pnpm or Bun) and keeps the exact versions you run today.</p>
+  <p class="nite-sub">Bring it across in one command. NiteFx reads your lockfile (npm, Yarn, pnpm or Bun) and keeps the exact versions you run today.</p>
   <div class="nite-grid">
     <div class="nite-card">
       <h3>Import</h3>
@@ -124,12 +124,12 @@ export function App() {
     <div class="nite-card">
       <h3>Understand it</h3>
       <p>No magic: a long-lived esbuild service, an import map, a module graph and a WebSocket. Read how the pieces fit before you bet a project on it.</p>
-      <a class="nite-more" href="docs/concepts/architecture.md">How Nite works →</a>
+      <a class="nite-more" href="docs/concepts/architecture.md">How NiteFx works →</a>
     </div>
   </div>
 </div>
 
 <div class="nite-callout">
   <h3>Status</h3>
-  <p>Nite is young (version 0.8), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
+  <p>NiteFx is young (version 0.8), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
 </div>

@@ -15,23 +15,23 @@ import re
 import sys
 from pathlib import Path
 
-BASE = "https://nite-net.github.io/"
+BASE = "https://nitefx.dev/"
 ROOT = Path(__file__).resolve().parent.parent
 SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "_site"
 
 # Read on their own when needed, not part of llms-full.txt.
-OPTIONAL = {"docs/contributing.md"}
+OPTIONAL = {"docs/contributing.md", "docs/code-signing.md", "docs/privacy.md"}
 
 SUMMARY = (
-    "Nite is TypeScript and React for ASP.NET Core with a Vite-style dev loop and no Node.js "
+    "NiteFx is TypeScript and React for ASP.NET Core with a Vite-style dev loop and no Node.js "
     "toolchain. It compiles client code on request with esbuild, keeps component state across "
     "hot updates, installs npm packages with its own C# client, and ships hashed, code-split "
     "bundles from `dotnet publish`. It needs the .NET SDK and nothing else."
 )
 
 AGENT_NOTES = """\
-Nite looks like Vite but is not Vite, and habits from Vite and Node projects produce code that
-does not work. In a Nite project:
+NiteFx looks like Vite but is not Vite, and habits from Vite and Node projects produce code that
+does not work. In a NiteFx project:
 
 - There is no `package.json`, `node`, `npm`, `npx` or `vite.config.*`. Do not create them.
   Packages are listed in `nite.json` and locked in `nite.lock.json`.
@@ -47,9 +47,11 @@ does not work. In a Nite project:
   other prefixes (projects imported from Vite keep `VITE_`). Per-request values from the server
   come from `NiteOptions.ClientConfig` and `import { config } from "nite:config"`.
 - Not supported: `import.meta.glob`, Vite import suffixes (`?raw`, `?url`, `?worker`), Vite,
-  Rollup and Babel plugins, and server-side rendering. Nite strips types without checking them;
+  Rollup and Babel plugins, and server-side rendering. NiteFx strips types without checking them;
   run `tsc --noEmit` for type errors.
-- The name is Nite, pronounced "night". The `nite` command and file names are lowercase."""
+- The project is NiteFx (Nite Framework). Its NuGet packages (`Nite`, `Nite.Cli`, `Nite.Templates`),
+  its C# namespace (`Nite`), the `nite` command and its files (`nite.json`, `/_nite`) keep the
+  short name."""
 
 
 def parse_toc(path):
@@ -155,9 +157,9 @@ def main():
 
     if (SITE / "api" / "index.html").exists():
         sections.setdefault("Optional", []).append(
-            f"- [API reference]({BASE}api/index.html): every public type and member of the Nite library, generated from its XML documentation comments")
+            f"- [API reference]({BASE}api/index.html): every public type and member of the NiteFx library (the `Nite` package), generated from its XML documentation comments")
 
-    header = f"# Nite\n\n> {SUMMARY}\n\n## Notes for AI coding agents\n\n{AGENT_NOTES}\n"
+    header = f"# NiteFx\n\n> {SUMMARY}\n\n## Notes for AI coding agents\n\n{AGENT_NOTES}\n"
     order = [name for name in sections if name != "Optional"] + (["Optional"] if "Optional" in sections else [])
     index = header + (
         f"\nEvery page below is plain Markdown. All of them except the optional ones are also in one "

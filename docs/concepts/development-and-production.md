@@ -1,6 +1,6 @@
 ---
 title: Development and production
-description: How Nite behaves in each mode, how it decides which one it is in, and what changes between them.
+description: How NiteFx behaves in each mode, how it decides which one it is in, and what changes between them.
 ---
 
 # Development and production

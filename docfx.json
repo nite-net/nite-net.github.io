@@ -37,11 +37,11 @@
     "keepFileLink": false,
     "disableGitFeatures": false,
     "globalMetadata": {
-      "_appName": "Nite",
-      "_appTitle": "Nite",
+      "_appName": "NiteFx",
+      "_appTitle": "NiteFx",
       "_appLogoPath": "images/icon-64.png",
       "_appFaviconPath": "images/favicon-32.png",
-      "_appFooter": "Nite is licensed under the <a href=\"https://github.com/nite-net/nite/blob/main/LICENSE\">Apache License 2.0</a>. Built with <a href=\"https://dotnet.github.io/docfx/\">DocFX</a>.",
+      "_appFooter": "NiteFx is licensed under the <a href=\"https://github.com/nite-net/nite/blob/main/LICENSE\">Apache License 2.0</a>. Built with <a href=\"https://dotnet.github.io/docfx/\">DocFX</a>. <a href=\"/docs/code-signing.html\">Code signing policy</a> · <a href=\"/docs/privacy.html\">Privacy policy</a>",
       "_enableSearch": true,
       "_disableContribution": false,
       "_gitContribute": {
@@ -53,7 +53,7 @@
       "og:image": "images/social-card.png"
     },
     "sitemap": {
-      "baseUrl": "https://nite-net.github.io/",
+      "baseUrl": "https://nitefx.dev/",
       "changefreq": "weekly",
       "priority": 0.5
     }

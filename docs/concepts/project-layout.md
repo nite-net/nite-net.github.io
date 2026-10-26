@@ -1,11 +1,11 @@
 ---
 title: Project layout
-description: The files and folders in a Nite project, what each one is for, and which ones belong in source control.
+description: The files and folders in a NiteFx project, what each one is for, and which ones belong in source control.
 ---
 
 # Project layout
 
-<p class="lead">A Nite project is an ordinary ASP.NET Core project with a client folder and a <code>nite.json</code> next to the project file.</p>
+<p class="lead">A NiteFx project is an ordinary ASP.NET Core project with a client folder and a <code>nite.json</code> next to the project file.</p>
 
 ## A single-page app
 
@@ -53,11 +53,11 @@ Both models can live in one project: an `index.html` in the client root and an i
 
 ## The client root
 
-Everything Nite compiles lives under the client root, `Client` by default. In development its files are served under `/_nite/src/`, so `Client/App.tsx` is `/_nite/src/App.tsx`. Nothing outside the client root is served by the dev server, with two exceptions: packages from `node_modules` (pre-bundled under `/_nite/deps/`, or as files under `/_nite/npm/`) and the dev runtime itself.
+Everything NiteFx compiles lives under the client root, `Client` by default. In development its files are served under `/_nite/src/`, so `Client/App.tsx` is `/_nite/src/App.tsx`. Nothing outside the client root is served by the dev server, with two exceptions: packages from `node_modules` (pre-bundled under `/_nite/deps/`, or as files under `/_nite/npm/`) and the dev runtime itself.
 
 Change it with `"clientRoot"` in `nite.json`. Islands are looked up in `"islands"` relative to the client root.
 
-## Files Nite reads
+## Files NiteFx reads
 
 | File | Read by | Purpose |
 |---|---|---|
@@ -69,7 +69,7 @@ Change it with `"clientRoot"` in `nite.json`. Islands are looked up in `"islands
 | `.npmrc` (project and user) | Installer | Registries and credentials. [Guide](../guides/private-registries.md). |
 | `.gitignore` | Tailwind scanner | Folders to skip when looking for class names. |
 
-## Files Nite writes
+## Files NiteFx writes
 
 | Path | Contents | In git? |
 |---|---|---|

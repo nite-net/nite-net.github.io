@@ -4,7 +4,12 @@ export default {
     {
       icon: "github",
       href: "https://github.com/nite-net/nite",
-      title: "Nite on GitHub",
+      title: "NiteFx on GitHub",
+    },
+    {
+      icon: "nuget",
+      href: "https://www.nuget.org/packages/Nite",
+      title: "NiteFx on NuGet",
     },
   ],
 };

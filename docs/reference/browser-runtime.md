@@ -1,11 +1,11 @@
 ---
 title: Browser runtime
-description: The client-side pieces Nite adds to pages, the events they raise and the contracts they expect.
+description: The client-side pieces NiteFx adds to pages, the events they raise and the contracts they expect.
 ---
 
 # Browser runtime
 
-<p class="lead">Nite adds a little JavaScript to your pages: the island loader in development and production, and the dev client and Fast Refresh runtime in development only.</p>
+<p class="lead">NiteFx adds a little JavaScript to your pages: the island loader in development and production, and the dev client and Fast Refresh runtime in development only.</p>
 
 ## Events
 
