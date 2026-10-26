@@ -1,11 +1,11 @@
 ---
 title: Limits and non-goals
-description: What nite deliberately does not do, and what it does not do yet.
+description: What Nite deliberately does not do, and what it does not do yet.
 ---
 
 # Limits and non-goals
 
-<p class="lead">nite is intentionally smaller than Vite. Knowing where the edges are before you start saves you finding them halfway through a project.</p>
+<p class="lead">Nite is intentionally smaller than Vite. Knowing where the edges are before you start saves you finding them halfway through a project.</p>
 
 ## Non-goals
 
@@ -13,14 +13,14 @@ description: What nite deliberately does not do, and what it does not do yet.
 
 **Server-side rendering of components.** Islands render on the client; use the fallback content inside `<island>` for what the server shows first. Meta-frameworks with their own servers (Next.js, Remix, Nuxt) are out of scope.
 
-**Type checking.** Like Vite, nite strips types without checking them, so compiling stays fast. Your editor checks as you type; run `tsc --noEmit` in CI. See [TypeScript](guides/typescript.md#type-checking).
+**Type checking.** Like Vite, Nite strips types without checking them, so compiling stays fast. Your editor checks as you type; run `tsc --noEmit` in CI. See [TypeScript](guides/typescript.md#type-checking).
 
-**Running arbitrary Node tooling.** nite does not provide a Node-compatible runtime for your scripts: linters, test runners and code generators keep running however you run them today.
+**Running arbitrary Node tooling.** Nite does not provide a Node-compatible runtime for your scripts: linters, test runners and code generators keep running however you run them today.
 
 ## Packages
 
 - **Registry packages only.** `git:`, `file:`, `link:`, `workspace:`, tarball URLs and `npm:` aliases are not supported.
-- **Install scripts never run.** Packages that compile native addons or download binaries in `postinstall` do not work. nite warns about them when it resolves them ([Install scripts](guides/packages.md#install-scripts)).
+- **Install scripts never run.** Packages that compile native addons or download binaries in `postinstall` do not work. Nite warns about them when it resolves them ([Install scripts](guides/packages.md#install-scripts)).
 - **Optional dependencies are skipped.**
 - **No `overrides` or `resolutions`.** Versions come from the ranges, the lockfile and `nite update`.
 - **No workspaces.** One `nite.json` per project.
@@ -53,4 +53,4 @@ description: What nite deliberately does not do, and what it does not do yet.
 
 ## Status
 
-nite is at version 0.7. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues).
+Nite is at version 0.8. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues). Which of these limits go away next is on the [roadmap](roadmap.md).

@@ -14,6 +14,8 @@
       href: concepts/development-and-production.md
 - name: Limits and non-goals
   href: limits.md
+- name: Roadmap
+  href: roadmap.md
 - name: Troubleshooting
   href: troubleshooting.md
 - name: Changelog

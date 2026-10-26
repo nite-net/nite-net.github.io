@@ -1,11 +1,11 @@
 ---
 title: Importing a Vite or CRA project
-description: Bring an existing Vite or Create React App frontend into a nite project, keeping the exact package versions it runs today.
+description: Bring an existing Vite or Create React App frontend into a Nite project, keeping the exact package versions it runs today.
 ---
 
 # Importing a Vite or Create React App project
 
-<p class="lead"><code>nite init --from</code> turns an existing npm, Yarn, pnpm or Bun frontend into the client half of a nite project. It keeps the package versions your lockfile pins, carries over the settings it understands, and tells you plainly about the ones it does not.</p>
+<p class="lead"><code>nite init --from</code> turns an existing npm, Yarn, pnpm or Bun frontend into the client half of a Nite project. It keeps the package versions your lockfile pins, carries over the settings it understands, and tells you plainly about the ones it does not.</p>
 
 ## Preview, then import
 
@@ -42,15 +42,15 @@ Monorepos (`workspaces`, `pnpm-workspace.yaml`) are refused; import one app at a
 - `public/` goes to `wwwroot/`, where ASP.NET Core serves static files.
 - tsconfig files, `postcss.config.*` and `tailwind.config.*` go to `Client/`.
 - `.env` files go to the project folder.
-- `vite-env.d.ts` / `react-app-env.d.ts` become `nite-env.d.ts` with declarations for what nite provides, and `"types": ["vite/client"]` is dropped from tsconfig (comments in the file survive).
+- `vite-env.d.ts` / `react-app-env.d.ts` become `nite-env.d.ts` with declarations for what Nite provides, and `"types": ["vite/client"]` is dropped from tsconfig (comments in the file survive).
 
 **Packages**
 
 - Runtime `dependencies` are imported, plus any devDependency your source actually imports (bundlers never cared which list a library was in), plus `@types/*` and `typescript`.
 - Stylesheet tools are kept as dev dependencies: PostCSS and its plugins, Sass, Less, Tailwind and its plugins.
-- Build, lint and test tooling (Vite and its plugins, Babel, ESLint, oxlint, Prettier, Jest, Vitest, Testing Library, …) is skipped: nite replaces the build, and does not run the rest. Imports from test files do not count as runtime imports.
-- `@tailwindcss/vite` and `@tailwindcss/postcss` are replaced by `tailwindcss` itself, which nite runs.
-- **Versions come from your lockfile.** nite resolves the ranges but prefers the exact versions you run today wherever they still satisfy them, so the imported app runs what it ran before.
+- Build, lint and test tooling (Vite and its plugins, Babel, ESLint, oxlint, Prettier, Jest, Vitest, Testing Library, …) is skipped: Nite replaces the build, and does not run the rest. Imports from test files do not count as runtime imports.
+- `@tailwindcss/vite` and `@tailwindcss/postcss` are replaced by `tailwindcss` itself, which Nite runs.
+- **Versions come from your lockfile.** Nite resolves the ranges but prefers the exact versions you run today wherever they still satisfy them, so the imported app runs what it ran before.
 
 **Settings**
 
@@ -65,8 +65,8 @@ The plan lists everything it could not bring along, so nothing is silently lost:
 | Warning | What to do |
 |---|---|
 | A Vite plugin other than React's and Tailwind's | Nothing replaces it; see whether you still need what it did |
-| `resolve.alias` in `vite.config` | Move aliases to tsconfig `paths`, which nite reads |
-| `base` in `vite.config` | nite serves from the site root |
+| `resolve.alias` in `vite.config` | Move aliases to tsconfig `paths`, which Nite reads |
+| `base` in `vite.config` | Nite serves from the site root |
 | `import.meta.glob`, `?raw`, `?url`, `?worker` imports | Rewrite with explicit imports, `fetch`, or `new Worker(new URL(...))` |
 | SVGs imported as React components (svgr) | Import as URLs, or inline the SVG in a component |
 | Stylus | Convert to CSS, Sass or Less |
@@ -88,7 +88,7 @@ Then:
 
 1. **Move API calls to relative URLs.** If the app called `http://localhost:5000/api/...` through a proxy, call `/api/...` and implement or proxy those endpoints in `Program.cs`.
 2. **Check environment variables.** `import.meta.env.VITE_*` keeps working; values come from the copied `.env` files.
-3. **Run your type checker** (`tsc --noEmit`) and tests with the tools you used before; nite does not replace them.
+3. **Run your type checker** (`tsc --noEmit`) and tests with the tools you used before; Nite does not replace them.
 4. **Publish** with `dotnet publish -c Release` and compare the result with your old build.
 
 ## Options
@@ -100,7 +100,7 @@ Then:
 | `--force` | Import into a folder that already has files (existing files are never overwritten) |
 | `--no-install` | Write the project without installing packages |
 | `--name <name>` | Project name (defaults to the folder name) |
-| `--nite-source <path>` | Reference a nite source checkout instead of the NuGet package |
+| `--nite-source <path>` | Reference a Nite source checkout instead of the NuGet package |
 | `--verbose` | Debug output |
 
 See [CLI reference](../reference/cli.md#nite-init).

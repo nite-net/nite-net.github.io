@@ -1,11 +1,11 @@
 ---
 title: Packages and the lockfile
-description: Add, remove and update npm packages with the nite CLI, how versions are resolved and locked, and what the installer does and does not do.
+description: Add, remove and update npm packages with the Nite CLI, how versions are resolved and locked, and what the installer does and does not do.
 ---
 
 # Packages and the lockfile
 
-<p class="lead">nite installs packages from the npm registry into an ordinary <code>node_modules</code> folder, with a small npm client written in C#. You manage them with <code>nite add</code>, <code>nite rm</code> and <code>nite update</code>; there is no <code>package.json</code>.</p>
+<p class="lead">Nite installs packages from the npm registry into an ordinary <code>node_modules</code> folder, with a small npm client written in C#. You manage them with <code>nite add</code>, <code>nite rm</code> and <code>nite update</code>; there is no <code>package.json</code>.</p>
 
 ## Dependencies live in nite.json
 
@@ -24,7 +24,7 @@ description: Add, remove and update npm packages with the nite CLI, how versions
 ```
 
 - **`dependencies`** are what your client code imports. They are bundled.
-- **`devDependencies`** are installed but never bundled: type packages for your editor, TypeScript, and stylesheet tools such as `sass-embedded`, `tailwindcss` and PostCSS plugins (nite runs those itself; see [Stylesheets](stylesheets.md)).
+- **`devDependencies`** are installed but never bundled: type packages for your editor, TypeScript, and stylesheet tools such as `sass-embedded`, `tailwindcss` and PostCSS plugins (Nite runs those itself; see [Stylesheets](stylesheets.md)).
 
 The split only matters for clarity, as with any bundler: what ends up in the bundle is what your code imports.
 
@@ -93,11 +93,11 @@ Do not edit the lockfile by hand. If it gets into a bad state (a merge conflict,
 | Optional dependencies | Skipped |
 | Install scripts (`preinstall`, `postinstall`) | **Never run**, with a warning ([below](#install-scripts)) |
 
-Not running install scripts is deliberate: it removes a common supply-chain attack path and the need for a JavaScript runtime. The cost is that packages that build native addons or download binaries in `postinstall` do not work. Packages that ship platform binaries as optional dependencies (esbuild, Sass, lightningcss) are not installed either; nite fetches the esbuild and Sass binaries it needs itself.
+Not running install scripts is deliberate: it removes a common supply-chain attack path and the need for a JavaScript runtime. The cost is that packages that build native addons or download binaries in `postinstall` do not work. Packages that ship platform binaries as optional dependencies (esbuild, Sass, lightningcss) are not installed either; Nite fetches the esbuild and Sass binaries it needs itself.
 
 ### Install scripts
 
-The registry marks every version that has a `preinstall`, `install` or `postinstall` script (or a `binding.gyp`, which implies one) with `hasInstallScript`. When nite resolves such a package, it tells you, once per package and after resolution has finished, so the messages are not buried:
+The registry marks every version that has a `preinstall`, `install` or `postinstall` script (or a `binding.gyp`, which implies one) with `hasInstallScript`. When Nite resolves such a package, it tells you, once per package and after resolution has finished, so the messages are not buried:
 
 ```text
 › Resolving 4 package(s) from https://registry.npmjs.org
@@ -111,8 +111,8 @@ A short list of well-known packages gets a specific message; scripts known to be
 | Package | Level | Why |
 |---|---|---|
 | `core-js`, `core-js-pure`, `es5-ext` | info | The script only prints a message. Nothing is missing. |
-| `esbuild` | info | The script fetches the esbuild binary. nite downloads and runs its own. |
-| `node-sass` | warning | The script builds LibSass, a native addon. nite compiles Sass with Dart Sass's native binary; replace `node-sass` with `sass`. |
+| `esbuild` | info | The script fetches the esbuild binary. Nite downloads and runs its own. |
+| `node-sass` | warning | The script builds LibSass, a native addon. Nite compiles Sass with Dart Sass's native binary; replace `node-sass` with `sass`. |
 | `bcrypt`, `better-sqlite3`, `sqlite3`, `argon2`, `canvas` | warning | Native Node.js addons, which cannot run in a browser. That work belongs in your ASP.NET Core code. |
 | Anything else | warning | If the package needs its script to download or build something, it may not work. |
 

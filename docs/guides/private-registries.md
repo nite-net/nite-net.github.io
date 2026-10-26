@@ -5,7 +5,7 @@ description: Install packages from a private npm registry, a mirror or a per-sco
 
 # Private registries
 
-<p class="lead">nite reads registries and credentials from the <code>.npmrc</code> files you already have. Scoped packages can come from their own registry, and credentials are only ever sent to the host they belong to.</p>
+<p class="lead">Nite reads registries and credentials from the <code>.npmrc</code> files you already have. Scoped packages can come from their own registry, and credentials are only ever sent to the host they belong to.</p>
 
 ## A scoped registry
 
@@ -51,7 +51,7 @@ Credentials use npm's "nerf-dart" keys: `//host/path/:` followed by the setting.
 | `//host/path/:_auth=BASE64` | Basic auth, `user:password` already base64-encoded |
 | `//host/path/:username=USER` and `//host/path/:_password=BASE64` | Basic auth, password base64-encoded |
 
-A credential is sent **only** to URLs under its host and path. A tarball served from another host (a CDN, say) never receives it. nite refuses to store credentials in its own config: `nite config set` rejects them, and they stay in `.npmrc` where npm, your editor and other tools also find them.
+A credential is sent **only** to URLs under its host and path. A tarball served from another host (a CDN, say) never receives it. Nite refuses to store credentials in its own config: `nite config set` rejects them, and they stay in `.npmrc` where npm, your editor and other tools also find them.
 
 ## Where settings come from
 
@@ -60,7 +60,7 @@ Highest first:
 1. `NITE_REGISTRY` (environment)
 2. `"registry"` in the project's `nite.json`
 3. The project's `.npmrc`
-4. nite's user config (`nite config set`)
+4. Nite's user config (`nite config set`)
 5. The user's `~/.npmrc` (or the file `$NPM_CONFIG_USERCONFIG` names)
 6. The default: `https://registry.npmjs.org/`
 
@@ -98,4 +98,4 @@ Pass the token as a secret environment variable and keep `.npmrc` (with `${VAR}`
 
 ## The esbuild and Sass binaries
 
-nite downloads the esbuild binary (and the Dart Sass binary, if you use Sass) from the npm registry too, through the same settings: a mirror that proxies npmjs.org serves them. Fully offline machines can point nite at binaries they supply instead, with `NITE_ESBUILD_PATH` and `NITE_SASS_PATH`; see [Environment variables](../reference/environment-variables.md).
+Nite downloads the esbuild binary (and the Dart Sass binary, if you use Sass) from the npm registry too, through the same settings: a mirror that proxies npmjs.org serves them. Fully offline machines can point Nite at binaries they supply instead, with `NITE_ESBUILD_PATH` and `NITE_SASS_PATH`; see [Environment variables](../reference/environment-variables.md).

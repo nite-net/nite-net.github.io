@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-description: Common problems with nite and how to fix them.
+description: Common problems with Nite and how to fix them.
 ---
 
 # Troubleshooting
@@ -34,7 +34,7 @@ A dependency uses `git:`, `file:`, `workspace:`, a URL or an `npm:` alias. Publi
 
 ### A package fails at runtime with errors about a missing binary or `.node` file
 
-It needs an install script or a native addon, which nite does not run. nite warns about packages with install scripts when it resolves them ([Install scripts](guides/packages.md#install-scripts)); run `nite update <package>` to see the message again. Look for a pure-JavaScript alternative, or a browser build of the package.
+It needs an install script or a native addon, which Nite does not run. Nite warns about packages with install scripts when it resolves them ([Install scripts](guides/packages.md#install-scripts)); run `nite update <package>` to see the message again. Look for a pure-JavaScript alternative, or a browser build of the package.
 
 ### "This nite is not running as a dotnet tool"
 
@@ -76,11 +76,11 @@ Upgrade with `npx @tailwindcss/upgrade` and the [upgrade guide](https://tailwind
 
 ### A PostCSS plugin fails with "Cannot find module" or a native addon error
 
-The plugin needs a Node built-in nite does not provide, or native code. Check the plugin's issue tracker for a browser-compatible build, or remove it. Run with `Nite` logging at `Debug` to see the full error.
+The plugin needs a Node built-in Nite does not provide, or native code. Check the plugin's issue tracker for a browser-compatible build, or remove it. Run with `Nite` logging at `Debug` to see the full error.
 
 ### "Sass stylesheets need the sass-embedded (or sass) package"
 
-Install it: `nite add -D sass-embedded`. nite uses its version to download the matching native compiler.
+Install it: `nite add -D sass-embedded`. Nite uses its version to download the matching native compiler.
 
 ### An island does not mount
 

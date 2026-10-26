@@ -1,11 +1,11 @@
 ---
-title: How nite works
-description: The moving parts behind nite, from the esbuild service and the npm client to Fast Refresh, the stylesheet pipeline and the production build.
+title: How Nite works
+description: The moving parts behind Nite, from the esbuild service and the npm client to Fast Refresh, the stylesheet pipeline and the production build.
 ---
 
-# How nite works
+# How Nite works
 
-<p class="lead">nite does the orchestration in .NET and hands compilation to esbuild. This page walks through each piece, roughly in the order a request meets them.</p>
+<p class="lead">Nite does the orchestration in .NET and hands compilation to esbuild. This page walks through each piece, roughly in the order a request meets them.</p>
 
 ```text
  browser ──GET /_nite/src/App.tsx──▶ ASP.NET Core app
@@ -19,7 +19,7 @@ description: The moving parts behind nite, from the esbuild service and the npm 
 
 ## esbuild, as a service
 
-[esbuild](https://esbuild.github.io) compiles TypeScript and JSX. nite downloads the platform's binary from the same npm package esbuild's own installer uses (`@esbuild/linux-x64`, `@esbuild/darwin-arm64` and so on), verifies it against the registry's integrity hash, and caches it per user.
+[esbuild](https://esbuild.github.io) compiles TypeScript and JSX. Nite downloads the platform's binary from the same npm package esbuild's own installer uses (`@esbuild/linux-x64`, `@esbuild/darwin-arm64` and so on), verifies it against the registry's integrity hash, and caches it per user.
 
 It does not run esbuild once per file. It starts one `esbuild --service` process and keeps it for the life of the app, talking esbuild's binary stdio protocol: the same channel esbuild's JavaScript API uses. Transforms take a few milliseconds and run concurrently. Builds can call back into .NET through esbuild's plugin protocol, which is how stylesheets reach the [CSS pipeline](#the-stylesheet-pipeline).
 
@@ -29,14 +29,14 @@ A small npm client written in C# reads `dependencies` and `devDependencies` from
 
 - Resolution is recorded in **`nite.lock.json`**. With a current lockfile, an install never asks the registry for metadata.
 - Tarballs are verified against their integrity hash and cached per user.
-- **Install scripts never run.** Packages that need a `postinstall` step (native addons, mostly) do not work; nite warns when it resolves one.
+- **Install scripts never run.** Packages that need a `postinstall` step (native addons, mostly) do not work; Nite warns when it resolves one.
 - Optional dependencies are skipped.
 
 See [Packages and the lockfile](../guides/packages.md).
 
 ## The dev server
 
-`app.UseNite()` mounts the dev server at `/_nite`, inside your app, in the Development environment only. Each source file is compiled on request and cached until it changes. Before serving a module, nite rewrites its import specifiers:
+`app.UseNite()` mounts the dev server at `/_nite`, inside your app, in the Development environment only. Each source file is compiled on request and cached until it changes. Before serving a module, Nite rewrites its import specifiers:
 
 | In your code | Served as | Why |
 |---|---|---|
@@ -49,19 +49,19 @@ Path aliases from your tsconfig (`@/components/Button`) are resolved the same wa
 
 ## Dependency pre-bundling
 
-Browsers can import ES modules, but most packages are not shaped for it: React is still CommonJS, and a package can be hundreds of files. Like Vite, nite pre-bundles every bare import your code uses into a single ESM file per package, in **one** esbuild pass with code splitting, so `react-dom` and your code share one copy of React.
+Browsers can import ES modules, but most packages are not shaped for it: React is still CommonJS, and a package can be hundreds of files. Like Vite, Nite pre-bundles every bare import your code uses into a single ESM file per package, in **one** esbuild pass with code splitting, so `react-dom` and your code share one copy of React.
 
 CommonJS packages get a generated wrapper whose named exports come from a scan of the package's code (the same approach as Node's `cjs-module-lexer`), so `import { useState } from "react"` works. The result is cached under `.nite/deps` and only rebuilt when your bare imports or the lockfile change. Importing a package for the first time while the app runs triggers a re-bundle and a page reload.
 
 ## React Fast Refresh, without Babel
 
-esbuild has no Fast Refresh transform, so nite adds one after the fact. It reads esbuild's output for each JSX or TSX module and:
+esbuild has no Fast Refresh transform, so Nite adds one after the fact. It reads esbuild's output for each JSX or TSX module and:
 
 1. finds components by shape: PascalCase functions, arrow functions assigned to PascalCase names, `memo` and `forwardRef` wrappers, and default exports that are components;
 2. registers each with `react-refresh`'s runtime and signs it with its hook calls, so a change in hook order is detected;
 3. marks the module a **refresh boundary** if every export is a component.
 
-A module graph records who imports what among the modules the browser has loaded. When a file changes, nite walks up from it to the nearest boundaries, recompiles, and tells the browser to re-import those modules with a new timestamp. React then swaps the new implementations in and keeps state. If the walk reaches the page's entry module (`main.tsx`), nothing can accept the update, and the page reloads.
+A module graph records who imports what among the modules the browser has loaded. When a file changes, Nite walks up from it to the nearest boundaries, recompiles, and tells the browser to re-import those modules with a new timestamp. React then swaps the new implementations in and keeps state. If the walk reaches the page's entry module (`main.tsx`), nothing can accept the update, and the page reloads.
 
 ## The file watcher and the browser client
 
@@ -81,7 +81,7 @@ The browser client (`/_nite/client.js`) receives these over a WebSocket at `/_ni
 
 ## C# hot reload, forwarded
 
-nite registers a .NET `MetadataUpdateHandler`. When `dotnet watch` applies a C# change inside the running app, the runtime calls it, and the dev server broadcasts a `server-update` message. The client turns that into a `nite:server-update` DOM event, which pages use to re-fetch data. See [Hot reload](../guides/hot-reload.md).
+Nite registers a .NET `MetadataUpdateHandler`. When `dotnet watch` applies a C# change inside the running app, the runtime calls it, and the dev server broadcasts a `server-update` message. The client turns that into a `nite:server-update` DOM event, which pages use to re-fetch data. See [Hot reload](../guides/hot-reload.md).
 
 ## The stylesheet pipeline
 
@@ -92,7 +92,7 @@ Stylesheets go through the same steps as in Vite, in development and production:
 3. **PostCSS**, when the project has a config;
 4. **esbuild**: `@import` inlining, CSS modules, `url()` assets, and in production, minifying and lowering.
 
-Sass runs as the native Dart Sass binary over its embedded protocol, one long-lived compiler like esbuild. PostCSS (with your plugins), Tailwind's compiler and Less are plain JavaScript: nite bundles them from your `node_modules` with esbuild and runs them in [Jint](https://github.com/sebastienros/jint), a JavaScript interpreter written in C#, with a small shim for the Node built-ins they use. Tailwind's file scanner is native code, so nite has its own in C#; it scans the whole project, including Razor views. See [Stylesheets](../guides/stylesheets.md).
+Sass runs as the native Dart Sass binary over its embedded protocol, one long-lived compiler like esbuild. PostCSS (with your plugins), Tailwind's compiler and Less are plain JavaScript: Nite bundles them from your `node_modules` with esbuild and runs them in [Jint](https://github.com/sebastienros/jint), a JavaScript interpreter written in C#, with a small shim for the Node built-ins they use. Tailwind's file scanner is native code, so Nite has its own in C#; it scans the whole project, including Razor views. See [Stylesheets](../guides/stylesheets.md).
 
 ## The production build
 
