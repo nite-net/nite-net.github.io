@@ -60,6 +60,9 @@ jobs:
           # Links into the API reference cannot resolve now, so warnings are not errors here.
           docfx build docfx.json
 
+      - name: Write llms.txt and Markdown copies of the pages
+        run: python3 tools/llms.py _site
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

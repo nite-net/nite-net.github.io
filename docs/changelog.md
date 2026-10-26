@@ -7,6 +7,13 @@ description: Notable changes in each version of Nite.
 
 <p class="lead">Notable changes, newest first. Nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased (main)
+
+### Added
+
+- **`AGENTS.md` in new projects.** `nite init` and the `dotnet new` templates write an `AGENTS.md` for AI coding agents: the commands, the project layout, and the Vite and npm habits that do not apply. ([Working with an AI coding agent](getting-started.md#working-with-an-ai-coding-agent))
+- **Docs for agents.** The site publishes [`llms.txt`](https://nite-net.github.io/llms.txt), [`llms-full.txt`](https://nite-net.github.io/llms-full.txt) and a Markdown copy of every page.
+
 ## 0.8.0
 
 ### Added
