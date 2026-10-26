@@ -53,7 +53,7 @@ How it works:
 - The callback runs for each page `MapNiteSpa` serves and each page with `<nite-head />`. The result is serialized as camelCase JSON into a `<script type="application/json" id="nite-config">` element at the top of `<head>`; `nite:config` parses it once and exports it frozen. There is no extra request.
 - It works the same in development and production, and the same build runs in every environment.
 - For values that take awaiting (a database, `IFeatureManager`), set `ClientConfigAsync = async context => new { ... }` instead.
-- Pages that carry client config are sent with `Cache-Control: private, no-cache`, so a shared cache or CDN never hands one user's page to another.
+- Pages that carry client config are sent with `Cache-Control: private, no-store`, so a shared cache or CDN never hands one user's page to another, and the browser does not keep a signed-in user's page after they sign out.
 
 Everything in it is readable by anyone who can load the page, like the rest of the HTML: send what the page needs, never secrets. (An Application Insights connection string is fine: the browser SDK needs it anyway.) The JSON is escaped so values cannot break out of the script element.
 

@@ -99,18 +99,20 @@ An `index.html` in the client root is picked up automatically. Other HTML pages 
 
 ```json
 {
-  "entries": ["admin.html"]
+  "entries": ["login/index.html"]
 }
 ```
 
-Serve them with your own endpoint through <xref:Nite.Assets.INiteAssets>, which returns the page as it should be served in the current mode:
+Give each its own path with `MapNiteSpa`'s `path`: that page answers the path and everything under it, with its own client-side routes, and the more specific path wins over the catch-all.
 
 ```csharp
-app.MapGet("/admin/{**path}", async (HttpContext context, INiteAssets assets) =>
-    Results.Content(await assets.GetHtmlAsync("admin.html", context), "text/html"));
-
-app.MapNiteSpa(); // everything else: index.html
+app.MapNiteSpa("login/index.html", path: "/login").AllowAnonymous(); // /login, /login/forgot, ...
+app.MapNiteSpa();                                                    // everything else: index.html
 ```
+
+Each is an ordinary endpoint, so authorization conventions apply per app. Both get [client config](environment.md#values-from-the-running-server) and the same caching headers. The apps share chunks in production builds, so a second app costs only its own code. [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) has a public login app and a protected main app.
+
+For full control, <xref:Nite.Assets.INiteAssets> returns any page as it should be served in the current mode: `await assets.GetHtmlAsync("admin.html", context)`.
 
 ## Hosting under a path base
 

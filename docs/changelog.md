@@ -7,6 +7,18 @@ description: Notable changes in each version of nite.
 
 <p class="lead">Notable changes, newest first. nite follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## 0.8.0
+
+### Added
+
+- **Several single-page apps in one app.** `MapNiteSpa(page, path: "/login")` serves a page under its own path (and its client-side routes), next to a catch-all app; each is an endpoint with its own authorization. ([More than one page](guides/single-page-apps.md#more-than-one-page))
+- **Content Security Policy nonces.** `NiteOptions.CspNonce` gives nite the request's nonce, which it puts on the import map, client config and module scripts it writes, and in development on the dev client, CSS imported from modules and the error overlay. A strict policy without `'unsafe-inline'` then works in both. `NiteHead.ToHtml(nonce)` does the same for hand-written layouts. ([Content Security Policy](reference/aspnet.md#content-security-policy))
+- **Identity sample.** `samples/Nite.Identity`: ASP.NET Core Identity with EF Core and SQLite, two seeded users, a public login app and a protected main app that receives the user's claims through client config. It follows the backend-for-frontend pattern: server-side sessions behind an HttpOnly `__Host-` cookie, antiforgery tokens, a strict nonce-based CSP, rate-limited sign-in with lockout, and a refusal to run outside Development with the published demo passwords.
+
+### Changed
+
+- Pages carrying client config are sent `Cache-Control: private, no-store` instead of `private, no-cache`, so the browser does not keep a signed-in user's page.
+
 ## 0.7.0
 
 ### Added
