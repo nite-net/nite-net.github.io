@@ -8,3 +8,6 @@ api/.manifest
 
 # The nite checkout the API reference is generated from
 nite-src
+
+# Generated from the nite source by tools/diagnostics.py (build.sh, CI)
+docs/reference/diagnostics/

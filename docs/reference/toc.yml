@@ -16,3 +16,6 @@
   href: environment-variables.md
 - name: Dev server URLs
   href: dev-server-urls.md
+- name: Log messages
+  href: diagnostics/toc.yml
+  topicHref: diagnostics/index.md
