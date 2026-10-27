@@ -46,7 +46,7 @@ logger.AgentDisconnected(agentId, 42);
 // warn: MyApp.AgentMonitor[7007] Agent 6f1c… disconnected after 42 seconds
 ```
 
-The generated methods are in a class named `Log` in the project's root namespace. Code in that namespace finds them as they are; anywhere else, including top-level statements in `Program.cs`, add `using MyApp;`.
+The generated methods are in a class named `Log` in the project's root namespace. The package imports that namespace in every file as a global using (the same mechanism as `ImplicitUsings`, and it works with them on or off), so the methods are found everywhere, top-level statements in `Program.cs` included. It does so only when the project has message files, since importing a namespace with no types in it would not compile. Already importing it yourself is harmless; set `NiteDiagnosticsGlobalUsing` to `false` to manage it yourself.
 
 | Front matter | Required | |
 |---|---|---|
@@ -80,6 +80,7 @@ In the project file:
 | `NiteDiagnosticsNamespace` | `$(RootNamespace)` | Namespace of the generated class. |
 | `NiteDiagnosticsClass` | `Log` | Name of the generated class. |
 | `NiteDiagnosticsPublic` | `false` | `true` makes the class public, for messages shared with other projects. |
+| `NiteDiagnosticsGlobalUsing` | `true` | Import the class's namespace in every file. With `false`, add `using MyApp;` (or a `<Using>` item) yourself. |
 | `NiteDiagnosticsHelpUrl` | none | A URL with `{code}` in it, such as `https://example.com/logs/{code}.html`, linked from each method's documentation. |
 
 ## Mistakes are build errors
