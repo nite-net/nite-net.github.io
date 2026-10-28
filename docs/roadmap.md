@@ -11,10 +11,10 @@ Released work is in the [changelog](changelog.md); what NiteFx deliberately does
 
 ## 0.9: safer and faster production builds
 
-Small changes that close gaps in [Limits](limits.md) and continue the security work in 0.8.
+Small changes that close gaps in [Limits](limits.md) and continue the security work in 0.8. They ship one at a time, as 0.9.x releases.
 
+- **Immutable caching for hashed files.** *Shipped in 0.9.0.* Bundles, chunks and assets, which have content hashes in their names, are served as `immutable`, so repeat visits load them without a request.
 - **Subresource integrity.** Production scripts and the import map carry `integrity` hashes, so a CDN or proxy that alters a bundle gets it refused by the browser. Pairs with the [Content Security Policy](reference/aspnet.md#content-security-policy) support in 0.8.
-- **Immutable caching for hashed files.** Bundles, chunks and assets have content hashes in their names but are served with `no-cache` today, which costs a `304` per file on every visit. They will be served as `immutable` instead.
 - **A minimum release age for packages.** A setting in `nite.json` (for example `"minimumReleaseAge": "3d"`) makes `nite add` and `nite update` pass over versions published more recently than that. Malicious package versions are usually found and removed within days, so waiting a few days avoids most of them.
 - **`?raw` and `?url` imports**, and SVGs imported as React components, for code coming from Vite.
 - **Hosting under a path base.** URLs inside production JavaScript and CSS (lazy chunks, `url()` assets) work when the app is served from a subfolder such as `/shop`, not only from the site root.
