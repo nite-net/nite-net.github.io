@@ -80,12 +80,17 @@ def pages():
         folder = section.get("href", "")
         if not folder.startswith("docs"):
             continue
-        def walk(items):
+        def walk(items, base):
             for item in items:
-                if item.get("href", "").endswith(".md"):
-                    yield section["name"], posixpath.join(folder, item["href"])
-                yield from walk(item["items"])
-        yield from walk(parse_toc(ROOT / folder / "toc.yml"))
+                href = item.get("href", "")
+                if href.endswith(".md"):
+                    yield section["name"], posixpath.join(base, href)
+                elif href.endswith("toc.yml"):
+                    # A nested table of contents, such as the generated log message reference.
+                    nested = posixpath.join(base, href)
+                    yield from walk(parse_toc(ROOT / nested), posixpath.dirname(nested))
+                yield from walk(item["items"], base)
+        yield from walk(parse_toc(ROOT / folder / "toc.yml"), folder.rstrip("/"))
 
 
 def front_matter(text):

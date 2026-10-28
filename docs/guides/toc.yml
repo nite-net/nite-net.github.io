@@ -36,3 +36,5 @@
       href: observability.md
     - name: Application Insights in the browser
       href: application-insights.md
+    - name: Log messages as Markdown
+      href: log-messages.md

@@ -15,6 +15,8 @@ description: Notable changes in each version of NiteFx.
 
 ### Added
 
+- **Nite.Diagnostics: log messages as Markdown.** A new, separate package for any .NET project: each log message is a Markdown file whose front matter a source generator compiles into a structured `ILogger` method (backed by `LoggerMessage.Define`, with the message's code as the event name), and whose body documents it. Mistakes in a file are build errors at that file and line. ([Log messages as Markdown](guides/log-messages.md))
+- **Codes for NiteFx's warnings.** Three warnings now have a code, an event ID and a page: NITE1001 (a module missing from `entries`), NITE1002 (nothing to build) and NITE1003 (a peer dependency version mismatch). Their text is unchanged. ([Log messages](reference/diagnostics/index.md))
 - **Code signing policy and privacy policy.** Release binaries will be signed through [SignPath Foundation](https://signpath.org); see the [Code signing policy](code-signing.md). The [Privacy policy](privacy.md) lists the only network connections NiteFx makes. It collects no information.
 
 ## 0.8.1

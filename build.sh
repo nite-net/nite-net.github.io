@@ -22,6 +22,7 @@ if ! command -v docfx >/dev/null 2>&1; then
   export PATH="$PATH:$HOME/.dotnet/tools"
 fi
 
+python3 tools/diagnostics.py nite-src   # the log message reference, from the nite source
 docfx metadata docfx.json
 docfx build docfx.json --warningsAsErrors
 python3 tools/llms.py _site   # llms.txt, llms-full.txt and a Markdown copy of each page

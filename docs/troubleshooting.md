@@ -18,6 +18,8 @@ description: Common problems with NiteFx and how to fix them.
 }
 ```
 
+Warnings with a code, such as NITE1002, have their own page in the [log message reference](reference/diagnostics/index.md).
+
 ## Installing and starting
 
 ### "Package 'x' is not installed. Add it to dependencies in nite.json."

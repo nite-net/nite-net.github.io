@@ -48,6 +48,7 @@ jobs:
       - name: Build
         if: steps.source.outcome == 'success'
         run: |
+          python3 tools/diagnostics.py nite-src
           docfx metadata docfx.json
           docfx build docfx.json --warningsAsErrors
 
@@ -56,6 +57,8 @@ jobs:
         run: |
           echo "::warning title=API reference skipped::Could not check out nite-net/nite, so the site was built without its API pages. If the repository is private, add a NITE_SOURCE_TOKEN secret with read access to it."
           rm -rf nite-src api/index.md
+          # Without the source, the log message reference is a page saying so.
+          python3 tools/diagnostics.py nite-src
           sed -i '/^- name: API$/,/^  topicHref: api\/index.md$/d' toc.yml
           # Links into the API reference cannot resolve now, so warnings are not errors here.
           docfx build docfx.json
