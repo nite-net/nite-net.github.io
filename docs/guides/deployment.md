@@ -107,7 +107,7 @@ Add `node_modules/`, `.nite/`, `bin/`, `obj/` and `wwwroot/_nite/` to `.dockerig
 
 ## Caching and CDNs
 
-- Bundles, chunks and assets have content hashes in their names, so a deployment never changes the contents of an existing URL. Today `MapStaticAssets` serves them with `Cache-Control: no-cache` and an `ETag`: browsers revalidate and get a `304` when nothing changed, which is cheap but still a request per file. A CDN rule that caches `/_nite/*` for a long time is safe because of the hashes.
+- Bundles, chunks and assets have content hashes in their names, so a deployment never changes the contents of an existing URL. `UseNite()` therefore sends them with `Cache-Control: public, max-age=31536000, immutable`: browsers and CDNs keep them for a year and never ask again, so a repeat visit loads them with no requests at all. It covers the precompressed variants and `304` responses too, and works with `MapStaticAssets` or `UseStaticFiles` (call `UseNite()` before `UseStaticFiles`). The files without a hash, `manifest.json` and the HTML entries, keep the static file server's `no-cache`.
 - HTML pages (`MapNiteSpa`'s output, your Razor pages) must not be cached long: they point at the current hashes. `MapNiteSpa` sends `Cache-Control: no-cache`.
 - With a long-lived CDN cache, users who still have the previous page open keep loading the previous version's chunks from the CDN. Without one, a lazy-loaded chunk from the old version may be gone after a deployment; a full page load fixes it.
 

@@ -53,9 +53,9 @@ builder.Services.AddNite(options =>
 IApplicationBuilder UseNite(this IApplicationBuilder app)
 ```
 
-In development, starts the dev server (package install, pre-bundling, file watching) in the background and mounts it at `/_nite`: compiled modules, dependencies, the browser runtime and the hot-update WebSocket. In production it does nothing, because the build output is ordinary static files.
+In development, starts the dev server (package install, pre-bundling, file watching) in the background and mounts it at `/_nite`: compiled modules, dependencies, the browser runtime and the hot-update WebSocket. In production the build output is ordinary static files, served by `MapStaticAssets` or `UseStaticFiles`; `UseNite()` only sends the ones with a content hash in their name (bundles, chunks, assets and their source maps) with `Cache-Control: public, max-age=31536000, immutable`, including their compressed variants and `304` responses. `manifest.json` and HTML entries keep the static file server's caching.
 
-Call it early: before `UseRouting`, `MapStaticAssets` and anything else that could answer `/_nite/...`. It enables WebSockets for its own branch only. The URLs it serves are listed in [Dev server URLs](dev-server-urls.md).
+Call it early: before `UseRouting`, `UseStaticFiles`, `MapStaticAssets` and anything else that could answer `/_nite/...`. It enables WebSockets for its own branch only. The URLs it serves are listed in [Dev server URLs](dev-server-urls.md).
 
 ## MapNiteSpa
 

@@ -98,7 +98,7 @@ Sass runs as the native Dart Sass binary over its embedded protocol, one long-li
 
 `nite build` (which `dotnet publish` runs for Release builds) does one esbuild build for every entry: islands, HTML pages and the modules listed in `entries`. The output is minified, split into shared chunks, content-hashed and written to `wwwroot/_nite` with a `manifest.json` that maps each entry to its files, CSS and preloads.
 
-At runtime in production, `UseNite()` does nothing. The tag helpers and `MapNiteSpa` read the manifest, and `MapStaticAssets` serves the files (precompressed with Brotli and gzip by the static web assets pipeline). See [Development and production](development-and-production.md).
+At runtime in production, the tag helpers and `MapNiteSpa` read the manifest, and `MapStaticAssets` serves the files (precompressed with Brotli and gzip by the static web assets pipeline). `UseNite()` only marks the files with a content hash in their name as immutable, so browsers never ask for them again. See [Development and production](development-and-production.md).
 
 ## Where things live
 
