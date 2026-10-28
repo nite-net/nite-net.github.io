@@ -44,7 +44,6 @@ description: What NiteFx deliberately does not do, and what it does not do yet.
 ## Hosting
 
 - **Production asset URLs assume the site root.** Bundles and chunks load from `/_nite/...`. HTML from `MapNiteSpa` and the tag helpers include the request's path base, but URLs inside JavaScript and CSS (lazy chunks, `url()` assets) do not, so hosting under a subfolder (`/shop`) does not fully work yet.
-- **Hashed bundles are revalidated, not cached as immutable.** `MapStaticAssets` serves them with `ETag`s and `no-cache`, so repeat visits cost a `304` per file. A CDN rule can cache `/_nite/*` long-term safely.
 
 ## Platform
 

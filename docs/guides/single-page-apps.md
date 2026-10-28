@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddNite();
 
 var app = builder.Build();
-app.UseNite();                       // dev server under /_nite; does nothing in production
+app.UseNite();                       // dev server under /_nite; in production, caches hashed bundles
 
 app.MapGet("/api/todos", ...);       // your API
 

@@ -25,7 +25,7 @@ builder.Services.AddNite(options =>
 
 | | Development | Production |
 |---|---|---|
-| `UseNite()` | Mounts the dev server at `/_nite` and starts the file watcher | Does nothing |
+| `UseNite()` | Mounts the dev server at `/_nite` and starts the file watcher | Marks hashed build output as immutable (`Cache-Control: public, max-age=31536000, immutable`) |
 | Source files | Compiled on request, cached until they change | Built ahead of time by `nite build` |
 | Packages | Installed on startup from `nite.lock.json`; pre-bundled into `.nite/deps` | Bundled into the output chunks |
 | `MapNiteSpa()` | Serves `Client/index.html` from source, with the dev client injected | Serves `wwwroot/_nite/index.html` with hashed URLs |

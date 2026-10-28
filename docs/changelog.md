@@ -7,6 +7,12 @@ description: Notable changes in each version of NiteFx.
 
 <p class="lead">Notable changes, newest first. NiteFx follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased (main)
+
+### Changed
+
+- **Hashed build output is cached as immutable.** In production, `UseNite()` sends bundles, chunks and assets (everything with a content hash in its name) with `Cache-Control: public, max-age=31536000, immutable`, so repeat visits load them without a single request, where each file used to cost a `304`. `manifest.json` and HTML pages still revalidate. Nothing to change in your app. ([Caching and CDNs](guides/deployment.md#caching-and-cdns))
+
 ## 0.8.2
 
 ### Changed
