@@ -26,7 +26,18 @@ Small changes that close gaps in [Limits](limits.md) and continue the security w
 
 ## 1.0: one set of types from C# to TypeScript
 
-- **Generated API types.** ASP.NET Core already describes your endpoints as an OpenAPI document. In development, NiteFx will turn it into TypeScript types and a typed `fetch` wrapper, and refresh them on every C# hot reload, so renaming a property on a C# record shows up as a type error in the TypeScript that uses it. The same will cover [client config](guides/environment.md#values-from-the-running-server) when it returns a named type.
+- **A typed client for your endpoints.** NiteFx will generate a TypeScript client from the endpoints your app already has, whether they are minimal APIs, [FastEndpoints](https://fast-endpoints.com) or controllers, by reading the OpenAPI document the app produces:
+
+  ```tsx
+  import { api } from "nite:api";
+
+  const user = await api.createUser({ name: "Benson" });
+  // user is typed from the C# response; change the record and this stops compiling
+  ```
+
+  The dev server runs inside your app, so it regenerates the client on startup and on every C# hot reload, without a build step. Request/response classes in the style of FastEndpoints (a request type, a response type and a validator per endpoint) map one-to-one onto the client.
+- **Validation and errors in the client.** The constraints in the OpenAPI schemas (required fields, lengths, patterns, ranges) become [Zod](https://zod.dev) schemas, so forms can check input before sending it while the server stays the authority. Errors arrive as typed [ProblemDetails](https://www.rfc-editor.org/rfc/rfc9457), not thrown strings.
+- **Client config** gets the same treatment when its callback returns a named type.
 - **A stable API.** From 1.0, NiteFx follows semantic versioning for its whole public surface, not only `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json`.
 
 ## Not planned
@@ -36,4 +47,5 @@ These come up, and the answer is no for now, for these reasons:
 - **Platform-specific optional dependencies.** NiteFx already fetches the right esbuild and Dart Sass binaries for each platform. Most other packages that need this are native Node addons, which cannot run in a browser. If a browser package you need depends on it, open an issue with its name.
 - **Built-in type checking.** It needs Node, or a JavaScript interpreter that would make every save slow. Run `tsc --noEmit` in your editor and CI; the generated API types in 1.0 add the checking NiteFx can do best.
 - **Server-side rendering, and Vue, Svelte or other Vite plugins.** See [Limits and non-goals](limits.md#non-goals).
+- **An endpoint framework of its own.** Minimal APIs and FastEndpoints already give each endpoint typed requests and responses, validation, filters and access to the user and services. NiteFx's part is the client: the typed bridge into React. The same goes for calling C# from React over a SignalR connection: request/response calls stay on HTTP, where authorization, rate limiting, CSRF protection and caching already apply. SignalR is for streams and server push.
 - **A security-headers package.** Headers like a Content Security Policy are your application's policy, and a library default is one nobody revisits. NiteFx gives you the hooks (`NiteOptions.CspNonce`), and [`samples/Nite.Identity`](https://github.com/nite-net/nite/tree/main/samples/Nite.Identity) shows a complete, strict setup to copy.
