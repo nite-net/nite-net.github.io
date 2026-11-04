@@ -19,7 +19,16 @@ Small changes that close gaps in [Limits](limits.md) and continue the security w
 - **`?raw` and `?url` imports**, and SVGs imported as React components, for code coming from Vite.
 - **Hosting under a path base.** URLs inside production JavaScript and CSS (lazy chunks, `url()` assets) work when the app is served from a subfolder such as `/shop`, not only from the site root.
 
-## 0.10: knowing and fixing vulnerable packages
+## 0.10: testing
+
+Tests run on [Vitest](https://vitest.dev), the runner most React projects use. Vitest is a Node.js program, so running tests needs Node 22.12 or later, as type checking with `tsc` already does. Building and running a NiteFx app never needs Node.
+
+- **Packages with native parts install correctly.** NiteFx will install the platform-specific optional dependencies that packages such as Vite, Rolldown and Lightning CSS ship their native binaries in, picking the one that matches your operating system and processor. Vitest needs this, and other packages will work that do not today.
+- **`nite test`.** Generates a Vitest configuration that matches `nite.json` (path aliases, `import.meta.env`, `nite:config` with test values), then runs `vitest run`, or `--ui` for the Vitest UI. Without Vitest installed it runs Jest if that is installed instead, so projects imported from Create React App keep their tests. NiteFx does not configure Jest beyond that; its support for ES modules is still experimental.
+- **`/_vitest` in development.** The Vitest UI inside your app's dev server, started the first time you open it. Because that UI can edit and run code, it is served only in Development, only to requests from the local machine, and only to your app's own origin, and NiteFx refuses Vitest versions without the fix for [CVE-2025-24964](https://cvefeed.io/vuln/detail/CVE-2025-24964).
+- **Coverage.** `"test": { "coverage": "v8" }` (or `"istanbul"`) in `nite.json` collects coverage, and `/_coverage` serves the HTML report in development, from Vitest or Jest alike. It is static files, so it carries none of the UI's risks.
+
+## 0.11: knowing and fixing vulnerable packages
 
 - **`nite audit`.** Checks every package in `nite.lock.json` against the npm advisory database and reports known vulnerabilities. `nite build` can fail on them above a severity you choose, so CI catches them.
 - **`overrides`.** Pin a dependency of a dependency to a patched version without waiting for every package above it to release one. These two ship together: a report you cannot act on is only half a feature.
@@ -40,11 +49,16 @@ Small changes that close gaps in [Limits](limits.md) and continue the security w
 - **Client config** gets the same treatment when its callback returns a named type.
 - **A stable API.** From 1.0, NiteFx follows semantic versioning for its whole public surface, not only `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json`.
 
+## After 1.0: experiments
+
+Ideas worth trying once 1.0 is out, with no promise that they ship.
+
+- **A NiteFx test runner, without Node.** Tests compiled by NiteFx itself, the same compiler as your app, and run in a real browser: a tab you open in development, or headless through Playwright for .NET in CI. It would follow Vitest's API (`describe`, `it`, `expect`, `vi.fn`) and use an existing `expect` library rather than a new framework, mock modules through the import map NiteFx already controls, and report through `dotnet test`, so JavaScript tests show up in Visual Studio's and Rider's Test Explorer next to your C# tests. Vitest stays supported either way.
+
 ## Not planned
 
 These come up, and the answer is no for now, for these reasons:
 
-- **Platform-specific optional dependencies.** NiteFx already fetches the right esbuild and Dart Sass binaries for each platform. Most other packages that need this are native Node addons, which cannot run in a browser. If a browser package you need depends on it, open an issue with its name.
 - **Built-in type checking.** It needs Node, or a JavaScript interpreter that would make every save slow. Run `tsc --noEmit` in your editor and CI; the generated API types in 1.0 add the checking NiteFx can do best.
 - **Server-side rendering, and Vue, Svelte or other Vite plugins.** See [Limits and non-goals](limits.md#non-goals).
 - **An endpoint framework of its own.** Minimal APIs and FastEndpoints already give each endpoint typed requests and responses, validation, filters and access to the user and services. NiteFx's part is the client: the typed bridge into React. The same goes for calling C# from React over a SignalR connection: request/response calls stay on HTTP, where authorization, rate limiting, CSRF protection and caching already apply. SignalR is for streams and server push.
