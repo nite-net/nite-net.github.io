@@ -9,7 +9,7 @@ description: Install the NiteFx CLI, create a React single-page app or a Razor s
 
 ## Requirements
 
-- **The .NET 10 SDK.** Check with `dotnet --version`.
+- **The .NET 10 or .NET 11 SDK.** Check with `dotnet --version`. The `nite` tool runs on either, and new projects can target either one.
 - **Linux, macOS or Windows** on x64 or Arm64. NiteFx downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
 - **Network access to the npm registry** the first time: NiteFx downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
 
@@ -106,9 +106,10 @@ The same templates come as a `dotnet new` template pack, which also lists them i
 dotnet new install Nite.Templates
 dotnet new nite-spa -o my-app          # Single-page app
 dotnet new nite-islands -o my-site     # Razor Pages with islands
+dotnet new nite-spa -o my-app -f net11.0   # target .NET 11 instead of .NET 10
 ```
 
-`nite init` and `dotnet new` write the same files. The difference: `nite init` installs the packages in `nite.json` straight away, while with `dotnet new` the first `nite watch` (or `nite install`) does. You still need the `nite` tool to run and publish the app. Update the templates with `dotnet new update`.
+`nite init` and `dotnet new` write the same files. The difference: `nite init` installs the packages in `nite.json` straight away, while with `dotnet new` the first `nite watch` (or `nite install`) does. You still need the `nite` tool to run and publish the app. Update the templates with `dotnet new update`. One more difference: `nite init` targets the newest framework your SDK can build, while `dotnet new` targets `net10.0` unless you pass `-f net11.0`.
 
 ## Run it
 

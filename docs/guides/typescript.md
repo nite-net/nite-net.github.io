@@ -33,7 +33,7 @@ In development NiteFx uses the dev runtime (`react/jsx-dev-runtime`), which adds
 
 ## tsconfig.json
 
-The tsconfig in the client root is for your editor and for `tsc`. NiteFx uses `compilerOptions.paths` and `baseUrl` from it (see [path aliases](environment.md#path-aliases)); how code is compiled (JSX runtime, target) is set in `nite.json`, not here. The template's config is a good starting point:
+The tsconfig in the client root is for your editor and for `tsc`, and NiteFx reads part of it. It uses `compilerOptions.paths` and `baseUrl` (see [path aliases](environment.md#path-aliases)) and the options that change how a file compiles, such as `experimentalDecorators` and `useDefineForClassFields` (see [decorators](#decorators-and-class-fields)). The JSX runtime and the browser target are set in `nite.json`, not here. The template's config is a good starting point:
 
 ```json
 {
@@ -61,6 +61,23 @@ Two settings matter more than they look:
 - **`moduleResolution: "Bundler"`** matches how NiteFx resolves imports: package `exports`, extensionless relative imports and `index` files.
 
 NiteFx follows `extends` and Vite's `references` layout, so a `tsconfig.json` that references `tsconfig.app.json` works.
+
+## Decorators and class fields
+
+`nite watch` and `nite build` compile with the same tsconfig, so decorators and class fields behave the same in development and production. Libraries that use TypeScript's older decorators, such as Lit's `@customElement` and `@property`, need both of these:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
+  }
+}
+```
+
+Without `experimentalDecorators`, esbuild compiles standard (TC39) decorators, which Lit also supports through `accessor` fields. Without `useDefineForClassFields: false`, a class field such as `count = 0` replaces the reactive property that a decorator defined, so updates stop rendering.
+
+The options NiteFx takes from the tsconfig are `experimentalDecorators`, `useDefineForClassFields`, `target` (which only decides the default for `useDefineForClassFields`), `verbatimModuleSyntax`, `preserveValueImports`, `importsNotUsedAsValues`, `strict`, `alwaysStrict` and the `jsx` settings (which the `nite.json` ones override). With Vite's layout they come from the referenced app config, not `tsconfig.node.json`, even when the root `tsconfig.json` also has `compilerOptions`. One tsconfig applies to every client file: a nested `tsconfig.json` in a subfolder is not used.
 
 ## Declarations for what NiteFx provides
 

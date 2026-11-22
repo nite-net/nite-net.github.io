@@ -48,6 +48,7 @@ nite init [DIRECTORY] [OPTIONS]
 |---|---|
 | `-t`, `--template <TEMPLATE>` | `spa` (a React app with an API) or `islands` (Razor Pages with React islands). Defaults to the `init.template` setting, which defaults to `spa`. |
 | `-n`, `--name <NAME>` | Project name. Defaults to the folder name. |
+| `-f`, `--framework <FRAMEWORK>` | `net10.0` or `net11.0`. Defaults to the newest one the installed .NET SDK can build (`dotnet --version` in that folder, so a `global.json` counts). |
 | `--from <PATH>` | Import an existing npm, Yarn, pnpm or Bun project (Vite or Create React App). The source is not changed. See [Importing](../guides/importing.md). |
 | `--dry-run` | With `--from`: show what would be imported and write nothing. |
 | `--force` | Create the project in a folder that already has files. Existing files are never overwritten. |

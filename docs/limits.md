@@ -47,7 +47,7 @@ description: What NiteFx deliberately does not do, and what it does not do yet.
 
 ## Platform
 
-- **.NET 10** and ASP.NET Core 10.
+- **.NET 10 or .NET 11.** The `nite` tool ships builds for both. The `Nite` package targets ASP.NET Core 10, which apps on .NET 11 use as is.
 - **Linux, macOS and Windows on x64 and Arm64.** Other platforms work wherever esbuild (and, for Sass, Dart Sass) publish binaries, or with `NITE_ESBUILD_PATH` / `NITE_SASS_PATH`.
 
 ## Status
