@@ -77,7 +77,7 @@ NiteFx follows `extends` and Vite's `references` layout, so a `tsconfig.json` th
 
 Without `experimentalDecorators`, esbuild compiles standard (TC39) decorators, which Lit also supports through `accessor` fields. Without `useDefineForClassFields: false`, a class field such as `count = 0` replaces the reactive property that a decorator defined, so updates stop rendering.
 
-The options NiteFx takes from the tsconfig are `experimentalDecorators`, `useDefineForClassFields`, `target` (which only decides the default for `useDefineForClassFields`), `verbatimModuleSyntax`, `preserveValueImports`, `importsNotUsedAsValues`, `strict`, `alwaysStrict` and the `jsx` settings (which the `nite.json` ones override). With Vite's layout they come from the referenced app config, not `tsconfig.node.json`.
+The options NiteFx takes from the tsconfig are `experimentalDecorators`, `useDefineForClassFields`, `target` (which only decides the default for `useDefineForClassFields`), `verbatimModuleSyntax`, `preserveValueImports`, `importsNotUsedAsValues`, `strict`, `alwaysStrict` and the `jsx` settings (which the `nite.json` ones override). With Vite's layout they come from the referenced app config, not `tsconfig.node.json`, even when the root `tsconfig.json` also has `compilerOptions`. One tsconfig applies to every client file: a nested `tsconfig.json` in a subfolder is not used.
 
 ## Declarations for what NiteFx provides
 
