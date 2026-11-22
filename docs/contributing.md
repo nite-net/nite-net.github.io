@@ -9,7 +9,7 @@ description: Build NiteFx from source, run its tests, and contribute to NiteFx o
 
 ## Building from source
 
-You need the .NET 10 SDK. No other tools.
+You need the .NET 11 SDK, which builds and tests the `nite` tool for both .NET 10 and .NET 11 (install the .NET 10 runtime too, to run the .NET 10 tests). The .NET 10 SDK also works: it builds and tests the .NET 10 version only. No other tools.
 
 ```bash
 git clone https://github.com/nite-net/nite

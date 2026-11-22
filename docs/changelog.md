@@ -9,6 +9,11 @@ description: Notable changes in each version of NiteFx.
 
 ## Unreleased (main)
 
+### Fixed
+
+- **Decorators compile the same in development and production.** The dev server compiled modules without the tsconfig, and `nite build` used it only when it declared path aliases, so `experimentalDecorators` and `useDefineForClassFields` (which Lit components need) could apply in one and not the other. Both now use the client's tsconfig, including `extends` and the app config of Vite's `references` layout. If your tsconfig turns these options on, development builds now honor them. ([Decorators and class fields](guides/typescript.md#decorators-and-class-fields))
+- **The `nite` tool runs on .NET 11.** It ships builds for .NET 10 and .NET 11, so it installs and starts on a machine that has only one of them, and it rolls forward to later major versions. ([Requirements](getting-started.md#requirements))
+
 ### Changed
 
 - **Hashed build output is cached as immutable.** In production, `UseNite()` sends bundles, chunks and assets (everything with a content hash in its name) with `Cache-Control: public, max-age=31536000, immutable`, so repeat visits load them without a single request, where each file used to cost a `304`. `manifest.json` and HTML pages still revalidate. Nothing to change in your app. ([Caching and CDNs](guides/deployment.md#caching-and-cdns))

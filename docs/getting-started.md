@@ -9,7 +9,7 @@ description: Install the NiteFx CLI, create a React single-page app or a Razor s
 
 ## Requirements
 
-- **The .NET 10 SDK.** Check with `dotnet --version`.
+- **The .NET 10 or .NET 11 SDK.** Check with `dotnet --version`. The `nite` tool runs on either. New projects target `net10.0`; with only .NET 11 installed, change `TargetFramework` in the `.csproj` to `net11.0`.
 - **Linux, macOS or Windows** on x64 or Arm64. NiteFx downloads the matching esbuild (and, if you use Sass, Dart Sass) binary for your platform.
 - **Network access to the npm registry** the first time: NiteFx downloads esbuild and your packages, then caches them per user. After that, startup reuses the cache and the lockfile. A private registry or mirror works too; see [Private registries](guides/private-registries.md).
 
