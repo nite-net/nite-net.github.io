@@ -7,16 +7,26 @@ description: Notable changes in each version of NiteFx.
 
 <p class="lead">Notable changes, newest first. NiteFx follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
-## 0.9.0
+## Unreleased
+
+### Fixed
+
+- **Stopping the app no longer waits 30 seconds when a browser tab is open.** The dev server's hot-update socket (`/_nite/ws`) kept its request running through shutdown, so the host sat out the whole `HostOptions.ShutdownTimeout` before exiting. That made Ctrl+C and `dotnet watch` restarts slow, and .NET Aspire's Restart and Rebuild fail with "timed out waiting for process to stop". The socket now closes with status 1001 ("going away") as soon as the app starts stopping, and the page reconnects and reloads once the app is back as before. If you shortened `ShutdownTimeout` to work around this, you can remove that setting. ([The dev client](reference/browser-runtime.md#the-dev-client))
+
+## 0.9.1
 
 ### Fixed
 
 - **Decorators compile the same in development and production.** The dev server compiled modules without the tsconfig, and `nite build` used it only when it declared path aliases, so `experimentalDecorators` and `useDefineForClassFields` (which Lit components need) could apply in one and not the other. Both now use the client's tsconfig, including `extends` and the app config of Vite's `references` layout. If your tsconfig turns these options on, development builds now honor them. ([Decorators and class fields](guides/typescript.md#decorators-and-class-fields))
 - **The `nite` tool runs on .NET 11.** It ships builds for .NET 10 and .NET 11, so it installs and starts on a machine that has only one of them, and it rolls forward to later major versions. ([Requirements](getting-started.md#requirements))
+- **Two `nite` commands no longer race to download esbuild.** The esbuild package cache is locked across processes, and a folder that already holds the binary is never deleted, so commands (or test runs for two frameworks) started at the same time no longer extract over each other.
+- **A tsconfig value of the wrong type no longer throws.** NiteFx treats it as unset.
 
 ### Added
 
 - **New projects on .NET 11.** `nite init -f net11.0` and `dotnet new nite-spa -f net11.0` (and `nite-islands`) create a project that targets .NET 11. `nite init` picks the newest framework your SDK can build, so on a .NET 11 SDK it targets .NET 11 without the option; `dotnet new` defaults to `net10.0`. ([nite init](reference/cli.md#nite-init))
+
+## 0.9.0
 
 ### Changed
 
