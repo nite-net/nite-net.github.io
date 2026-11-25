@@ -7,6 +7,12 @@ description: Notable changes in each version of NiteFx.
 
 <p class="lead">Notable changes, newest first. NiteFx follows semantic versioning; while it is below 1.0, minor versions may change APIs outside the documented surface.</p>
 
+## Unreleased
+
+### Fixed
+
+- **Stopping the app no longer waits 30 seconds when a browser tab is open.** The dev server's hot-update socket (`/_nite/ws`) kept its request running through shutdown, so the host sat out the whole `HostOptions.ShutdownTimeout` before exiting. That made Ctrl+C and `dotnet watch` restarts slow, and .NET Aspire's Restart and Rebuild fail with "timed out waiting for process to stop". The socket now closes with status 1001 ("going away") as soon as the app starts stopping, and the page reconnects and reloads once the app is back as before. If you shortened `ShutdownTimeout` to work around this, you can remove that setting. ([The dev client](reference/browser-runtime.md#the-dev-client))
+
 ## 0.9.0
 
 ### Fixed
