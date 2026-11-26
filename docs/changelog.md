@@ -13,6 +13,8 @@ description: Notable changes in each version of NiteFx.
 
 - **A minimum release age for packages.** `"minimumReleaseAge": "3d"` in `nite.json` makes `nite add`, `nite update` and any install that resolves pass over versions published less than three days ago, which avoids most malicious releases, since those are usually removed within days. Tags follow it (`nite add react` saves the newest version old enough), versions already locked stay, and `minimumReleaseAgeExclude` lists packages or `@scope/*` it does not apply to. ([A minimum release age](guides/packages.md#a-minimum-release-age))
 
+- **Packages with native parts install.** Optional dependencies are now resolved for every platform into `nite.lock.json` and installed where their `os`, `cpu` and `libc` fit, so packages that ship their binaries that way (Vite, Rolldown, Rollup, Lightning CSS, esbuild's npm package) work, Vitest among them. The lockfile stays the same on every machine. An existing lockfile is re-resolved once, keeping its versions. ([Platform-specific packages](guides/packages.md#platform-specific-packages))
+
 ### Changed
 
 - Package documents are requested gzip-compressed, so resolving downloads less.

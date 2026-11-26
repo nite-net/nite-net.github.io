@@ -116,10 +116,18 @@ Do not edit the lockfile by hand. If it gets into a bad state (a merge conflict,
 | Peer dependencies | Installed when missing, like npm 7+ (optional peers skipped) |
 | Hoisting | Top level unless it would conflict, otherwise nested under the dependent |
 | `git:`, `file:`, `link:`, `workspace:`, URL and `npm:` alias dependencies | No |
-| Optional dependencies | Skipped |
+| Optional dependencies | Locked for every platform, installed where they fit ([below](#platform-specific-packages)) |
 | Install scripts (`preinstall`, `postinstall`) | **Never run**, with a warning ([below](#install-scripts)) |
 
-Not running install scripts is deliberate: it removes a common supply-chain attack path and the need for a JavaScript runtime. The cost is that packages that build native addons or download binaries in `postinstall` do not work. Packages that ship platform binaries as optional dependencies (esbuild, Sass, lightningcss) are not installed either; NiteFx fetches the esbuild and Sass binaries it needs itself.
+Not running install scripts is deliberate: it removes a common supply-chain attack path and the need for a JavaScript runtime. The cost is that packages that build native addons or download binaries in `postinstall` do not work. Packages that ship their binaries as platform-specific optional dependencies instead (esbuild, Rollup, Rolldown, Lightning CSS, Sass) do work.
+
+### Platform-specific packages
+
+Many packages publish their native binary as one small package per platform (`@rolldown/binding-linux-x64-gnu`, `@rolldown/binding-darwin-arm64`, …) and list them all as optional dependencies, each marked with the `os`, `cpu` and `libc` it runs on. NiteFx resolves all of them into `nite.lock.json`, so the lockfile is the same on Windows, macOS and Linux and in CI, and installs only the ones that fit the machine. Moving a checkout to another platform swaps them on the next install.
+
+`nite list --all` shows the others as *other platform*. An optional dependency that cannot be resolved at all (unpublished, or no version matches) is left out, as npm does; `--verbose` says which.
+
+A lockfile written by NiteFx 0.9 or earlier has no optional dependencies. The first install with a newer version re-resolves it once, keeping every version it has, and adds them. NiteFx 0.9 can still read the new lockfile, but it installs every platform's binaries.
 
 ### Install scripts
 
@@ -129,7 +137,7 @@ The registry marks every version that has a `preinstall`, `install` or `postinst
 › Resolving 4 package(s) from https://registry.npmjs.org
 warn  bcrypt@5.1.1 has an install script, which Nite does not run; it is a native Node.js addon, which cannot run in a browser. Server-side work like this belongs in your ASP.NET Core code.
 › core-js@3.51.0 has an install script, which Nite does not run; it only prints a message, so nothing is missing.
-› esbuild@0.25.12 has an install script, which Nite does not run; it fetches the esbuild binary, which Nite downloads and runs itself.
+› esbuild@0.25.12 has an install script, which Nite does not run; it only checks for the esbuild binary, which comes from the platform package (@esbuild/…) Nite installs as an optional dependency.
 ```
 
 A short list of well-known packages gets a specific message; scripts known to be harmless to skip are reported as information rather than warnings:
@@ -137,7 +145,7 @@ A short list of well-known packages gets a specific message; scripts known to be
 | Package | Level | Why |
 |---|---|---|
 | `core-js`, `core-js-pure`, `es5-ext` | info | The script only prints a message. Nothing is missing. |
-| `esbuild` | info | The script fetches the esbuild binary. NiteFx downloads and runs its own. |
+| `esbuild` | info | The script only checks for the esbuild binary, which comes from the platform package NiteFx installs. |
 | `node-sass` | warning | The script builds LibSass, a native addon. NiteFx compiles Sass with Dart Sass's native binary; replace `node-sass` with `sass`. |
 | `bcrypt`, `better-sqlite3`, `sqlite3`, `argon2`, `canvas` | warning | Native Node.js addons, which cannot run in a browser. That work belongs in your ASP.NET Core code. |
 | Anything else | warning | If the package needs its script to download or build something, it may not work. |
