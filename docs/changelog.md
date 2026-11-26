@@ -15,6 +15,8 @@ description: Notable changes in each version of NiteFx.
 
 - **Packages with native parts install.** Optional dependencies are now resolved for every platform into `nite.lock.json` and installed where their `os`, `cpu` and `libc` fit, so packages that ship their binaries that way (Vite, Rolldown, Rollup, Lightning CSS, esbuild's npm package) work, Vitest among them. The lockfile stays the same on every machine. An existing lockfile is re-resolved once, keeping its versions. ([Platform-specific packages](guides/packages.md#platform-specific-packages))
 
+- **`nite test`.** Runs the client's tests with Vitest, from a configuration NiteFx writes from `nite.json` on every run: path aliases, `import.meta.env` (in `test` mode), `nite:config` with values from `test.config`, and the JSX import source carry over, and a `vitest.config.ts` of your own is merged over it. `--watch`, `--ui`, `--coverage` and file filters work as in Vitest; coverage reports go to `.nite/coverage`. Tests need Node.js; the app still never does. ([Testing](guides/testing.md))
+
 ### Changed
 
 - Package documents are requested gzip-compressed, so resolving downloads less.

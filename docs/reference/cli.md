@@ -142,6 +142,29 @@ nite build [OPTIONS]
 
 See [Production builds and deployment](../guides/deployment.md).
 
+## nite test
+
+Run the client's tests with Vitest, configured from `nite.json`. Installs packages first, writes `.nite/vitest.config.mjs`, then runs Vitest with Node.js, which tests need (the app never does).
+
+```text
+nite test [FILTERS] [OPTIONS] [-- VITEST_ARGUMENTS]
+```
+
+| Option | Meaning |
+|---|---|
+| `FILTERS` | Only test files whose path contains one of these. |
+| `-w`, `--watch` | Keep running and re-run tests when files change. |
+| `--ui` | Open the Vitest UI (implies `--watch`). |
+| `--coverage` | Collect coverage for this run, into `.nite/coverage`. |
+
+Everything after `--` goes to Vitest. The exit code is Vitest's. See [Testing](../guides/testing.md).
+
+```bash
+nite test
+nite test Counter --watch
+nite test -- --reporter verbose
+```
+
 ## nite watch
 
 Run `dotnet watch` with NiteFx handling the browser.

@@ -28,6 +28,14 @@ description: Every setting in nite.json, with its type, default and effect.
       "less": { "additionalData": null, "paths": [], "javascriptEnabled": false, "globalVars": {}, "modifyVars": {} }
     }
   },
+  "test": {
+    "environment": null,
+    "globals": false,
+    "setupFiles": [],
+    "include": [],
+    "coverage": null,
+    "config": null
+  },
   "dependencies": {},
   "devDependencies": {}
 }
@@ -133,6 +141,21 @@ Options for Less.
 | `modifyVars` | `object` | `{}` | Variables defined after every file, overriding it. |
 
 See [Stylesheets](../guides/stylesheets.md).
+
+## Tests
+
+What `nite test` tells Vitest. See [Testing](../guides/testing.md).
+
+### test
+
+| Key | Type, default | Meaning |
+|---|---|---|
+| `environment` | `string`, `jsdom` or `happy-dom` when installed, else `node` | Vitest's test environment. |
+| `globals` | `boolean`, `false` | `describe`, `it`, `expect` and `vi` without imports, as in Jest. |
+| `setupFiles` | `array`, `[]` | Modules run before each test file, relative to the client root. |
+| `include` | `array`, `[]` | Globs of test files, relative to the client root; Vitest's default when empty. |
+| `coverage` | `string`, none | `"v8"` or `"istanbul"`: collect coverage on every run, into `.nite/coverage`. |
+| `config` | `object`, none | What `import { config } from "nite:config"` gives code under test. |
 
 ## Packages
 
