@@ -35,7 +35,7 @@ test("counts clicks", () => {
 nite test                 # run once, as in CI
 nite test Counter         # only test files whose path contains "Counter"
 nite test --watch         # re-run as files change
-nite test --ui            # the Vitest UI in the browser
+nite test --ui            # the Vitest UI, also at /_nite/vitest/ in your app
 nite test --coverage      # collect coverage for this run
 nite test -- --reporter verbose   # anything after -- goes to Vitest
 ```
@@ -108,6 +108,17 @@ plus `nite add -D vitest jsdom`. The differences that need edits:
 - `moduleNameMapper` entries become tsconfig `paths` (which NiteFx carries over) or `resolve.alias` in a `vitest.config.ts`. CSS and image mocks are not needed: Vite imports those files itself.
 - Snapshots are rewritten in Vitest's format on the first run.
 
+## The Vitest UI in your app
+
+`nite test --ui` starts the Vitest UI (add it first with `nite add -D @vitest/ui` at Vitest's version). While it runs, the app's dev server shows the same UI at `/_nite/vitest/`, so it sits next to the app on the app's own address:
+
+1. Start the app (`nite watch` or `dotnet run`) and, in another terminal, `nite test --ui`.
+2. Vitest prints a link such as `http://127.0.0.1:51735/_nite/vitest/?token=…`. Open it as printed, or swap in the app's address: `https://localhost:5001/_nite/vitest/?token=…`. The browser keeps the token in a cookie for that path, so later visits need only `/_nite/vitest/`.
+
+The UI can edit test files and run code, so NiteFx adds nothing to Vitest's own guard and takes nothing away: requests pass through with their token and cookie as they are, and the dev server never learns the token. On top of that it answers only requests from the local machine and from pages of the app itself, and only in Development. Vitest's UI starts with `nite test`, not with the app, so restarting the app (as `dotnet watch` does after a C# change) leaves it running.
+
+When `nite test --ui` is not running, `/_nite/vitest/` says so.
+
 ## Coverage
 
 ```bash
@@ -115,7 +126,7 @@ nite add -D @vitest/coverage-v8    # at the same version as vitest
 nite test --coverage
 ```
 
-Or set `"coverage": "v8"` (or `"istanbul"`) in `test` to collect it on every run. Reports go to `.nite/coverage`: a summary in the terminal and an HTML report in `.nite/coverage/index.html`. If the provider package is missing, `nite test` says which one to add.
+Or set `"coverage": "v8"` (or `"istanbul"`) in `test` to collect it on every run. Reports go to `.nite/coverage`: a summary in the terminal and an HTML report in `.nite/coverage/index.html`, which the app also serves at `/_nite/coverage/` in development. If the provider package is missing, `nite test` says which one to add.
 
 ## In CI
 

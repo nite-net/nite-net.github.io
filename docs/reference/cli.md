@@ -154,7 +154,7 @@ nite test [FILTERS] [OPTIONS] [-- VITEST_ARGUMENTS]
 |---|---|
 | `FILTERS` | Only test files whose path contains one of these. |
 | `-w`, `--watch` | Keep running and re-run tests when files change. |
-| `--ui` | Open the Vitest UI (implies `--watch`). |
+| `--ui` | Open the Vitest UI (implies `--watch`). While it runs, the app also serves it at `/_nite/vitest/`. Needs `@vitest/ui`. |
 | `--coverage` | Collect coverage for this run, into `.nite/coverage`. |
 
 Everything after `--` goes to Vitest. The exit code is Vitest's. See [Testing](../guides/testing.md).

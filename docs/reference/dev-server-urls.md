@@ -22,6 +22,10 @@ All URLs are relative to the app's path base.
 | `/_nite/runtime/islands.js` | The island loader. |
 | `/_nite/runtime/renderer.js` | The island renderer (React, or yours). |
 | `/_nite/ws` | The hot-update WebSocket. |
+| `/_nite/vitest/` | The Vitest UI, while `nite test --ui` runs. See [The Vitest UI in your app](../guides/testing.md#the-vitest-ui-in-your-app). |
+| `/_nite/coverage/` | The last HTML coverage report, from `.nite/coverage`. |
+
+Two more URLs sit at the site root, because Vitest's UI expects them there: `/__vitest_api__` (the UI's WebSocket) and `/__open-in-editor`. They are answered only in development, and only while `nite test --ui` runs; otherwise they return `503`.
 
 Source files are served with `Cache-Control: no-cache` and an `ETag`, so a reload revalidates rather than re-downloads.
 

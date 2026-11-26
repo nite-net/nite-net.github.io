@@ -19,6 +19,8 @@ description: Notable changes in each version of NiteFx.
 
 - **Imported projects keep their tests.** `nite import` keeps a project's test packages (Vitest, Testing Library, jsdom and the like) and its `vitest.config`, and moves Jest tests, Create React App's among them, to Vitest: it adds Vitest and jsdom, turns on `globals`, runs `setupTests` first, and maps `jest.fn()` and friends to `vi`. What cannot move (`jest.mock` hoisting, a Jest configuration, snapshot format) gets a warning. ([Importing a Vite or CRA project](guides/importing.md#what-it-does))
 
+- **The Vitest UI and coverage report inside your app.** While `nite test --ui` runs, the dev server shows its UI at `/_nite/vitest/`, on the app's own address; Vitest's token still guards it, and only the local machine and the app's own pages are let through. The last coverage report is at `/_nite/coverage/`. ([The Vitest UI in your app](guides/testing.md#the-vitest-ui-in-your-app))
+
 ### Changed
 
 - Package documents are requested gzip-compressed, so resolving downloads less.
