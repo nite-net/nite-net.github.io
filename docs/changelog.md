@@ -9,6 +9,14 @@ description: Notable changes in each version of NiteFx.
 
 ## Unreleased
 
+### Added
+
+- **A minimum release age for packages.** `"minimumReleaseAge": "3d"` in `nite.json` makes `nite add`, `nite update` and any install that resolves pass over versions published less than three days ago, which avoids most malicious releases, since those are usually removed within days. Tags follow it (`nite add react` saves the newest version old enough), versions already locked stay, and `minimumReleaseAgeExclude` lists packages or `@scope/*` it does not apply to. ([A minimum release age](guides/packages.md#a-minimum-release-age))
+
+### Changed
+
+- Package documents are requested gzip-compressed, so resolving downloads less.
+
 ### Fixed
 
 - **Stopping the app no longer waits 30 seconds when a browser tab is open.** The dev server's hot-update socket (`/_nite/ws`) kept its request running through shutdown, so the host sat out the whole `HostOptions.ShutdownTimeout` before exiting. That made Ctrl+C and `dotnet watch` restarts slow, and .NET Aspire's Restart and Rebuild fail with "timed out waiting for process to stop". The socket now closes with status 1001 ("going away") as soon as the app starts stopping, and the page reconnects and reloads once the app is back as before. If you shortened `ShutdownTimeout` to work around this, you can remove that setting. ([The dev client](reference/browser-runtime.md#the-dev-client))

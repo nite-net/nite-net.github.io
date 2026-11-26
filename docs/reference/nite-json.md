@@ -19,6 +19,8 @@ description: Every setting in nite.json, with its type, default and effect.
   "jsxInJs": false,
   "target": "es2022",
   "registry": null,
+  "minimumReleaseAge": null,
+  "minimumReleaseAgeExclude": [],
   "css": {
     "postCss": true,
     "preprocessorOptions": {
@@ -151,6 +153,18 @@ Packages installed but never bundled: type packages (`@types/react`), `typescrip
 `string`, default none
 
 The registry for this project's unscoped packages, for everyone who builds it. It overrides `.npmrc` and the user config; `NITE_REGISTRY` overrides it. Usually `.npmrc` is the better place. See [Private registries](../guides/private-registries.md).
+
+### minimumReleaseAge
+
+`string`, default none (off)
+
+Pass over versions published more recently than this when choosing versions: `"90m"`, `"12h"`, `"3d"` or `"1w"`. Applies to `nite add`, `nite update` and any install that re-resolves; versions already in `nite.lock.json` stay. See [A minimum release age](../guides/packages.md#a-minimum-release-age).
+
+### minimumReleaseAgeExclude
+
+`array` of package names, default `[]`
+
+Packages `minimumReleaseAge` does not apply to. A name, or `@scope/*` for every package in a scope.
 
 ## Examples
 
