@@ -69,6 +69,32 @@ nite update --latest      # move ranges to the latest versions, across majors to
 
 *Wanted* is the newest version the range in `nite.json` allows; *latest* is the registry's `latest` tag. `--latest` rewrites the range, keeping its style: `^18.3.1` becomes `^19.3.1`, an exact `4.17.20` becomes `4.17.21`.
 
+## A minimum release age
+
+Malicious versions of popular packages are usually found and unpublished within a day or two of release. Waiting a few days before installing a new version avoids most of them:
+
+```jsonc
+{
+  "minimumReleaseAge": "3d",
+  "minimumReleaseAgeExclude": ["@mycompany/*"]
+}
+```
+
+With this set, `nite add`, `nite update` and any install that resolves pass over versions published less than three days ago and take the newest one that is old enough. A tag means the same: `nite add react` saves the newest version at least three days old, not today's `latest`. The installer says what it passed over:
+
+```text
+› Passed over @types/node@26.6.11 (published 16 hour(s) ago; using 26.6.6): newer than minimumReleaseAge (3d)
+```
+
+`nite update --check` counts the packages whose newer versions are still too young, so you know they are coming.
+
+- **Locked versions stay.** The age applies when a version is chosen. Turning it on does not change what `nite.lock.json` already has; `nite update` re-chooses.
+- **Only young versions match:** if a range or exact version allows nothing old enough (`"2.0.0"`, published this morning), the install fails and says so. Wait, or add the package to `minimumReleaseAgeExclude` when you need it today.
+- **Exclusions** are package names, or `@scope/*` for a whole scope, typically your own packages.
+- **Publish times come from the full package document**, which is two to three times larger than the abbreviated one NiteFx asks for otherwise (both are compressed in transit and cached). A registry that leaves out publish times gets a warning, and its packages are installed without the check.
+
+Units are `m`, `h`, `d` and `w`. The setting matches pnpm's `minimumReleaseAge` in purpose; pnpm counts minutes, NiteFx takes a unit.
+
 ## The lockfile
 
 `nite.lock.json` records the exact version, tarball URL and integrity hash of every installed package, and where in `node_modules` it goes. **Commit it.** It is what makes installs repeatable:
