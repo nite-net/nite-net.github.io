@@ -52,6 +52,7 @@ Vitest compiles tests with Vite's compiler, not NiteFx's. The configuration Nite
 | `import.meta.env.NITE_PUBLIC_*` (and `process.env.*`) | The same values, from `.env`, `.env.test` and the environment, in `test` mode |
 | `import { config } from "nite:config"` | The values in `test.config` in `nite.json` (the server is not running) |
 | `jsxImportSource` (Preact and others) | Vite's JSX import source |
+| `jsxInJs` (Create React App) | JSX in `.js` files compiles, as in the app |
 | The client root | Vitest's `root` |
 
 Vite reads the tsconfig itself, so `experimentalDecorators` and similar options apply as in the app. A tsconfig `baseUrl` on its own (bare imports from the client root) is not carried over; use `paths`.
@@ -85,6 +86,27 @@ export default defineConfig({
   test: { testTimeout: 10_000 },
 });
 ```
+
+## Coming from Jest
+
+Vitest runs most Jest tests as they are once `globals` is on: `describe`, `it`, `expect`, `beforeEach` and Testing Library's matchers work the same. `nite import` sets this up for you (see [Tests](importing.md#what-it-does) in the import guide); by hand, it is:
+
+```json
+{
+  "test": {
+    "environment": "jsdom",
+    "globals": true,
+    "setupFiles": ["src/setupTests.ts"]
+  }
+}
+```
+
+plus `nite add -D vitest jsdom`. The differences that need edits:
+
+- `jest.fn()`, `jest.spyOn()` and the fake timers are `vi.fn()`, `vi.spyOn()` and `vi.useFakeTimers()`. A setup file containing `globalThis.jest = vi;` keeps the old name working.
+- `jest.mock(...)` must become `vi.mock(...)`. Vitest moves `vi.mock` calls above the imports, as Jest does for `jest.mock`, but it does not know the `jest` name, so a `jest.mock` would run after the module was already imported.
+- `moduleNameMapper` entries become tsconfig `paths` (which NiteFx carries over) or `resolve.alias` in a `vitest.config.ts`. CSS and image mocks are not needed: Vite imports those files itself.
+- Snapshots are rewritten in Vitest's format on the first run.
 
 ## Coverage
 

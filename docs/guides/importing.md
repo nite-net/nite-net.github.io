@@ -48,7 +48,8 @@ Monorepos (`workspaces`, `pnpm-workspace.yaml`) are refused; import one app at a
 
 - Runtime `dependencies` are imported, plus any devDependency your source actually imports (bundlers never cared which list a library was in), plus `@types/*` and `typescript`.
 - Stylesheet tools are kept as dev dependencies: PostCSS and its plugins, Sass, Less, Tailwind and its plugins.
-- Build, lint and test tooling (Vite and its plugins, Babel, ESLint, oxlint, Prettier, Jest, Vitest, Testing Library, …) is skipped: NiteFx replaces the build, and does not run the rest. Imports from test files do not count as runtime imports.
+- Build and lint tooling (Vite and its plugins, Babel, ESLint, oxlint, Prettier, …) is skipped: NiteFx replaces the build, and does not run the rest. Imports from test files do not count as runtime imports.
+- If the project has tests, its test packages (Vitest, Testing Library, jsdom, happy-dom, MSW, …) are kept as dev dependencies, so [`nite test`](testing.md) runs them. Jest itself is not; see Tests below.
 - `@tailwindcss/vite` and `@tailwindcss/postcss` are replaced by `tailwindcss` itself, which NiteFx runs.
 - **Versions come from your lockfile.** NiteFx resolves the ranges but prefers the exact versions you run today wherever they still satisfy them, so the imported app runs what it ran before.
 
@@ -57,6 +58,15 @@ Monorepos (`workspaces`, `pnpm-workspace.yaml`) are refused; import one app at a
 - `envPrefix`: `VITE_` for Vite (or the `envPrefix` in `vite.config`), `REACT_APP_` for Create React App.
 - `jsxInJs: true` for Create React App, which allows JSX in `.js` files.
 - `css.preprocessorOptions.*.additionalData` from `vite.config`, including the path-building template literal in Mantine's Sass guide.
+
+**Tests**
+
+Test files (`*.test.*`, `*.spec.*` and files under `__tests__`) are copied with the rest of `src/`. How they run afterwards depends on what ran them before:
+
+- **Vitest.** A `vitest.config.*` is copied to `Client/`, next to `src/` as before, and [merged over](testing.md#your-own-vitest-configuration) the configuration `nite test` writes. A `test` block inside `vite.config` is not, because that file is not imported; move it to `test` in `nite.json` or to a `vitest.config.ts`.
+- **Jest** (Create React App, or `jest` in package.json). The tests move to Vitest, which runs most Jest tests unchanged once its globals are on. The import adds `vitest` and `jsdom` (unless happy-dom is listed), and writes a `test` section to `nite.json` with `globals: true`, the `jsdom` environment, and `src/setupTests.*` as a setup file. If the tests use the `jest` object (`jest.fn()`, `jest.spyOn()`), it also adds `src/jest-compat.js` (or `.ts`), which makes `jest` another name for Vitest's `vi`.
+
+NiteFx does not run Jest itself. Create React App's tests depend on the Jest configuration `react-scripts` builds at run time (Babel, CSS and file mocks, its module mapper), which NiteFx would have to recreate; Vitest needs none of it, because Vite already understands what the app imports.
 
 ## What it reports
 
@@ -74,6 +84,11 @@ The plan lists everything it could not bring along, so nothing is silently lost:
 | `overrides` / `resolutions` / `pnpm.overrides` | Not supported; versions come from ranges and the lockfile |
 | A dependency that is not a registry version (`file:`, `workspace:`, git) | Publish it, or vendor it into `Client/` |
 | An imported package package.json does not list | `nite add` it |
+| `jest.mock(...)` in tests | Change it to `vi.mock(...)`: Vitest moves only `vi.mock` calls above the imports, so a `jest.mock` runs too late to replace a module |
+| A `jest.config` or `"jest"` in package.json | Not imported; put what you need (aliases, setup files) in a `vitest.config.ts` next to `nite.json` |
+| Snapshot tests | Vitest rewrites `__snapshots__` in its own format on the first run; review the diff |
+| A `vitest.config` import that is not installed or not copied | Remove it, or `nite add -D` the package; `nite test` already configures aliases, env and JSX |
+| A `test` block in `vite.config` | Move it to `test` in `nite.json` or to a `vitest.config.ts` |
 
 It also notes things you no longer need, such as the dev server `proxy` (the app and API now share an origin) and package.json `scripts` (use `nite watch` and `nite build`).
 
@@ -88,7 +103,7 @@ Then:
 
 1. **Move API calls to relative URLs.** If the app called `http://localhost:5000/api/...` through a proxy, call `/api/...` and implement or proxy those endpoints in `Program.cs`.
 2. **Check environment variables.** `import.meta.env.VITE_*` keeps working; values come from the copied `.env` files.
-3. **Run your type checker** (`tsc --noEmit`) and tests with the tools you used before; NiteFx does not replace them.
+3. **Run the tests** with `nite test` (it needs [Node.js](testing.md#which-node)), and your type checker (`tsc --noEmit`) with the tool you used before.
 4. **Publish** with `dotnet publish -c Release` and compare the result with your old build.
 
 ## Options
