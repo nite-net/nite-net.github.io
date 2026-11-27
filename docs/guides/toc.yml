@@ -12,6 +12,8 @@
       href: environment.md
     - name: Custom renderers (Preact and others)
       href: renderers.md
+    - name: Testing
+      href: testing.md
 - name: Packages
   items:
     - name: Packages and the lockfile

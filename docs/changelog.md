@@ -13,6 +13,14 @@ description: Notable changes in each version of NiteFx.
 
 - **A minimum release age for packages.** `"minimumReleaseAge": "3d"` in `nite.json` makes `nite add`, `nite update` and any install that resolves pass over versions published less than three days ago, which avoids most malicious releases, since those are usually removed within days. Tags follow it (`nite add react` saves the newest version old enough), versions already locked stay, and `minimumReleaseAgeExclude` lists packages or `@scope/*` it does not apply to. ([A minimum release age](guides/packages.md#a-minimum-release-age))
 
+- **Packages with native parts install.** Optional dependencies are now resolved for every platform into `nite.lock.json` and installed where their `os`, `cpu` and `libc` fit, so packages that ship their binaries that way (Vite, Rolldown, Rollup, Lightning CSS, esbuild's npm package) work, Vitest among them. The lockfile stays the same on every machine. An existing lockfile is re-resolved once, keeping its versions. ([Platform-specific packages](guides/packages.md#platform-specific-packages))
+
+- **`nite test`.** Runs the client's tests with Vitest, from a configuration NiteFx writes from `nite.json` on every run: path aliases, `import.meta.env` (in `test` mode), `nite:config` with values from `test.config`, and the JSX import source carry over, and a `vitest.config.ts` of your own is merged over it. `--watch`, `--ui`, `--coverage` and file filters work as in Vitest; coverage reports go to `.nite/coverage`. Tests need Node.js; the app still never does. ([Testing](guides/testing.md))
+
+- **Imported projects keep their tests.** `nite import` keeps a project's test packages (Vitest, Testing Library, jsdom and the like) and its `vitest.config`, and moves Jest tests, Create React App's among them, to Vitest: it adds Vitest and jsdom, turns on `globals`, runs `setupTests` first, and maps `jest.fn()` and friends to `vi`. What cannot move (`jest.mock` hoisting, a Jest configuration, snapshot format) gets a warning. ([Importing a Vite or CRA project](guides/importing.md#what-it-does))
+
+- **The Vitest UI and coverage report inside your app.** While `nite test --ui` runs, the dev server shows its UI at `/_nite/vitest/`, on the app's own address; Vitest's token still guards it, and only the local machine and the app's own pages are let through. The last coverage report is at `/_nite/coverage/`. ([The Vitest UI in your app](guides/testing.md#the-vitest-ui-in-your-app))
+
 ### Changed
 
 - Package documents are requested gzip-compressed, so resolving downloads less.

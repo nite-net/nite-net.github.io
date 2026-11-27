@@ -33,8 +33,9 @@ AGENT_NOTES = """\
 NiteFx looks like Vite but is not Vite, and habits from Vite and Node projects produce code that
 does not work. In a NiteFx project:
 
-- There is no `package.json`, `node`, `npm`, `npx` or `vite.config.*`. Do not create them.
-  Packages are listed in `nite.json` and locked in `nite.lock.json`.
+- There is no `package.json`, `npm`, `npx` or `vite.config.*`. Do not create them.
+  Packages are listed in `nite.json` and locked in `nite.lock.json`. Node.js is needed only to
+  run tests: `nite test` runs Vitest, configured from `nite.json` (no `vite.config` needed).
 - Add packages with `nite add <name>` (`nite add -D <name>` for dev-only ones such as types),
   remove them with `nite remove <name>`, and update them with `nite update`. Never `npm install`.
 - Run the app with `nite watch` (or `dotnet watch` / `dotnet run`); there is no separate frontend
