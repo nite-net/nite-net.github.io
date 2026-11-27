@@ -70,7 +70,7 @@ NiteFx is deliberately smaller than Vite. If your project depends on Vite plugin
 
 ## Status
 
-NiteFx is at version **0.8**. The core loop (compilation, Fast Refresh, islands, packages, stylesheets, production builds) is complete and tested against real applications, including a [Mantine](guides/mantine.md) app and a [Tailwind CSS 4](guides/tailwind.md) app. The packages are [on NuGet](https://www.nuget.org/packages/Nite.Cli), so [installation](getting-started.md#install-nitefx) is one `dotnet tool install`.
+NiteFx is at version **0.10**. The core loop (compilation, Fast Refresh, islands, packages, stylesheets, production builds) is complete and tested against real applications, including a [Mantine](guides/mantine.md) app and a [Tailwind CSS 4](guides/tailwind.md) app. The packages are [on NuGet](https://www.nuget.org/packages/Nite.Cli), so [installation](getting-started.md#install-nitefx) is one `dotnet tool install`.
 
 ## Next steps
 

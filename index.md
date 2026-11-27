@@ -131,5 +131,5 @@ export function App() {
 
 <div class="nite-callout">
   <h3>Status</h3>
-  <p>NiteFx is young (version 0.8), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
+  <p>NiteFx is young (version 0.10), and one <code>dotnet tool install</code> away. It is honest about what it does not do: read <a href="docs/limits.md">Limits and non-goals</a> before you start.</p>
 </div>

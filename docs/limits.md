@@ -51,4 +51,4 @@ description: What NiteFx deliberately does not do, and what it does not do yet.
 
 ## Status
 
-NiteFx is at version 0.8. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues). Which of these limits go away next is on the [roadmap](roadmap.md).
+NiteFx is at version 0.10. APIs outside `AddNite`, `UseNite`, `MapNiteSpa`, the tag helpers and `nite.json` may change between minor versions. Bugs and gaps are tracked on [GitHub](https://github.com/nite-net/nite/issues). Which of these limits go away next is on the [roadmap](roadmap.md).
